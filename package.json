@@ -1,0 +1,19 @@
+{
+  "name": "digital-notes",
+  "version": "1.0.0",
+  "description": "Digital Notes es una herramienta la cual facilita la otrganización de tareas individuales como en entornos de trabajo en equipo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kpuxinnodev/digital-notes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kpuxinnodev/digital-notes/issues"
+  },
+  "homepage": "https://github.com/kpuxinnodev/digital-notes#readme"
+}

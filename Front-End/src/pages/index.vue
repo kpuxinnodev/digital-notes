@@ -1,22 +1,6 @@
 <template>
   <div class="main">
     <!--Main page-->
-    <div class="carousel">
-      <!--Carousel-->
-
-      <v-carousel
-      show-arrows="hover"
-      height="642"
-      hide-delimiters="true"
-      >
-        <v-carousel-item v-for="(imagen, index) in imagenes"
-        :key="index"
-        :src="imagen.src"
-        :cover="imagen.cover"
-        ></v-carousel-item>
-      </v-carousel>
-
-    </div>
     <div class="formulario">
       <!--Formulario-->
 
@@ -42,6 +26,23 @@
         </p>
         <a href="#">Acceder</a>
       </div>
+    </div>
+
+    <div class="carousel">
+      <!--Carousel-->
+
+      <v-carousel
+      show-arrows="hover"
+      height="642"
+      hide-delimiters="true"
+      >
+        <v-carousel-item v-for="(imagen, index) in imagenes"
+        :key="index"
+        :src="imagen.src"
+        :cover="imagen.cover"
+        ></v-carousel-item>
+      </v-carousel>
+
     </div>
   </div>
 </template>

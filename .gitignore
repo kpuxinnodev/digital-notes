@@ -1,0 +1,23 @@
+# Node modules
+/Front-End/node_modules/
+
+# Logs
+/Front-End/*.log
+
+# OS-specific files
+/Front-End/.DS_Store
+/Front-End/Thumbs.db
+
+# Build output
+/Front-End/dist/
+
+# Environment files
+/Front-End/.env
+
+# IDE files
+/Front-End/.vscode/
+/Front-End/.idea/
+
+# npm and yarn lock files (optional, depending on your preference)
+# package-lock.json
+# yarn.lock
