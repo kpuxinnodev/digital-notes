@@ -4,7 +4,7 @@
     <div class="formulario">
       <!--Formulario-->
 
-      <h2>crear una cuenta</h2>
+      <h2>iniciar sesión</h2>
 
       <v-sheet class="mx-auto" width="340">
         <v-form fast-fail @submit.prevent>
@@ -15,16 +15,16 @@
           :label="campo.label"
           ></v-text-field>
 
-          <v-btn class="mt-2" type="submit" block>Registrarse</v-btn>
+          <v-btn class="mt-2" type="submit" block>Acceder</v-btn>
         </v-form>
       </v-sheet>
 
       <div class="acceder">
         <!--Acceder-->
         <p>
-          ¿Ya tienes una cuenta?
+          ¿No tienes una cuenta?
         </p>
-        <a href="#">Acceder</a>
+        <a href="#">Registrarse</a>
       </div>
     </div>
 
@@ -59,11 +59,8 @@ const imagenes = ref([  //Almacena imágenes que se muestran en el carousel.
 
 //<-Formulario->
 const campos = ref([  //Almacena los campos que se muestran en el formulario.
-  {model:"Nombre", rules:"", label:"Nombre"},
   {model:"Usuario", rules:"", label:"Usuario"},
-  {model:"E-mail", rules:"", label:"E-mail"},
-  {model:"Password", rules:"", label:"Contraseña"},
-  {model:"PasswordValidate", rules:"", label:"Confirmar contraseña"}
+  {model:"Password", rules:"", label:"Contraseña"}
 ])
 </script>
 
@@ -99,7 +96,9 @@ const campos = ref([  //Almacena los campos que se muestran en el formulario.
 
   display: flex;
   flex-direction: column;
-
+  align-items: center;
+  justify-content: space-evenly;
+  
   background-color: darkblue;
 }
 
