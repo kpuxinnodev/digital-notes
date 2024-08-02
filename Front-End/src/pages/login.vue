@@ -24,7 +24,7 @@
         <p>
           ¿No tienes una cuenta?
         </p>
-        <a href="#">Registrarse</a>
+        <a @click="registrarse">Registrarse</a>
       </div>
     </div>
 
@@ -49,6 +49,8 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 //<-Carousel->
 const imagenes = ref([  //Almacena imágenes que se muestran en el carousel.
@@ -62,6 +64,10 @@ const campos = ref([  //Almacena los campos que se muestran en el formulario.
   {model:"Usuario", rules:"", label:"Usuario"},
   {model:"Password", rules:"", label:"Contraseña"}
 ])
+
+const registrarse = () => {
+  router.push('/register')
+}
 </script>
 
 <style scoped>
@@ -159,6 +165,10 @@ button {
   text-decoration: none;
   color: rgb(0, 230, 0);
   font-weight: bolder;
+}
+
+.acceder > a:hover {
+  cursor: pointer;
 }
 
 </style>
