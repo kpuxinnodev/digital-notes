@@ -33,7 +33,7 @@
 
       <v-carousel
       show-arrows="hover"
-      height="642"
+      height="100%"
       hide-delimiters="true"
       >
         <v-carousel-item v-for="(imagen, index) in imagenes"
@@ -87,6 +87,14 @@ const campos = ref([  //Almacena los campos que se muestran en el formulario.
   width: 70%;
 
   background-color: black;
+}
+
+.v-carousel {
+  flex: 1;
+}
+
+.v-carousel-item {
+  height: 100vh;
 }
 
 /**----div.formulario----*/

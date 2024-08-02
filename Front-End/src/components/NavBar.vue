@@ -59,10 +59,6 @@ const rutas_dos = [ //Menús secundarios
   text-decoration: none;
 }
 
-.v-card--variant-elevated, .v-card--variant-flat {
-  background: none;
-}
-
 img{
   height: 53px;
 }
