@@ -1,1 +1,1 @@
-Digital Notes es una herramienta la cual facilita la otrganización de tareas individuales como en entornos de trabajo en equipo
+Digital Notes es una herramienta la cual facilita la organización de tareas individuales y en equipo, ya sea en un ámbito laboral o personal, Digital notes se adapta a las necesidades de sus usaurios.
