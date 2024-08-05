@@ -95,14 +95,16 @@ import CompletedTasks from '@/components/CompletedTasks.vue';
 .botones {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 40%;
+  width: 45%;
+  padding-left: 5%;
 }
 
 .botones-g1 {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: auto;
+  margin-left: 20%;
   justify-content: space-evenly;
   align-items: center;
 }
@@ -110,14 +112,14 @@ import CompletedTasks from '@/components/CompletedTasks.vue';
 .botones-g2 {
   display: flex;
   align-items: center;
+  margin-left: 5%;
 }
 
 .completadas {
-  width: 60%;
+  width: 55%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 ::v-deep .v-card-item__prepend {
