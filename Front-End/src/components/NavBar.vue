@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="principal">
         <v-card>
         <v-layout>
           <v-navigation-drawer app
@@ -16,13 +16,13 @@
 
             <div class="navegador">
                 <v-list>
-                    <router-link v-for="ruta in rutas_uno" :key="ruta.name" :to="ruta.path">
+                    <router-link v-for="(ruta, index) in rutas_uno" :key="index" :to="ruta.path">
                         <v-list-item :prepend-icon="ruta.icon" :title="ruta.title" :value="ruta.value"></v-list-item>
                     </router-link>
                 </v-list>
 
                 <v-list>
-                    <router-link v-for="rutas in rutas_dos" :key="rutas.name" :to="rutas.path">
+                    <router-link v-for="(rutas, index) in rutas_dos" :key="index" :to="rutas.path">
                         <v-list-item :prepend-icon="rutas.icon" :title="rutas.title" :value="rutas.value"></v-list-item>
                     </router-link>
                 </v-list>
@@ -36,20 +36,21 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const rutas_uno = [ //Menús principales
+const rutas_uno = ref([ //Menús principales
   { path: '/miespacio', title: 'Mi Espacio', value: 'miespacio', icon: 'mdi-account'},
   { path: '/grupo', title: 'Grupo', value: 'grupo', icon: 'mdi-account-multiple'},
-]
-const rutas_dos = [ //Menús secundarios
+])
+const rutas_dos = ref([ //Menús secundarios
   { path: '/notificaciones', title: 'Notificaciones', value: 'notificaciones', icon: 'mdi-bell'},
   { path: '/faq', title: 'FAQ', value: 'faq', icon: 'mdi-frequently-asked-questions'},
   { path: '/guia', title: 'Guía', value: 'guia', icon: 'mdi-book'},
   { path: '/configuracion', title: 'Configuración', value: 'configuracion', icon: 'mdi-cog'},
   { path: '/salir', title: 'Salir', value: 'salir', icon: 'mdi-exit-run'}
-]
+])
 </script>
 
 <style>
@@ -68,6 +69,10 @@ img{
     flex-direction: column;
     justify-content: space-between;
     height: 88%;
+}
+
+.v-navigation-drawer__content{
+  overflow-y: hidden !important;
 }
 
 .v-list {

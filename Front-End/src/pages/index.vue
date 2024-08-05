@@ -10,48 +10,43 @@
         <div class="botones">
           <!--Botones-->
           <div class="botones-g1">
-          <v-btn
-            prepend-icon="mdi-plus"
-            color="green">
-            crear nota
-          </v-btn>
-          <v-btn
-            prepend-icon="mdi-plus-box"
-            color="amber">
-            crear grupo
-          </v-btn>
-        </div>
-        <div class="botones-g2">
-          <v-btn
-            icon="mdi-delete"
-            color="red">
-          </v-btn>
-        </div>
+            <v-btn
+              prepend-icon="mdi-plus"
+              color="green">
+              crear nota
+            </v-btn>
+            <v-btn
+              prepend-icon="mdi-plus-box"
+              color="amber">
+              crear grupo
+            </v-btn>
+          </div>
+          <div class="botones-g2">
+            <v-btn
+              icon="mdi-delete"
+              color="red">
+            </v-btn>
+          </div>
         </div>
 
         <div class="completadas">
-          <h3>Tareas completadas</h3>
-
-          <v-card class="nota-completada"
-          prepend-icon="mdi-account"
-          >
-          <v-card-text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-          </v-card-text>
-        </v-card>
+          <CompletedTasks />
         </div>
-      </div>
 
       <div class="notes-show">
         <!--Mostrar las Notas-->
+
+        
 
       </div>
     </div>
     
   </div>
+</div>
 </template>
 <script setup>
 import NavBar from '@/components/NavBar.vue';
+import CompletedTasks from '@/components/CompletedTasks.vue';
 
 </script>
 <style scoped>
@@ -94,22 +89,20 @@ import NavBar from '@/components/NavBar.vue';
   height: 18%;
   width: 100%;
 
-  background-color: bisque;
+  background-color: #C6FF00;
 }
 
 .botones {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   width: 40%;
-  padding-left: 5%;
 }
 
 .botones-g1 {
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: auto;
-  margin-left: 20%;
   justify-content: space-evenly;
   align-items: center;
 }
@@ -117,7 +110,6 @@ import NavBar from '@/components/NavBar.vue';
 .botones-g2 {
   display: flex;
   align-items: center;
-  margin-left: 5%;
 }
 
 .completadas {
@@ -125,16 +117,7 @@ import NavBar from '@/components/NavBar.vue';
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.completadas > h3{
-  color: black;
-}
-
-.nota-completada {
-  display: flex;
-  flex-direction: row;
-  margin-right: 20%;
+  align-items: center;
 }
 
 ::v-deep .v-card-item__prepend {
