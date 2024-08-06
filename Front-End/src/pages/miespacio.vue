@@ -32,14 +32,13 @@
         <div class="completadas">
           <CompletedTasks />
         </div>
+    </div>
 
-      <div class="notes-show">
+    <div class="notes-show">
         <!--Mostrar las Notas-->
 
-        
-
+        <NotesTabs />
       </div>
-    </div>
     
   </div>
 </div>
@@ -47,6 +46,7 @@
 <script setup>
 import NavBar from '@/components/NavBar.vue';
 import CompletedTasks from '@/components/CompletedTasks.vue';
+import NotesTabs from '@/components/NotesTabs.vue';
 
 </script>
 <style scoped>
@@ -76,6 +76,8 @@ import CompletedTasks from '@/components/CompletedTasks.vue';
 .content {
   height: 100%;
   width: 100%;
+
+  max-height: 100vh;
 
   background-color: skyblue;
 }
@@ -120,6 +122,7 @@ import CompletedTasks from '@/components/CompletedTasks.vue';
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 ::v-deep .v-card-item__prepend {
@@ -136,8 +139,12 @@ import CompletedTasks from '@/components/CompletedTasks.vue';
 .content > .notes-show {
   height: 82%;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  background-color: aquamarine;
+  background-color: red;
 }
+
 
 </style>

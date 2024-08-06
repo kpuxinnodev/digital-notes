@@ -9,7 +9,7 @@
             rail
           >
             <v-list>
-                <img src="/home/kpuxinno/Escritorio/vuetify-project/src/assets/user.png" alt="logo.png">
+                <img src="/img/nav/user.png" alt="logo.png">
             </v-list>
 
             <v-divider></v-divider>

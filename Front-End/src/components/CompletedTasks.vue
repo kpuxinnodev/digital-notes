@@ -1,7 +1,6 @@
 <template>
     <v-card
       class="fixed-card"
-      width="500"
     >
       <v-list v-model:opened="open">
 
@@ -15,7 +14,7 @@
           </template>
 
           <v-list-item v-for="(carta, index) in tareas_completadas" :key="index">
-            <v-card class="mx-auto cartas">
+            <v-card class="cartas">
               <v-icon :icon="carta.icono" class="cartas-icono" id="icono-categoria-completadas"></v-icon>
               <v-card-text> {{ carta.texto }} </v-card-text>
               <v-icon color="success" icon="mdi-check" class="cartas-icono"></v-icon>
@@ -43,8 +42,8 @@
   <style scoped>
 
   .fixed-card {
-
-    position: fixed; /*Mantiene el componente en una posición fija en la ventana del navegador */
+    width: 40%;
+    position: fixed;/*Mantiene el componente en una posición fija en la ventana del navegador */
     top: 4%; /* Ajusta la distancia desde la parte superior de la ventana */
     z-index: 1000; /* Asegura que el componente esté por encima de otros elementos */
     background: white; /* Asegura que el fondo del componente sea visible */
