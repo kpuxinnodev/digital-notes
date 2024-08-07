@@ -99,6 +99,7 @@ import NotesTabs from '@/components/NotesTabs.vue';
   flex-direction: row;
   width: 45%;
   padding-left: 5%;
+  background-color: aqua;
 }
 
 .botones-g1 {

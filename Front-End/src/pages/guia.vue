@@ -2,14 +2,14 @@
   <div class="main">
     <NavBar />
     <div class="content">
-      <FaqComponent />
+      <GuideComponent />
     </div>
   </div>
 </template>
 
 <script setup>
 import NavBar from "@/components/NavBar.vue";
-import FaqComponent from "@/components/FaqComponent.vue";
+import GuideComponent from "@/components/GuideComponent.vue";
 </script>
 
 <style scoped>
