@@ -12,6 +12,7 @@
         color="primary"
         class="mb-4 custom-tabs"
         direction="vertical"
+        @change="onTabChange"
       >
         <v-tab
           v-for="(opcion, index) in principales"
@@ -31,7 +32,7 @@
             <v-card-title>Bienvenido al Sistema de FAQ</v-card-title>
             <v-card-text>
               <p class="mb-4">
-                Aquí podrás consultar las preguntas frecuentes de la comunidad y encontrar una resuesta en base a una duda ya resuelta.
+                Aquí podrás consultar las preguntas frecuentes de la comunidad y encontrar una respuesta en base a una duda ya resuelta.
               </p>
 
               <p class="mb-4">
@@ -39,7 +40,7 @@
               </p>
 
               <p class="mb-4">
-                En caso de que tu duda no se relacione con ninguno de los apartados, o por otra parte, tu duda sea de otro tipo. Consulta el apartado 'Servicio Técnico' para saber como ponerte en contacto con nosotros.
+                En caso de que tu duda no se relacione con ninguno de los apartados, o por otra parte, tu duda sea de otro tipo. Consulta el apartado 'Servicio Técnico' para saber cómo ponerte en contacto con nosotros.
               </p>
             </v-card-text>
           </v-card>
@@ -50,9 +51,7 @@
           <!-- Contenido de la ventana 2 -->
           <v-list>
             <v-list-item>
-              <h3>
-                Dudas frecuentes acerca de la Cuenta de Usuario:
-              </h3>
+              <h3>Dudas frecuentes acerca de la Cuenta de Usuario:</h3>
             </v-list-item>
             <v-list-item-group v-model="selectedItem">
               <v-list-item
@@ -77,9 +76,7 @@
           <!-- Contenido de la ventana 3 -->
           <v-list>
             <v-list-item>
-              <h3>
-                Dudas frecuentes acerca de la Seguridad:
-              </h3>
+              <h3>Dudas frecuentes acerca de la Seguridad:</h3>
             </v-list-item>
             <v-list-item-group v-model="selectedItem">
               <v-list-item
@@ -106,15 +103,9 @@
           </v-card>
           <v-card flat>
             <v-card-text>
-              <p class="mb-4">
-                E-mail: digitalnotes@gmail.com 
-              </p>
-              <p class="mb-4">
-                Whatsapp: +598 12 345 678
-              </p>
-              <p class="mb-4">
-                Teléfono: 4643 1234
-              </p>
+              <p class="mb-4">E-mail: digitalnotes@gmail.com</p>
+              <p class="mb-4">Whatsapp: +598 12 345 678</p>
+              <p class="mb-4">Teléfono: 4643 1234</p>
             </v-card-text>
           </v-card>
         </v-tabs-window-item>
@@ -126,7 +117,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from 'vue';
 
 // Definir estado reactivo usando `ref`
 const mainTab = ref("main-1");
@@ -140,21 +131,36 @@ const principales = ref([
   { value: "main-4", text: "Servicio Técnico", icon: "mdi-tools" },
 ]);
 
+// Preguntas y respuestas de la seccion Cuenta
 const faqsCuenta = ref([
   { question: 'Pregunta1', answer: 'Respuesta1' },
   { question: 'Pregunta2', answer: 'Respuesta2' },
   { question: 'Pregunta3', answer: 'Respuesta3' }
 ]);
 
+// Preguntas y respuestas de la seccion Seguridad
 const faqsSeguridad = ref([
-  { question: 'Pregunta1', answer: 'Respuesta1' },
-  { question: 'Pregunta2', answer: 'Respuesta2' },
-  { question: 'Pregunta3', answer: 'Respuesta3' }
+  { question: 'Pregunta11', answer: 'Respuesta11' },
+  { question: 'Pregunta22', answer: 'Respuesta22' },
+  { question: 'Pregunta33', answer: 'Respuesta33' }
 ]);
+
 
 function toggleItem(index) {
   selectedItem.value = selectedItem.value === index ? null : index;
 }
+
+// Función para restablecer la selección al cambiar de pestaña
+function onTabChange() {
+  selectedItem.value = null;
+}
+
+// Opcional: Observador para detectar cambios en `mainTab`
+watch(mainTab, (newValue, oldValue) => {
+  if (newValue !== oldValue) {
+    onTabChange();
+  }
+});
 </script>
 
 <style scoped>
@@ -193,5 +199,4 @@ function toggleItem(index) {
 .faq-active .v-list-item-subtitle {
   display: block;
 }
-
 </style>
