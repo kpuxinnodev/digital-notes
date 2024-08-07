@@ -198,5 +198,14 @@ watch(mainTab, (newValue, oldValue) => {
 
 .faq-active .v-list-item-subtitle {
   display: block;
+  color: white;
+  opacity: 100;
+
 }
+
+.faq-active .v-list-item-title {
+  color: #2196f3;
+}
+
+
 </style>

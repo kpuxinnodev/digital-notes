@@ -105,7 +105,7 @@ img {
 }
 
 .active-icon {
-  color: blue; /* Cambia esto al color azul que desees para el ícono activo */
+  color: #2196f3; /* Cambia esto al color azul que desees para el ícono activo */
 }
 
 .inactive-icon {

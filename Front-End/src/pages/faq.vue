@@ -30,6 +30,10 @@ import FaqComponent from "@/components/FaqComponent.vue";
 
   max-height: 100vh;
 
-  background-color: skyblue;
+  background-color: #959595;
+  background-image:  linear-gradient(135deg, #080067 25%, transparent 25%), linear-gradient(225deg, #080067 25%, transparent 25%), linear-gradient(45deg, #080067 25%, transparent 25%), linear-gradient(315deg, #080067 25%, #959595 25%);
+  background-position:  21px 0, 21px 0, 0 0, 0 0;
+  background-size: 42px 42px;
+  background-repeat: repeat;
 }
 </style>
