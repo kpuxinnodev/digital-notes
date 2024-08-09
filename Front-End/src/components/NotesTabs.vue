@@ -55,7 +55,8 @@ const categorias = ref([
   { value: 'tres', icono: 'mdi-dumbbell' },
   { value: 'cuatro', icono: 'mdi-food-apple' },
   { value: 'cinco', icono: 'mdi-glass-cocktail' },
-  { value: 'seis', icono: 'mdi-airplane'}
+  { value: 'seis', icono: 'mdi-airplane'},
+  { value: 'siete', icono: 'mdi-archive' }
 ]);
 
 const ventanas = ref([
@@ -65,7 +66,8 @@ const ventanas = ref([
   { value: 'tres', contenido: 'categoria-3' },
   { value: 'cuatro', contenido: 'categoria-4' },
   { value: 'cinco', contenido: 'categoria-5'},
-  { value: 'seis', contenido: 'categoria-6'}
+  { value: 'seis', contenido: 'categoria-6'},
+  { value: 'siete', contenido: 'categoria-7' }
 ]);
 
 let notas = ref([
@@ -77,7 +79,7 @@ let notas = ref([
   {categoria:'dos', texto:'Presentación de Formación 24/09', prioridad:'alta'},
   {categoria:'cinco', texto:'Cumpleaños de Noelia 17/10', prioridad:'media'},
   {categoria:'seis', texto:'Montevideo 28/10', prioridad:'media'},
-  {categoria:'all', texto:'nota de ejemplo', prioridad:'media'},
+  {categoria:'siete', texto:'Otro', prioridad:'media'},
   {categoria:'all', texto:'nota de ejemplo', prioridad:'media'},
   {categoria:'all', texto:'nota de ejemplo', prioridad:'media'},
   {categoria:'all', texto:'nota de ejemplo', prioridad:'media'},
