@@ -1,7 +1,7 @@
 <template>
   <v-container class="container">
-    <v-card>
-      <v-card-title> Editar perfil </v-card-title>
+    <v-card flat>
+      <v-card-title class="mb-4"> Editar perfil </v-card-title>
 
       <v-form ref="form" v-model="valid">
         <!-- Fila para Nombre y Usuario -->
@@ -61,7 +61,8 @@
           label="Estoy seguro de que quiero cambiar mis datos"
         ></v-checkbox>
 
-        <v-btn
+        <v-col class="d-flex justify-end">
+          <v-btn
           :disabled="!valid"
           color="primary"
           @click="submitForm"
@@ -69,6 +70,7 @@
         >
           Guardar Cambios
         </v-btn>
+        </v-col>        
       </v-form>
     </v-card>
   </v-container>

@@ -25,22 +25,29 @@
       </v-tabs>
 
       <!-- Ventanas de pestañas principales -->
-      <v-tabs-window v-model="mainTab" class="custom-tabs-window">
+      <v-tabs-window v-model="mainTab" class="custom-tabs-window w-100 mt-2">
         <!-- Ventana 1 (Bienvenido) -->
         <v-tabs-window-item value="main-1">
           <v-card flat>
             <v-card-title>Bienvenido al Sistema de FAQ</v-card-title>
             <v-card-text>
-              <p class="mb-4">
-                Aquí podrás consultar las preguntas frecuentes de la comunidad y encontrar una respuesta en base a una duda ya resuelta.
+              <p class="mb-4 ">
+                Aquí podrás consultar las preguntas frecuentes de la comunidad y
+                encontrar una respuesta en base a una duda ya resuelta.
               </p>
 
               <p class="mb-4">
-                Utiliza el menú de navegación de la izquierda para consultar los apartados 'Cuenta' y 'Seguridad'. En ellos encontrarás dudas de los usuarios con respecto a dichos temas y las respuestas brindadas de nuestra parte a dichas dudas.
+                Utiliza el menú de navegación de la izquierda para consultar los
+                apartados 'Cuenta' y 'Seguridad'. En ellos encontrarás dudas de
+                los usuarios con respecto a dichos temas y las respuestas
+                brindadas de nuestra parte a dichas dudas.
               </p>
 
               <p class="mb-4">
-                En caso de que tu duda no se relacione con ninguno de los apartados, o por otra parte, tu duda sea de otro tipo. Consulta el apartado 'Servicio Técnico' para saber cómo ponerte en contacto con nosotros.
+                En caso de que tu duda no se relacione con ninguno de los
+                apartados, o por otra parte, tu duda sea de otro tipo. Consulta
+                el apartado 'Servicio Técnico' para saber cómo ponerte en
+                contacto con nosotros.
               </p>
             </v-card-text>
           </v-card>
@@ -51,21 +58,24 @@
           <!-- Contenido de la ventana 2 -->
           <v-list>
             <v-list-item>
-              <h3>Dudas frecuentes acerca de la Cuenta de Usuario:</h3>
+              Estas son las dudas más frecuentes de la comunidad vinculadas con
+              la <b>cuenta de usuario:</b>
             </v-list-item>
             <v-list-item-group v-model="selectedItem">
-              <v-list-item
-                v-for="(item, index) in faqsCuenta"
-                :key="index"
-                @click="toggleItem(index)"
-                :class="{ 'faq-active': selectedItem === index }"
-              >
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.question }}</v-list-item-title>
-                  <v-list-item-subtitle v-if="selectedItem === index">
-                    {{ item.answer }}
-                  </v-list-item-subtitle>
-                </v-list-item-content>
+              <v-list-item>
+                <v-list-item
+                  v-for="(item, index) in faqsCuenta"
+                  :key="index"
+                  @click="toggleItem(index)"
+                  :class="{ 'faq-active': selectedItem === index }"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title>{{ item.question }}</v-list-item-title>
+                    <v-list-item-subtitle v-if="selectedItem === index">
+                      {{ item.answer }}
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
               </v-list-item>
             </v-list-item-group>
           </v-list>
@@ -76,38 +86,39 @@
           <!-- Contenido de la ventana 3 -->
           <v-list>
             <v-list-item>
-              <h3>Dudas frecuentes acerca de la Seguridad:</h3>
+              Aquí las preguntas más frecuentes de parte de la comunidad sobre
+              la <b>seguridad:</b>
             </v-list-item>
             <v-list-item-group v-model="selectedItem">
-              <v-list-item
-                v-for="(item, index) in faqsSeguridad"
-                :key="index"
-                @click="toggleItem(index)"
-                :class="{ 'faq-active': selectedItem === index }"
-              >
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.question }}</v-list-item-title>
-                  <v-list-item-subtitle v-if="selectedItem === index">
-                    {{ item.answer }}
-                  </v-list-item-subtitle>
-                </v-list-item-content>
+              <v-list-item>
+                <v-list-item
+                  v-for="(item, index) in faqsSeguridad"
+                  :key="index"
+                  @click="toggleItem(index)"
+                  :class="{ 'faq-active': selectedItem === index }"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title>{{ item.question }}</v-list-item-title>
+                    <v-list-item-subtitle v-if="selectedItem === index">
+                      {{ item.answer }}
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
               </v-list-item>
             </v-list-item-group>
           </v-list>
         </v-tabs-window-item>
 
         <!-- Ventana 4 (Servicio Técnico) -->
-        <v-tabs-window-item value="main-4">
-          <v-card flat>
-            <v-card-title>Puedes contactarte con nosotros a través de:</v-card-title>
-          </v-card>
-          <v-card flat>
-            <v-card-text>
-              <p class="mb-4">E-mail: digitalnotes@gmail.com</p>
-              <p class="mb-4">Whatsapp: +598 12 345 678</p>
-              <p class="mb-4">Teléfono: 4643 1234</p>
-            </v-card-text>
-          </v-card>
+        <v-tabs-window-item value="main-4" class="window">
+              <v-list>
+                <v-list-item>Si quieres comunicarte personalmente con nosotros, aquí están nuestros canales de contacto:</v-list-item>
+                <v-list-item>
+                  <v-list-item>E-mail: digitalnotes@gmail.com</v-list-item>
+                <v-list-item>Whatsapp: +598 12 345 678</v-list-item>
+                <v-list-item>Teléfono: 4643 1234</v-list-item>
+                </v-list-item>
+              </v-list>
         </v-tabs-window-item>
 
         <!-- Fin de las ventanas -->
@@ -117,7 +128,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch } from "vue";
 
 // Definir estado reactivo usando `ref`
 const mainTab = ref("main-1");
@@ -133,18 +144,38 @@ const principales = ref([
 
 // Preguntas y respuestas de la seccion Cuenta
 const faqsCuenta = ref([
-  { question: 'Pregunta1', answer: 'Respuesta1' },
-  { question: 'Pregunta2', answer: 'Respuesta2' },
-  { question: 'Pregunta3', answer: 'Respuesta3' }
+  {
+    question: "¿Qué datos personales pueden ver el resto de usuarios?",
+    answer:
+      "La información que otros usuarios pueden ver con respecto a tu cuenta es solamente: tu avatar, tu usuario y tu biografía.",
+  },
+  {
+    question: "¿Puedo cambiar mi dirección de correo electrónico?",
+    answer:
+      "De momento no puedes cambiar tu dirección de correo vinculada a tu cuenta.",
+  },
+  {
+    question: "¿Se puede hablar con un usuario por mensaje privado?",
+    answer:
+      "El chat es únicamente privado para el grupo del cual eres parte, y solamente puedes comunicarte con los miembros que lo confirman.",
+  },
 ]);
 
 // Preguntas y respuestas de la seccion Seguridad
 const faqsSeguridad = ref([
-  { question: 'Pregunta11', answer: 'Respuesta11' },
-  { question: 'Pregunta22', answer: 'Respuesta22' },
-  { question: 'Pregunta33', answer: 'Respuesta33' }
+  {
+    question:
+      "¿Cómo protegen la información con la cuál se trabaja en los grupos?",
+    answer:
+      "La información de los grupos es almacenada en una base de datos la cual cuenta con sistemas de encriptación de datos, por ende, si alguien se apropiase ilegamente de ella aún así no podría acceder a esos datos.",
+  },
+  {
+    question:
+      "¿Que garantías me brindan con respecto a la información de mi cuenta?",
+    answer:
+      "La información de tu cuenta se hashea y se almacena en la base de datos de la aplicación, esta unicamente e muestra a tí y solo se utiliza para comunicarte información relevante acerca de la aplicación.",
+  },
 ]);
-
 
 function toggleItem(index) {
   selectedItem.value = selectedItem.value === index ? null : index;
@@ -184,6 +215,7 @@ watch(mainTab, (newValue, oldValue) => {
 .custom-tabs {
   flex: 0 0 200px; /* Ajusta el tamaño fijo o mínimo para las pestañas */
   overflow: hidden; /* Oculta el desbordamiento en el área de las pestañas */
+  border-right: 1px solid #2b2b2b;
 }
 
 .custom-tabs-window {
@@ -192,7 +224,9 @@ watch(mainTab, (newValue, oldValue) => {
 }
 
 .window {
-  max-height: calc(90vh - 64px); /* Ajusta según la altura de tu barra de herramientas */
+  max-height: calc(
+    90vh - 64px
+  ); /* Ajusta según la altura de tu barra de herramientas */
   overflow-y: auto; /* Permite el desplazamiento vertical */
 }
 
@@ -200,12 +234,9 @@ watch(mainTab, (newValue, oldValue) => {
   display: block;
   color: white;
   opacity: 100;
-
 }
 
 .faq-active .v-list-item-title {
   color: #2196f3;
 }
-
-
 </style>
