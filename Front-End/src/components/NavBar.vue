@@ -58,7 +58,7 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const rutas_uno = ref([ // Menús principales
-  { path: '/miespacio', icon: 'mdi-account' },
+  { path: '/', icon: 'mdi-account' },
   { path: '/grupo', icon: 'mdi-account-multiple' },
 ])
 const rutas_dos = ref([ // Menús secundarios
