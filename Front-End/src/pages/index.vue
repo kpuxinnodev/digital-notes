@@ -9,8 +9,6 @@
         <!--Opciones de Notas-->
         <div class="botones">
           <!--Botones-->
-          <div class="botones-g1">
-            <!-- Botón para crear nota que abre el diálogo -->
             <v-btn
               prepend-icon="mdi-plus"
               color="green"
@@ -22,14 +20,6 @@
               color="amber">
               Crear grupo
             </v-btn>
-          </div>
-          <div class="botones-g2">
-            <v-btn
-              icon="mdi-delete"
-              color="red"
-              @click="eliminarNota">
-            </v-btn>
-          </div>
         </div>
 
         <div class="completadas">
@@ -45,7 +35,6 @@
 
     <!-- Incluir el componente de diálogo -->
     <DialogoCrearNota ref="crearNota" />
-    <FilterDialog ref="filterDialog" />
   </div>
 </template>
 
@@ -55,11 +44,9 @@ import NavBar from '@/components/NavBar.vue';
 import CompletedTasks from '@/components/CompletedTasks.vue';
 import NotesTabs from '@/components/NotesTabs.vue';
 import DialogoCrearNota from '@/components/DialogoCrearNota.vue'; 
-import FilterDialog from '@/components/FilterDialog.vue';
 
 // Crear una referencia al componente de diálogo
 const crearNota = ref(null);
-const filterDialog = ref(null)
 
 // Método para abrir el diálogo usando la referencia
 const abrirDialogoCrearNota = () => {
@@ -67,12 +54,6 @@ const abrirDialogoCrearNota = () => {
     crearNota.value.abrirDialogoCrearNota();
   }
 }
-
-const eliminarNota = () => {
-  if (filterDialog.value) {
-    filterDialog.value.eliminarNota();
-  }
-};
 </script>
 <style scoped>
 
@@ -121,10 +102,11 @@ const eliminarNota = () => {
 
 .botones {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 45%;
-  padding-left: 5%;
   background-color: aqua;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .botones-g1 {
@@ -132,21 +114,12 @@ const eliminarNota = () => {
   flex-direction: column;
   height: 100%;
   width: auto;
-  margin-left: 20%;
-  justify-content: space-evenly;
-  align-items: center;
 }
 
-.botones-g2 {
-  display: flex;
-  align-items: center;
-  margin-left: 5%;
-}
 
 .completadas {
   width: 55%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }

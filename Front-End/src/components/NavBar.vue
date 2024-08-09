@@ -4,7 +4,7 @@
       <v-layout>
         <v-navigation-drawer app permanent absolute location="left" rail>
           <v-list>
-            <img src="/img/nav/user.png" alt="logo.png" />
+            <img src="/img/nav/logoapp.png" alt="logo.png" />
           </v-list>
 
           <v-divider></v-divider>

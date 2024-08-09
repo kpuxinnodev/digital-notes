@@ -34,7 +34,12 @@
             >
               <v-icon :icon="getCategoriaIcono(nota.categoria)"></v-icon>
               <v-card-text>{{ nota.texto }}</v-card-text>
-              <v-icon></v-icon>
+              <div class="botones d-flex flex-row align-end justify-end">
+                <v-btn flat id="eliminar"
+                icon="mdi-delete"></v-btn>
+                <v-btn flat id="completar"
+                icon="mdi-check-bold"></v-btn>
+              </div>
             </v-card>
           </div>
         </v-tabs-window-item>
@@ -158,4 +163,19 @@ function getCategoriaIcono(categoriaValue) {
 .nota-icono {
   margin-right: 8px;
 }
+
+.botones {
+  height: 100%;
+}
+
+#completar {
+  width: calc(var(--v-btn-height) + 2px) !important;
+  height: calc(var(--v-btn-height) + 2px) !important;
+}
+
+#eliminar {
+  width: calc(var(--v-btn-height) + 2px) !important;
+  height: calc(var(--v-btn-height) + 2px) !important;
+}
+
 </style>
