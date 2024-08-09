@@ -10,21 +10,24 @@
         <div class="botones">
           <!--Botones-->
           <div class="botones-g1">
+            <!-- Botón para crear nota que abre el diálogo -->
             <v-btn
               prepend-icon="mdi-plus"
-              color="green">
-              crear nota
+              color="green"
+              @click="abrirDialogoCrearNota">
+              Crear nota
             </v-btn>
             <v-btn
               prepend-icon="mdi-plus-box"
               color="amber">
-              crear grupo
+              Crear grupo
             </v-btn>
           </div>
           <div class="botones-g2">
             <v-btn
               icon="mdi-delete"
-              color="red">
+              color="red"
+              @click="eliminarNota">
             </v-btn>
           </div>
         </div>
@@ -32,22 +35,44 @@
         <div class="completadas">
           <CompletedTasks />
         </div>
-    </div>
+      </div>
 
-    <div class="notes-show">
+      <div class="notes-show">
         <!--Mostrar las Notas-->
-
         <NotesTabs />
       </div>
-    
+    </div>
+
+    <!-- Incluir el componente de diálogo -->
+    <DialogoCrearNota ref="crearNota" />
+    <FilterDialog ref="filterDialog" />
   </div>
-</div>
 </template>
+
 <script setup>
+import { ref } from 'vue';
 import NavBar from '@/components/NavBar.vue';
 import CompletedTasks from '@/components/CompletedTasks.vue';
 import NotesTabs from '@/components/NotesTabs.vue';
+import DialogoCrearNota from '@/components/DialogoCrearNota.vue'; 
+import FilterDialog from '@/components/FilterDialog.vue';
 
+// Crear una referencia al componente de diálogo
+const crearNota = ref(null);
+const filterDialog = ref(null)
+
+// Método para abrir el diálogo usando la referencia
+const abrirDialogoCrearNota = () => {
+  if (crearNota.value) {
+    crearNota.value.abrirDialogoCrearNota();
+  }
+}
+
+const eliminarNota = () => {
+  if (filterDialog.value) {
+    filterDialog.value.eliminarNota();
+  }
+};
 </script>
 <style scoped>
 
