@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-      <NavBar />
+      <Navegacion />
       <div class="content">
         <AccountConfig />
       </div>
@@ -8,7 +8,7 @@
   </template>
   
   <script setup>
-  import NavBar from "@/components/NavBar.vue";
+  import Navegacion from "@/components/Navegacion.vue";
   import AccountConfig from "@/components/AccountConfig.vue";
   </script>
   

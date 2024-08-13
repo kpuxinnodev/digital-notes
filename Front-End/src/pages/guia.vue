@@ -1,15 +1,15 @@
 <template>
   <div class="main">
-    <NavBar />
+    <Navegacion />
     <div class="content">
-      <GuideComponent />
+      <ComponenteGuia />
     </div>
   </div>
 </template>
 
 <script setup>
-import NavBar from "@/components/NavBar.vue";
-import GuideComponent from "@/components/GuideComponent.vue";
+import Navegacion from "@/components/Navegacion.vue";
+import ComponenteGuia from "@/components/ComponenteGuia.vue";
 </script>
 
 <style scoped>

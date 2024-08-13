@@ -28,6 +28,7 @@
   <script setup>
   import { ref } from 'vue'
 
+  //  ->  Importar las tareas completadas desde el Back-End.
   const tareas_completadas = ref([
     {icono:'mdi-briefcase', texto:'uno'},
     {icono:'mdi-briefcase', texto:'dos'},

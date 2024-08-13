@@ -15,11 +15,11 @@
                 v-for="(ruta, index) in rutas_uno"
                 :key="index"
                 :to="ruta.path"
-                :class="{ 'active-link': isActive(ruta.path) }"
+                :class="{ 'active-link': activo(ruta.path) }"
               >
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon :class="iconClass(ruta.path)">
+                    <v-icon :class="claseIcono(ruta.path)">
                       {{ ruta.icon }}
                     </v-icon>
                   </v-list-item-icon>
@@ -32,11 +32,11 @@
                 v-for="(rutas, index) in rutas_dos"
                 :key="index"
                 :to="rutas.path"
-                :class="{ 'active-link': isActive(rutas.path) }"
+                :class="{ 'active-link': activo(rutas.path) }"
               >
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon :class="iconClass(rutas.path)">
+                    <v-icon :class="claseIcono(rutas.path)">
                       {{ rutas.icon }}
                     </v-icon>
                   </v-list-item-icon>
@@ -56,6 +56,7 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
+//  ->  Rutas de Navegación
 const route = useRoute()
 const rutas_uno = ref([ // Menús principales
   { path: '/', icon: 'mdi-account' },
@@ -69,12 +70,13 @@ const rutas_dos = ref([ // Menús secundarios
   { path: '/salir', icon: 'mdi-exit-run' }
 ])
 
-const isActive = (path) => {
+//  ->  Detecta la ruta en la cual se encuentra el usuario.
+const activo = (path) => {
   return route.path === path
 }
-
-const iconClass = (path) => {
-  return isActive(path) ? 'active-icon' : 'inactive-icon'
+//  ->  Activa el ícono de la ruta en la cual se encuentra el usuario.
+const claseIcono = (path) => {
+  return activo(path) ? 'active-icon' : 'inactive-icon'
 }
 </script>
 

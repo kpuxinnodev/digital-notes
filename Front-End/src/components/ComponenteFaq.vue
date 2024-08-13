@@ -12,7 +12,7 @@
         color="primary"
         class="mb-4 custom-tabs"
         direction="vertical"
-        @change="onTabChange"
+        @change="cambioenTab"
       >
         <v-tab
           v-for="(opcion, index) in principales"
@@ -61,17 +61,17 @@
               Estas son las dudas más frecuentes de la comunidad vinculadas con
               la <b>cuenta de usuario:</b>
             </v-list-item>
-            <v-list-item-group v-model="selectedItem">
+            <v-list-item-group v-model="itemSelecto">
               <v-list-item>
                 <v-list-item
                   v-for="(item, index) in faqsCuenta"
                   :key="index"
-                  @click="toggleItem(index)"
-                  :class="{ 'faq-active': selectedItem === index }"
+                  @click="cambiarItem(index)"
+                  :class="{ 'faq-active': itemSelecto === index }"
                 >
                   <v-list-item-content>
                     <v-list-item-title>{{ item.question }}</v-list-item-title>
-                    <v-list-item-subtitle v-if="selectedItem === index">
+                    <v-list-item-subtitle v-if="itemSelecto === index">
                       {{ item.answer }}
                     </v-list-item-subtitle>
                   </v-list-item-content>
@@ -89,17 +89,17 @@
               Aquí las preguntas más frecuentes de parte de la comunidad sobre
               la <b>seguridad:</b>
             </v-list-item>
-            <v-list-item-group v-model="selectedItem">
+            <v-list-item-group v-model="itemSelecto">
               <v-list-item>
                 <v-list-item
                   v-for="(item, index) in faqsSeguridad"
                   :key="index"
-                  @click="toggleItem(index)"
-                  :class="{ 'faq-active': selectedItem === index }"
+                  @click="cambiarItem(index)"
+                  :class="{ 'faq-active': itemSelecto === index }"
                 >
                   <v-list-item-content>
                     <v-list-item-title>{{ item.question }}</v-list-item-title>
-                    <v-list-item-subtitle v-if="selectedItem === index">
+                    <v-list-item-subtitle v-if="itemSelecto === index">
                       {{ item.answer }}
                     </v-list-item-subtitle>
                   </v-list-item-content>
@@ -132,7 +132,7 @@ import { ref, watch } from "vue";
 
 // Definir estado reactivo usando `ref`
 const mainTab = ref("main-1");
-const selectedItem = ref(null);
+const itemSelecto = ref(null);
 
 // Opciones para las pestañas principales
 const principales = ref([
@@ -177,19 +177,20 @@ const faqsSeguridad = ref([
   },
 ]);
 
-function toggleItem(index) {
-  selectedItem.value = selectedItem.value === index ? null : index;
+//  ->  Cambiar item seleccionado
+function cambiarItem(index) {
+  itemSelecto.value = itemSelecto.value === index ? null : index;
 }
 
-// Función para restablecer la selección al cambiar de pestaña
-function onTabChange() {
-  selectedItem.value = null;
+//  ->  Restablecer la selección al cambiar de pestaña
+function cambioenTab() {
+  itemSelecto.value = null;
 }
 
-// Opcional: Observador para detectar cambios en `mainTab`
+//  ->  Observador para detectar cambios en `mainTab`
 watch(mainTab, (newValue, oldValue) => {
   if (newValue !== oldValue) {
-    onTabChange();
+    cambioenTab();
   }
 });
 </script>

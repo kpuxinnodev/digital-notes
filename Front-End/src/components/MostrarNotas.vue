@@ -29,15 +29,15 @@
           <div class="grid-notas">
             <v-card
               class="nota"
-              v-for="(nota, index) in filteredNotas(tab)"
+              v-for="(nota, index) in filtrarNotas(tab)"
               :key="index"
             >
               <v-icon :icon="getCategoriaIcono(nota.categoria)"></v-icon>
               <v-card-text>{{ nota.texto }}</v-card-text>
               <div class="botones d-flex flex-row align-end justify-end">
-                <v-btn flat id="eliminar"
+                <v-btn flat id="eliminar" v-if="mostrarBoton"
                 icon="mdi-delete"></v-btn>
-                <v-btn flat id="completar"
+                <v-btn flat id="completar" v-if="mostrarBoton"
                 icon="mdi-check-bold"></v-btn>
               </div>
             </v-card>
@@ -50,10 +50,12 @@
 
 <script setup>
 import { ref } from 'vue';
+import { defineProps } from 'vue';
 
-// Define reactive state
-const tab = ref('all'); // Set default tab to 'all'
+//  ->  Aplica a tab el valor predeterminado all (muestra todas las notas).
+const tab = ref('all');
 
+//  ->  Categorías de las Notas.
 const categorias = ref([
   { value: 'uno', icono: 'mdi-briefcase' },
   { value: 'dos', icono: 'mdi-book-open-page-variant' },
@@ -64,6 +66,7 @@ const categorias = ref([
   { value: 'siete', icono: 'mdi-archive' }
 ]);
 
+//  ->  Ventanas correspondientes a cada categoría.
 const ventanas = ref([
   { value: 'all', contenido: 'categorias-todas' },
   { value: 'uno', contenido: 'categoria-1' },
@@ -75,6 +78,7 @@ const ventanas = ref([
   { value: 'siete', contenido: 'categoria-7' }
 ]);
 
+//  ->  Importar notas desde el Back-End aquí.
 let notas = ref([
   {categoria:'cinco', texto:'Quedada el Domingo 18/07', prioridad:'baja'},
   {categoria:'uno', texto:'Presentar currículum en BPS', prioridad:'alta'},
@@ -84,38 +88,39 @@ let notas = ref([
   {categoria:'dos', texto:'Presentación de Formación 24/09', prioridad:'alta'},
   {categoria:'cinco', texto:'Cumpleaños de Noelia 17/10', prioridad:'media'},
   {categoria:'seis', texto:'Montevideo 28/10', prioridad:'media'},
-  {categoria:'siete', texto:'Otro', prioridad:'media'},
-  {categoria:'all', texto:'nota de ejemplo', prioridad:'media'},
-  {categoria:'all', texto:'nota de ejemplo', prioridad:'media'},
-  {categoria:'all', texto:'nota de ejemplo', prioridad:'media'},
-  {categoria:'all', texto:'nota de ejemplo', prioridad:'media'},
-  {categoria:'all', texto:'nota de ejemplo', prioridad:'media'},
-  {categoria:'all', texto:'nota de ejemplo', prioridad:'media'},
-  {categoria:'all', texto:'nota de ejemplo', prioridad:'media'},
-  {categoria:'all', texto:'nota de ejemplo', prioridad:'media'},
-  {categoria:'all', texto:'nota de ejemplo', prioridad:'media'},
+  {categoria:'siete', texto:'Otro', prioridad:'media'}
 
 ]);
 
+//  ->  Valores de prioridades de las notas.
 const prioridades = ref([
   { alta: 'alta', color: 'rojo' },
   { media: 'media', color: 'amarillo' },
   { baja: 'baja', color: 'verde' }
 ]);
 
-// Function to filter notes based on selected tab
-function filteredNotas(value) {
+//  ->  Filtra notas según el filtro seleccionado.
+function filtrarNotas(value) {
   if (value === 'all') {
     return notas.value;
   }
   return notas.value.filter(nota => nota.categoria === value);
 }
 
-// Function to get the icon of a category
+//  ->  Obtener el ícono de una categoría.
 function getCategoriaIcono(categoriaValue) {
   const categoria = categorias.value.find(c => c.value === categoriaValue);
   return categoria ? categoria.icono : '';
 }
+
+//  ->  Propiedades de Mostar Botón.
+const propiedadesBoton = defineProps({
+  mostrarBoton: {
+    type: Boolean,
+    default: true,
+  },
+});
+
 </script>
 
 <style scoped>

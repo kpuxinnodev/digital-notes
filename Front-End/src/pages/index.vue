@@ -1,14 +1,17 @@
 <template>
   <div class="main">
     <!--Main-->
-    <NavBar/>
+
+    <!-- Componente: Navegacion.vue (Barra de Navegación) -->
+    <Navegacion />
 
     <div class="content">
-      <!--Page Content-->
+      <!--Contenido de la página-->
       <div class="notes-options">
         <!--Opciones de Notas-->
         <div class="botones">
           <!--Botones-->
+          <div class="botones-g1">
             <v-btn
               prepend-icon="mdi-plus"
               color="green"
@@ -20,39 +23,58 @@
               color="amber">
               Crear grupo
             </v-btn>
+          </div>
+          <div class="botones-g2">
+            <v-btn
+              prepend-icon="mdi-pencil"
+              color="blue"
+              @click="verBotones">
+              Administrar
+            </v-btn>
+          </div>
+            
         </div>
 
         <div class="completadas">
-          <CompletedTasks />
+          <!-- Componente: TareasCompletadas.vue -->
+          <TareasCompletadas />
         </div>
       </div>
 
       <div class="notes-show">
-        <!--Mostrar las Notas-->
-        <NotesTabs />
+        <!-- Componente: MostrarNotas.vue -->
+        <MostrarNotas :mostrarBoton="administrar" />
       </div>
     </div>
 
-    <!-- Incluir el componente de diálogo -->
+    <!-- Componente: DialogoCrearNota.vue (Botón: Crear Nota) -->
     <DialogoCrearNota ref="crearNota" />
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import NavBar from '@/components/NavBar.vue';
-import CompletedTasks from '@/components/CompletedTasks.vue';
-import NotesTabs from '@/components/NotesTabs.vue';
+import Navegacion from '@/components/Navegacion.vue';
+import TareasCompletadas from '@/components/TareasCompletadas.vue';
+import MostrarNotas from '@/components/MostrarNotas.vue';
 import DialogoCrearNota from '@/components/DialogoCrearNota.vue'; 
 
-// Crear una referencia al componente de diálogo
+//  ->  Dialogo de Crear Nota.
 const crearNota = ref(null);
 
-// Método para abrir el diálogo usando la referencia
+//  Método para abrir el diálogo de Crear Nota usando la referencia
 const abrirDialogoCrearNota = () => {
   if (crearNota.value) {
     crearNota.value.abrirDialogoCrearNota();
   }
+}
+
+//  ->  Administrar
+const administrar = ref(false);
+
+//  Administrar activa los botones de eliminar y completar en las notas.
+function verBotones() {
+  administrar.value = !administrar.value;
 }
 </script>
 <style scoped>
@@ -85,7 +107,18 @@ const abrirDialogoCrearNota = () => {
 
   max-height: 100vh;
 
-  background-color: skyblue;
+  --s: 60px; /* control the size*/
+  --c1: #b09f79;
+  --c2: #476074;
+  
+  --_g: #0000 83%,var(--c1) 85% 99%,#0000 101%;
+  background:
+    radial-gradient(27% 29% at right ,var(--_g)) calc(var(--s)/ 2) var(--s),
+    radial-gradient(27% 29% at left  ,var(--_g)) calc(var(--s)/-2) var(--s),
+    radial-gradient(29% 27% at top   ,var(--_g)) 0 calc(var(--s)/ 2),
+    radial-gradient(29% 27% at bottom,var(--_g)) 0 calc(var(--s)/-2)
+    var(--c2);
+  background-size: calc(2*var(--s)) calc(2*var(--s));
 }
 
 /**----div.notes-options----*/
@@ -97,14 +130,12 @@ const abrirDialogoCrearNota = () => {
   height: 18%;
   width: 100%;
 
-  background-color: #C6FF00;
 }
 
 .botones {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 45%;
-  background-color: aqua;
   justify-content: space-evenly;
   align-items: center;
 }
@@ -112,10 +143,19 @@ const abrirDialogoCrearNota = () => {
 .botones-g1 {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
   height: 100%;
   width: auto;
 }
 
+.botones-g2 {
+  display: flex;
+  height: 100%;
+  width: auto;
+  align-items: center;
+  justify-content: center;
+}
 
 .completadas {
   width: 55%;
@@ -142,7 +182,6 @@ const abrirDialogoCrearNota = () => {
   align-items: center;
   justify-content: center;
 
-  background-color: red;
 }
 
 

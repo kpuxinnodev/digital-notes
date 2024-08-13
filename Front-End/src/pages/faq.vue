@@ -1,15 +1,15 @@
 <template>
   <div class="main">
-    <NavBar />
+    <Navegacion />
     <div class="content">
-      <FaqComponent />
+      <ComponenteFaq />
     </div>
   </div>
 </template>
 
 <script setup>
-import NavBar from "@/components/NavBar.vue";
-import FaqComponent from "@/components/FaqComponent.vue";
+import Navegacion from "@/components/Navegacion.vue";
+import ComponenteFaq from "@/components/ComponenteFaq.vue";
 </script>
 
 <style scoped>
