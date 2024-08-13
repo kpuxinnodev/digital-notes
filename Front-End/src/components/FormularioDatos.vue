@@ -1,8 +1,7 @@
 <template>
   <v-container class="container">
     <v-card flat>
-      <v-card-title class="mb-4"> Editar perfil </v-card-title>
-
+      <v-card-title class="mb-4"></v-card-title>
       <v-form ref="form" v-model="valid">
         <!-- Fila para Nombre y Usuario -->
         <v-row>
@@ -32,35 +31,6 @@
           rows="4"
         ></v-textarea>
 
-        <!-- Fila para Contraseña y Confirmar Contraseña -->
-        <v-row>
-          <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="profile.password"
-              :rules="passwordRules"
-              label="Contraseña"
-              required
-              type="password"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="profile.confirmPassword"
-              :rules="confirmPasswordRules"
-              label="Confirmar Contraseña"
-              required
-              type="password"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-
-        <!-- Checkbox de Confirmación -->
-        <v-checkbox
-          v-model="profile.confirmationChecked"
-          :rules="confirmationRules"
-          label="Estoy seguro de que quiero cambiar mis datos"
-        ></v-checkbox>
-
         <v-col class="d-flex justify-end">
           <v-btn
           :disabled="!valid"
@@ -83,11 +53,7 @@ import { ref } from "vue";
 const profile = ref({
   name: "",
   username: "",
-  email: "",
   biography: "",
-  password: "",
-  confirmPassword: "",
-  confirmationChecked: false,
 });
 
 const valid = ref(false);
@@ -110,19 +76,8 @@ const biographyRules = [
     (v && v.length <= 120) || "La biografía debe ser menor de 120 caracteres",
 ];
 
-const passwordRules = [
-  (v) => !!v || "La contraseña es requerida",
-  (v) =>
-    (v && v.length >= 8) || "La contraseña debe tener al menos 8 caracteres",
-];
-
-const confirmPasswordRules = [
-  (v) => !!v || "Debes confirmar tu contraseña",
-  (v) => v === profile.value.password || "Las contraseñas no coinciden",
-];
-
-const confirmationRules = [
-  (v) => v || "Debes confirmar que estás seguro de los cambios",
+const subirAvatar = [
+  v => !!v || 'La imagen es requerida',
 ];
 
 // Función para enviar el formulario
@@ -134,6 +89,8 @@ const submitForm = () => {
     console.log("Formulario inválido");
   }
 };
+
+
 </script>
 
 <style scoped>

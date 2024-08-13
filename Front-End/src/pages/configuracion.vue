@@ -2,14 +2,14 @@
     <div class="main">
       <Navegacion />
       <div class="content">
-        <AccountConfig />
+        <ComponenteConfig />
       </div>
     </div>
   </template>
-  
+
   <script setup>
   import Navegacion from "@/components/Navegacion.vue";
-  import AccountConfig from "@/components/AccountConfig.vue";
+  import ComponenteConfig from "@/components/ComponenteConfig.vue";
   </script>
   
   <style scoped>
