@@ -25,7 +25,7 @@
           :key="index"
           :value="ventana.value"
         >
-          <!-- Notas en Grid -->
+         <!-- Notas en Grid -->
           <div class="grid-notas">
             <v-card
               class="nota"

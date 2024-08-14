@@ -33,14 +33,14 @@
 
         <v-col class="d-flex justify-end">
           <v-btn
-          :disabled="!valid"
-          color="primary"
-          @click="submitForm"
-          class="mt-4"
-        >
-          Guardar Cambios
-        </v-btn>
-        </v-col>        
+            :disabled="!valid"
+            color="primary"
+            @click="submitForm"
+            class="mt-4"
+          >
+            Guardar Cambios
+          </v-btn>
+        </v-col>
       </v-form>
     </v-card>
   </v-container>
@@ -76,10 +76,6 @@ const biographyRules = [
     (v && v.length <= 120) || "La biografía debe ser menor de 120 caracteres",
 ];
 
-const subirAvatar = [
-  v => !!v || 'La imagen es requerida',
-];
-
 // Función para enviar el formulario
 const submitForm = () => {
   if (valid.value) {
@@ -89,8 +85,6 @@ const submitForm = () => {
     console.log("Formulario inválido");
   }
 };
-
-
 </script>
 
 <style scoped>
@@ -100,5 +94,6 @@ const submitForm = () => {
 
 .container {
   width: 80%;
+  height: auto;
 }
 </style>
