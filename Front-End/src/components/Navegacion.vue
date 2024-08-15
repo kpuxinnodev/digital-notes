@@ -42,19 +42,27 @@
                   </v-list-item-icon>
                 </v-list-item>
               </router-link>
+              <v-list-item v-for="(salir, index) in rutasalir" :key="index" @click="abrirDialogoSalirAplicacion">
+                  <v-list-item-icon>
+                    <v-icon>{{ salir.icon }}</v-icon>
+                  </v-list-item-icon>
+                </v-list-item>
             </v-list>
           </div>
         </v-navigation-drawer>
+        <DialogoSalir ref="salirAplicacion" style="position: absolute;"/>
 
         <v-main style="height: 100vh"></v-main>
       </v-layout>
     </v-card>
   </div>
+  
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import DialogoSalir from './DialogoSalir.vue';
 
 //  ->  Rutas de Navegación
 const route = useRoute()
@@ -66,8 +74,11 @@ const rutas_dos = ref([ // Menús secundarios
   { path: '/notificaciones', icon: 'mdi-bell' },
   { path: '/faq', icon: 'mdi-frequently-asked-questions' },
   { path: '/guia', icon: 'mdi-book' },
-  { path: '/configuracion', icon: 'mdi-cog' },
-  { path: '/salir', icon: 'mdi-exit-run' }
+  { path: '/configuracion', icon: 'mdi-cog' }
+  
+])
+const rutasalir = ref([
+{ path: '/salir', icon: 'mdi-exit-run' }
 ])
 
 //  ->  Detecta la ruta en la cual se encuentra el usuario.
@@ -77,6 +88,15 @@ const activo = (path) => {
 //  ->  Activa el ícono de la ruta en la cual se encuentra el usuario.
 const claseIcono = (path) => {
   return activo(path) ? 'active-icon' : 'inactive-icon'
+}
+
+const salirAplicacion = ref(null);
+
+//  Método para abrir el diálogo de Crear Nota usando la referencia
+const abrirDialogoSalirAplicacion = () => {
+  if (salirAplicacion.value) {
+    salirAplicacion.value.abrirDialogoSalirAplicacion();
+  }
 }
 </script>
 

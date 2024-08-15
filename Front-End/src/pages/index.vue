@@ -107,18 +107,18 @@ function verBotones() {
 
   max-height: 100vh;
 
-  --s: 60px; /* control the size*/
-  --c1: #b09f79;
-  --c2: #476074;
+  --s: 150px; /* control the size*/
+  --c1: #633d2e;
+  --c2: #f7af63;
   
-  --_g: #0000 83%,var(--c1) 85% 99%,#0000 101%;
+  --l:var(--c1) 20%,#0000 0;
+  --g:35%,var(--c2) 0 45%,var(--c1) 0;
   background:
-    radial-gradient(27% 29% at right ,var(--_g)) calc(var(--s)/ 2) var(--s),
-    radial-gradient(27% 29% at left  ,var(--_g)) calc(var(--s)/-2) var(--s),
-    radial-gradient(29% 27% at top   ,var(--_g)) 0 calc(var(--s)/ 2),
-    radial-gradient(29% 27% at bottom,var(--_g)) 0 calc(var(--s)/-2)
-    var(--c2);
-  background-size: calc(2*var(--s)) calc(2*var(--s));
+    linear-gradient(45deg,var(--l) 45%,var(--c1) 0 70%,#0000 0),
+    linear-gradient(-45deg,var(--l) var(--g) 70%,#0000 0),
+    linear-gradient(45deg,var(--c1) var(--g));
+  background-size: var(--s) var(--s);
+
 }
 
 /**----div.notes-options----*/

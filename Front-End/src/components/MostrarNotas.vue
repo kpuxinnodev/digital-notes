@@ -171,6 +171,9 @@ const propiedadesBoton = defineProps({
 
 .botones {
   height: 100%;
+  position: absolute;
+  right: 0;
+  z-index: 100;
 }
 
 #completar {
