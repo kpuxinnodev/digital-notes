@@ -93,7 +93,7 @@
   
   ]);
   
-  //  ->  Valores de prioridades de las notas.
+  //  ->  Obtener el color de la prioridad mediante un switch y asignarlo a una clase de css.
   const getColorClass = (prioridad) => {
     switch(prioridad) {
         case 'alta':
@@ -109,11 +109,16 @@
   
   //  ->  Filtra notas según el filtro seleccionado.
   function filtrarNotas(value) {
-    if (value === 'all') {
-      return notas.value;
-    }
-    return notas.value.filter(nota => nota.categoria === value);
+  let filtradas;
+  if (value === 'all') {
+    filtradas = notas.value;
+  } else {
+    filtradas = notas.value.filter(nota => nota.categoria === value);
   }
+
+  // Ordena las notas según la prioridad
+  return filtradas.sort((a, b) => prioridadOrden[a.prioridad] - prioridadOrden[b.prioridad]);
+}
   
   //  ->  Obtener el ícono de una categoría.
   function getCategoriaIcono(categoriaValue) {
@@ -129,10 +134,12 @@
     },
   });
 
-  // Función para obtener el color basado en la prioridad
-  const obtenerColor = (prioridad) => {
-    return prioridadColores[prioridad] || 'gray'; // Valor predeterminado si no se encuentra la prioridad
+  const prioridadOrden = {
+  alta: 1,
+  media: 2,
+  baja: 3
 };
+
   
   </script>
   

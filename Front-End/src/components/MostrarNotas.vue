@@ -31,7 +31,9 @@
               class="nota"
               v-for="(nota, index) in filtrarNotas(tab)"
               :key="index"
+              :class="getColorClass(nota.prioridad)"
             >
+            <!-- Notas -->
               <v-icon :icon="getCategoriaIcono(nota.categoria)"></v-icon>
               <v-card-text>{{ nota.texto }}</v-card-text>
               <div class="botones d-flex flex-row align-end justify-end">
@@ -92,19 +94,18 @@ let notas = ref([
 
 ]);
 
-//  ->  Valores de prioridades de las notas.
-const prioridades = ref([
-  { alta: 'alta', color: 'rojo' },
-  { media: 'media', color: 'amarillo' },
-  { baja: 'baja', color: 'verde' }
-]);
 
-//  ->  Filtra notas según el filtro seleccionado.
+//  ->  Filtra las notas, teninendo en cuenta la categoría.
 function filtrarNotas(value) {
+  let filtradas;
   if (value === 'all') {
-    return notas.value;
+    filtradas = notas.value;
+  } else {
+    filtradas = notas.value.filter(nota => nota.categoria === value);
   }
-  return notas.value.filter(nota => nota.categoria === value);
+
+  //  ->  Ordena las notas según la prioridad
+  return filtradas.sort((a, b) => prioridadOrden[a.prioridad] - prioridadOrden[b.prioridad]);
 }
 
 //  ->  Obtener el ícono de una categoría.
@@ -113,13 +114,34 @@ function getCategoriaIcono(categoriaValue) {
   return categoria ? categoria.icono : '';
 }
 
-//  ->  Propiedades de Mostar Botón.
+//  ->  Propiedades de "mostrarBotón".
 const propiedadesBoton = defineProps({
   mostrarBoton: {
     type: Boolean,
     default: true,
   },
 });
+
+//  ->  Se definen el orden según la prioridad.
+const prioridadOrden = {
+  alta: 1,
+  media: 2,
+  baja: 3
+};
+
+//  ->  Se le asigna una clase de css según la prioridad.
+const getColorClass = (prioridad) => {
+    switch(prioridad) {
+        case 'alta':
+            return 'prioridad-alta';
+        case 'media':
+            return 'prioridad-media';
+        case 'baja':
+            return 'prioridad-baja';
+        default:
+            return '';
+    }
+};
 
 </script>
 
@@ -161,7 +183,6 @@ const propiedadesBoton = defineProps({
   display: flex;
   align-items: center;
   padding: 16px;
-  border: 1px solid white;
   border-radius: 8px;
 }
 
@@ -176,6 +197,7 @@ const propiedadesBoton = defineProps({
   z-index: 100;
 }
 
+/* Botones de completar y eliminar notas */
 #completar {
   width: calc(var(--v-btn-height) + 2px) !important;
   height: calc(var(--v-btn-height) + 2px) !important;
@@ -184,6 +206,17 @@ const propiedadesBoton = defineProps({
 #eliminar {
   width: calc(var(--v-btn-height) + 2px) !important;
   height: calc(var(--v-btn-height) + 2px) !important;
+}
+
+/* Colores asignados a los bordes según la prioridad */
+.prioridad-alta {
+  border: 1px solid #ff0000; /* Rojo para alta */
+}
+.prioridad-media {
+  border: 1px solid #ffff00; /* Amarillo para media */
+}
+.prioridad-baja {
+  border: 1px solid #00ff00; /* Verde para baja */
 }
 
 </style>
