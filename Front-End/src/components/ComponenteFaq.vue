@@ -70,9 +70,9 @@
                   :class="{ 'faq-active': itemSelecto === index }"
                 >
                   <v-list-item-content>
-                    <v-list-item-title>{{ item.question }}</v-list-item-title>
+                    <v-list-item-title>{{ item.pregunta }}</v-list-item-title>
                     <v-list-item-subtitle v-if="itemSelecto === index">
-                      {{ item.answer }}
+                      {{ item.respuesta }}
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -98,9 +98,9 @@
                   :class="{ 'faq-active': itemSelecto === index }"
                 >
                   <v-list-item-content>
-                    <v-list-item-title>{{ item.question }}</v-list-item-title>
+                    <v-list-item-title>{{ item.pregunta }}</v-list-item-title>
                     <v-list-item-subtitle v-if="itemSelecto === index">
-                      {{ item.answer }}
+                      {{ item.respuesta }}
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -145,18 +145,18 @@ const principales = ref([
 // Preguntas y respuestas de la seccion Cuenta
 const faqsCuenta = ref([
   {
-    question: "¿Qué datos personales pueden ver el resto de usuarios?",
-    answer:
+    pregunta: "¿Qué datos personales pueden ver el resto de usuarios?",
+    respuesta:
       "La información que otros usuarios pueden ver con respecto a tu cuenta es solamente: tu avatar, tu usuario y tu biografía.",
   },
   {
-    question: "¿Puedo cambiar mi dirección de correo electrónico?",
-    answer:
+    pregunta: "¿Puedo cambiar mi dirección de correo electrónico?",
+    respuesta:
       "De momento no puedes cambiar tu dirección de correo vinculada a tu cuenta.",
   },
   {
-    question: "¿Se puede hablar con un usuario por mensaje privado?",
-    answer:
+    pregunta: "¿Se puede hablar con un usuario por mensaje privado?",
+    respuesta:
       "El chat es únicamente privado para el grupo del cual eres parte, y solamente puedes comunicarte con los miembros que lo confirman.",
   },
 ]);
@@ -164,15 +164,15 @@ const faqsCuenta = ref([
 // Preguntas y respuestas de la seccion Seguridad
 const faqsSeguridad = ref([
   {
-    question:
+    pregunta:
       "¿Cómo protegen la información con la cuál se trabaja en los grupos?",
-    answer:
+    respuesta:
       "La información de los grupos es almacenada en una base de datos la cual cuenta con sistemas de encriptación de datos, por ende, si alguien se apropiase ilegamente de ella aún así no podría acceder a esos datos.",
   },
   {
-    question:
+    pregunta:
       "¿Que garantías me brindan con respecto a la información de mi cuenta?",
-    answer:
+    respuesta:
       "La información de tu cuenta se hashea y se almacena en la base de datos de la aplicación, esta unicamente e muestra a tí y solo se utiliza para comunicarte información relevante acerca de la aplicación.",
   },
 ]);

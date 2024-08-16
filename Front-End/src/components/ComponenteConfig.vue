@@ -46,7 +46,6 @@
   </v-card>
 </template>
 
-
 <script setup>
 import { ref } from "vue";
 import FormularioDatos from "./FormularioDatos.vue";
@@ -65,6 +64,7 @@ const principales = ref([
 </script>
 
 <style scoped>
+/**----div.component*/
 .component {
   display: flex;
   flex-direction: column;

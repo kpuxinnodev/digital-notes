@@ -95,6 +95,7 @@ const abrirDialogoAbandonarGrupo = () => {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap");
 * {
   font-family: "Poppins", sans-serif;
 }
@@ -106,14 +107,6 @@ const abrirDialogoAbandonarGrupo = () => {
 
   display: flex;
   flex-direction: row;
-}
-
-/**----div.nav-bar----*/
-.nav-bar {
-  height: 100%;
-  width: 60px;
-
-  background-color: goldenrod;
 }
 
 /**----div.content----*/
@@ -157,9 +150,12 @@ const abrirDialogoAbandonarGrupo = () => {
 }
 
 .miembros {
-  height: 100%;
+  height: 90%;
   width: 48%;
-  background-color: red;
+  align-self: center;
+  background-color: gray;
+  border: 1px solid white;
+  border-radius: 64px;
 }
 
 .opciones {
@@ -181,7 +177,7 @@ const abrirDialogoAbandonarGrupo = () => {
   margin: 0;
 }
 
-/**----div.notes-show----*/
+/**----div.notasychat----*/
 .content > .notasychat {
   height: 82%;
   width: 100%;
@@ -207,6 +203,7 @@ const abrirDialogoAbandonarGrupo = () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: red;
+  background-color: gray;
+  border: 1px solid white;
 }
 </style>

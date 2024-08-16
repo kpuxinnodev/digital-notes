@@ -32,13 +32,11 @@ const imagenes = ref([
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap");
-
-/**----div.main----*/
-
 * {
   font-family: "Poppins", sans-serif;
 }
 
+/**----div.main----*/
 .main {
   height: 100vh;
   width: 100%;
@@ -50,8 +48,8 @@ const imagenes = ref([
 .carousel {
   height: 100%;
   width: 70%;
-  background-color: black; /* Fondo negro para el carrusel */
-  overflow: hidden; /* Evita que se muestren barras de scroll dentro del carrusel */
+  background-color: black;
+  overflow: hidden;
 }
 
 .v-carousel {
@@ -60,8 +58,6 @@ const imagenes = ref([
 
 .v-carousel-item {
   height: 100%;
-  object-fit: cover; /* Asegúrate de que la imagen cubra el contenedor */
+  object-fit: cover;
 }
-
-/**----div.formulario----*/
 </style>

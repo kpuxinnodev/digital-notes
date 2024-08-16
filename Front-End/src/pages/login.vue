@@ -35,13 +35,11 @@ const imagenes = ref([
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap");
-
-/**----div.main----*/
-
 * {
   font-family: "Poppins", sans-serif;
 }
 
+/**----div.main----*/
 .main {
   height: 100%;
   width: 100%;
@@ -65,8 +63,4 @@ const imagenes = ref([
 .v-carousel-item {
   height: 100vh;
 }
-
-/**----div.formulario----*/
-
-/**----div.acceder----*/
 </style>

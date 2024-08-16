@@ -73,6 +73,7 @@ function verBotones() {
 }
 </script>
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap");
 * {
   font-family: "Poppins", sans-serif;
 }
@@ -84,14 +85,6 @@ function verBotones() {
 
   display: flex;
   flex-direction: row;
-}
-
-/**----div.nav-bar----*/
-.nav-bar {
-  height: 100%;
-  width: 60px;
-
-  background-color: goldenrod;
 }
 
 /**----div.content----*/
@@ -155,6 +148,7 @@ function verBotones() {
   align-items: center;
 }
 
+/** v-deep permite acceder a una clase interna de una clase de un componente */
 ::v-deep .v-card-item__prepend {
   grid-area: prepend;
   padding-inline-end: 0 !important;

@@ -2,10 +2,10 @@
   <div class="text-center pa-4">
     <v-dialog v-model="dialog" width="auto">
       <v-card
-        max-width="400"
+        max-width="600"
         prepend-icon="mdi-exit-run"
         text="¿Estas seguro que deseas salir de la aplicación?"
-        title="CERRAR SESIÓN"
+        title="SALIR"
       >
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -13,7 +13,7 @@
           variant="plain" 
           @click="cerrarDialogo"></v-btn>
           <v-btn
-            color="primary"
+            color="#2196f3"
             text="Salir"
             variant="tonal"
             @click="salirAplicacion"

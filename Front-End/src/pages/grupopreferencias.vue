@@ -1,46 +1,55 @@
 <template>
-    <div class="main">
-      <!-- Main -->
+  <div class="main">
+    <!-- Main -->
 
-      <!-- Componente: Navegacion.vue (Barra de Navegación) -->
-      <Navegacion />
-      <div class="content">
-        <!-- Contenido -->
+    <!-- Componente: Navegacion.vue (Barra de Navegación) -->
+    <Navegacion />
+    <div class="content">
+      <!-- Contenido -->
 
-         <!-- Componente: ComponenteGrupoPreferencias.vue (Menú de GrupoPreferencias) -->
-        <ComponenteGrupoPreferencias />
-      </div>
+      <!-- Componente: ComponenteGrupoPreferencias.vue (Menú de GrupoPreferencias) -->
+      <ComponenteGrupoPreferencias />
     </div>
-  </template>
-  
-  <script setup>
-  import ComponenteGrupoPreferencias from "@/components/ComponenteGrupoPreferencias.vue";
+  </div>
+</template>
+
+<script setup>
+import ComponenteGrupoPreferencias from "@/components/ComponenteGrupoPreferencias.vue";
 import Navegacion from "@/components/Navegacion.vue";
-  </script>
-  
-  <style scoped>
-  .main {
-    height: 100%;
-    width: 100%;
-  
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .content {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-    max-height: 100vh;
-  
-    background-color: #959595;
-    background-image:  linear-gradient(135deg, #080067 25%, transparent 25%), linear-gradient(225deg, #080067 25%, transparent 25%), linear-gradient(45deg, #080067 25%, transparent 25%), linear-gradient(315deg, #080067 25%, #959595 25%);
-    background-position:  21px 0, 21px 0, 0 0, 0 0;
-    background-size: 42px 42px;
-    background-repeat: repeat;
-  }
-  </style>
-  
+</script>
+
+<style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap");
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+/**----div.main----*/
+.main {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+}
+
+/**----div.content----*/
+.content {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  max-height: 100vh;
+
+  background-color: #959595;
+  background-image: linear-gradient(135deg, #080067 25%, transparent 25%),
+    linear-gradient(225deg, #080067 25%, transparent 25%),
+    linear-gradient(45deg, #080067 25%, transparent 25%),
+    linear-gradient(315deg, #080067 25%, #959595 25%);
+  background-position: 21px 0, 21px 0, 0 0, 0 0;
+  background-size: 42px 42px;
+  background-repeat: repeat;
+}
+</style>

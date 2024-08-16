@@ -19,6 +19,12 @@ import ComponenteGuia from "@/components/ComponenteGuia.vue";
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap");
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+/**----div.main----*/
 .main {
   height: 100%;
   width: 100%;
@@ -27,6 +33,7 @@ import ComponenteGuia from "@/components/ComponenteGuia.vue";
   flex-direction: row;
 }
 
+/**----div.content----*/
 .content {
   height: 100%;
   width: 100%;
@@ -37,8 +44,11 @@ import ComponenteGuia from "@/components/ComponenteGuia.vue";
   max-height: 100vh;
 
   background-color: #959595;
-  background-image:  linear-gradient(135deg, #080067 25%, transparent 25%), linear-gradient(225deg, #080067 25%, transparent 25%), linear-gradient(45deg, #080067 25%, transparent 25%), linear-gradient(315deg, #080067 25%, #959595 25%);
-  background-position:  21px 0, 21px 0, 0 0, 0 0;
+  background-image: linear-gradient(135deg, #080067 25%, transparent 25%),
+    linear-gradient(225deg, #080067 25%, transparent 25%),
+    linear-gradient(45deg, #080067 25%, transparent 25%),
+    linear-gradient(315deg, #080067 25%, #959595 25%);
+  background-position: 21px 0, 21px 0, 0 0, 0 0;
   background-size: 42px 42px;
   background-repeat: repeat;
 }
