@@ -27,23 +27,24 @@
   <script setup>
   import { ref, defineExpose } from "vue";
   
+  //  ->  'dialog' por referencia default = false
   const dialog = ref(false);
   
+  //  ->  Funciones para abrir y cerrar el dialogo
   const abrirDialogoAbandonarGrupo = () => {
     dialog.value = true;
   };
-  
   const cerrarDialogo = () => {
     dialog.value = false;
   };
   
-  //  ->  Añadir backend para guardar la nota.
+  //  ->  Añadir backend para abandonar el grupo.
   const abandonarGrupo = () => {
     console.log('Has abandonado el grupo.');
     cerrarDialogo();
   };
   
-  // Exponer el método para que se pueda abrir desde fuera del componente.
+  //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
   defineExpose({ abrirDialogoAbandonarGrupo });
   </script>
   

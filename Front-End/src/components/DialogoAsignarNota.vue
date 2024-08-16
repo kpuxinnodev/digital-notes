@@ -39,31 +39,34 @@
   <script setup>
   import { ref, defineExpose } from 'vue';
   
+  //  ->  Importar miembros del Back-End
   const miembro = [
       'Miembro1', 'Miembro2', 'Miembro3', 'Miembro4'
   ]
   
+  //  ->  Prioridades de las notas
   const prioridad = [
       'Alta', 'Media', 'Baja'
   ]
   
+  //  ->  'dialog' por referencia default = false
   const dialog = ref(false);
   
+  //  ->  Funciones para abrir y cerrar el dialogo
   const abrirDialogoAsignarNota = () => {
     dialog.value = true;
   };
-  
   const cerrarDialogo = () => {
     dialog.value = false;
   };
   
-  //  ->  Añadir backend para guardar la nota.
+  //  ->  Añadir backend para asignar la nota.
   const asignarNota = () => {
     console.log('Nota asignada');
     cerrarDialogo();
   };
   
-  // Exponer el método para que se pueda abrir desde fuera del componente.
+  //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
   defineExpose({ abrirDialogoAsignarNota });
   </script>
   

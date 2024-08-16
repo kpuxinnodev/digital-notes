@@ -237,12 +237,12 @@ const prioridadOrden = {
 
 /* Clases para las prioridades de las notas */
 .prioridad-alta {
-  border: 1px solid #ff0000; /* Rojo para alta */
+  border: 1px solid #ff0000;
 }
 .prioridad-media {
-  border: 1px solid #ffff00; /* Amarillo para media */
+  border: 1px solid #ffff00;
 }
 .prioridad-baja {
-  border: 1px solid #00ff00; /* Verde para baja */
+  border: 1px solid #00ff00;
 }
 </style>

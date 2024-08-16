@@ -48,16 +48,17 @@
 <script setup>
 import { ref } from "vue";
 
-// Definir el estado del perfil del usuario
+//  ->  Definir el estado del perfil del usuario
 const profile = ref({
   password: "",
   confirmPassword: "",
   confirmationChecked: false,
 });
 
+//  ->  'valid' por default = false
 const valid = ref(false);
-// Reglas
 
+//  ->  Reglas de contraseña, confirmar contraseña y aceptar acción.
 const passwordRules = [
   (v) => !!v || "La contraseña es requerida",
   (v) =>
@@ -73,10 +74,10 @@ const confirmationRules = [
   (v) => v || "Debes confirmar que estás seguro de los cambios",
 ];
 
-// Función para enviar el formulario
+//  ->  Función para enviar el formulario
 const submitForm = () => {
   if (valid.value) {
-    // Solicitudes a la API
+    //  ->  Solicitudes a la API
     console.log("Perfil actualizado:", profile.value);
   } else {
     console.log("Formulario inválido");

@@ -26,7 +26,10 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue'
+  import { ref } from 'vue';
+
+  //  ->  'open' por referencia default = null
+  const open = ref(null);
 
   //  ->  Importar las tareas completadas desde el Back-End.
   const tareas_completadas = ref([
@@ -35,20 +38,19 @@
     {icono:'mdi-briefcase', texto:'tres'},
     {icono:'mdi-briefcase', texto:'cuatro'},
     {icono:'mdi-briefcase', texto:'cinco'}
-  ])
+  ]);
 
-  const open = ref(null);
   </script>
   
   <style scoped>
 
   .fixed-card {
     width: 40%;
-    position: fixed;/*Mantiene el componente en una posición fija en la ventana del navegador */
-    top: 4%; /* Ajusta la distancia desde la parte superior de la ventana */
-    z-index: 1000; /* Asegura que el componente esté por encima de otros elementos */
-    background: white; /* Asegura que el fondo del componente sea visible */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Añade una sombra para destacar el componente */
+    position: fixed;
+    top: 4%;
+    z-index: 1000;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 
   .cartas {

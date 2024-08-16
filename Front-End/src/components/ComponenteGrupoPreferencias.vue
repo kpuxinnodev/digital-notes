@@ -28,12 +28,13 @@
         <v-tabs-window v-model="mainTab" class="custom-tabs-window w-100 mt-2">
           <!-- Ventana 1 (Preferencias del Equipo) -->
           <v-tabs-window-item value="main-1">
+            <!-- ? Componente: FormularioPreferenciasEquipo.vue () -->
             <FormularioPreferenciasEquipo />
           </v-tabs-window-item>
   
           <!-- Ventana 2 (Administrar Miembros) -->
           <v-tabs-window-item value="main-2" class="window">
-            <!-- Contenido de la ventana 2 -->
+            <!-- ? Componente: ComponenteGrupoMiembros.vue () -->
             <ComponenteGrupoMiembros />
           </v-tabs-window-item>
   
@@ -48,10 +49,10 @@
 import FormularioPreferenciasEquipo from "./FormularioPreferenciasEquipo.vue";
 import ComponenteGrupoMiembros from "./ComponenteGrupoMiembros.vue";
   
-  // Definir estado reactivo usando `ref`
+  //  ->  Definir estado reactivo usando `ref`
   const mainTab = ref("main-1");
   
-  // Opciones para las pestañas principales
+  //  ->  Opciones para las pestañas principales
   const principales = ref([
     { value: "main-1", text: "Configuración", icon: "mdi-cog" },
     { value: "main-2", text: "Miembros", icon: "mdi-account-multiple" },

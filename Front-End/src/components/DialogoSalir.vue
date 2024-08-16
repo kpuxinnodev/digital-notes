@@ -27,23 +27,24 @@
 <script setup>
 import { ref, defineExpose } from "vue";
 
+//  ->  'dialog' por referencia default = false
 const dialog = ref(false);
 
+//  ->  Función para abrir y cerrar dialogo
 const abrirDialogoSalirAplicacion = () => {
   dialog.value = true;
 };
-
 const cerrarDialogo = () => {
   dialog.value = false;
 };
 
-//  ->  Añadir backend para guardar la nota.
+//  ->  Añadir Back-End para guardar la nota.
 const salirAplicacion = () => {
   console.log('Sesión cerrada.');
   cerrarDialogo();
 };
 
-// Exponer el método para que se pueda abrir desde fuera del componente.
+//  ->  Exponer el método para que se pueda abrir desde fuera del componente.
 defineExpose({ abrirDialogoSalirAplicacion });
 </script>
 

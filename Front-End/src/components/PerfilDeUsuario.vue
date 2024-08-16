@@ -54,9 +54,10 @@
 <script setup>
 import { ref } from "vue";
 
+//  ->  'valid' por referencia default = false
 const valid = ref(false);
 
-// Datos de Usuario cargados del Back-End
+//  ->  Datos de Usuario cargados del Back-End
 const datos = ref([
   {
     name: "nombre",
@@ -72,13 +73,13 @@ const avatarDB = ref([{ img: "/img/nav/user.png", descripcion: "avatar.png" }]);
 //  ->  Guardar avatar subido por el usuario.
 const avatar = ref([{ imagen: "" }]);
 
-// Reglas de validación para el avatar
+//  ->  Reglas de validación para el avatar
 const subirAvatar = [(v) => !!v || "La imagen es requerida"];
 
 //  ->  Enviar Formulario
 const submitForm = () => {
   if (valid.value) {
-    // Solicitudes a la API
+    //  ->  Solicitudes a la API
     console.log("Avatar actualizado: ", avatar.value);
   } else {
     console.log("Formulario inválido");

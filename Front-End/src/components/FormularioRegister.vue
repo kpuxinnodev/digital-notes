@@ -32,7 +32,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const campos = ref([
-  //Almacena los campos que se muestran en el formulario.
+  //  ->  Almacena los campos que se muestran en el formulario.
   { model: "Nombre", rules: "", label: "Nombre" },
   { model: "Usuario", rules: "", label: "Usuario" },
   { model: "E-mail", rules: "", label: "E-mail" },
@@ -44,10 +44,10 @@ const acceder = () => {
   router.push("/login");
 };
 
-// Función para enviar el formulario
+//  ->  Función para enviar el formulario
 const submitForm = () => {
   if (valid.value) {
-    // Solicitudes a la API
+    //  ->  Solicitudes a la API
     console.log("Perfil actualizado:", profile.value);
   } else {
     console.log("Formulario inválido");

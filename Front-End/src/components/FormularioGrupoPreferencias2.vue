@@ -33,15 +33,16 @@
   <script setup>
   import { ref } from "vue";
   
-  // Definir el estado del perfil del usuario
+  //  ->  Perfil del grupo cargado desde el Back-End.
   const groupProfile = ref({
     name: "",
     description: "",
   });
   
+  //  ->  'valid' por default = false
   const valid = ref(false);
   
-  // Reglas
+  //  ->  Reglas de nombre y descripción del grupo
   const nameRules = [
     (v) => !!v || "El nombre es requerido",
     (v) => (v && v.length <= 30) || "El nombre debe ser menor de 30 caracteres",
@@ -52,10 +53,10 @@
       (v && v.length <= 120) || "La biografía debe ser menor de 120 caracteres",
   ];
   
-  // Función para enviar el formulario
+  //  ->  Función para enviar el formulario
   const submitForm = () => {
     if (valid.value) {
-      // Solicitudes a la API
+      //  ->  Solicitudes a la API
       console.log("Perfil de Grupo actualizado:", groupProfile.value);
     } else {
       console.log("Formulario inválido");
@@ -67,7 +68,6 @@
   .container {
     width: 100%;
   }
-
 
   </style>
   

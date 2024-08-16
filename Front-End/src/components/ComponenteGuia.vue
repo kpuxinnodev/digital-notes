@@ -181,10 +181,10 @@
 <script setup>
 import { ref } from "vue";
 
-// Definir estado reactivo usando `ref`
+//  ->  Definir estado reactivo usando `ref`
 const mainTab = ref("main-1");
 
-// Opciones para las pestañas principales
+//  ->  Opciones para las pestañas principales
 const principales = ref([
   { value: "main-1", text: "Bienvenido", icon: "mdi-creation" },
   { value: "main-2", text: "Navegación", icon: "mdi-navigation" },
@@ -195,6 +195,7 @@ const principales = ref([
   { value: "main-7", text: "Configuración", icon: "mdi-cog" },
 ]);
 
+//  ->  Opciones de la lista de Navegación (Ventana: 2)
 const listaNavegacion = ref([
   { text: "Mi Espacio" },
   { text: "Grupo" },
@@ -210,7 +211,7 @@ const listaNavegacion = ref([
 .component {
   display: flex;
   flex-direction: column;
-  height: 90%; /* Usa vh para un ajuste de altura relativa a la ventana */
+  height: 90%;
   width: 90%;
 }
 
@@ -219,20 +220,18 @@ const listaNavegacion = ref([
 }
 
 .custom-tabs {
-  overflow: hidden !important; /* Oculta las barras de desplazamiento en las pestañas */
+  overflow: hidden !important;
   border-right: 1px solid #2b2b2b;
 }
 
 .custom-tabs-window {
-  overflow: hidden !important; /* Oculta las barras de desplazamiento en la ventana de pestañas */
+  overflow: hidden !important;
   height: 100vh;
 }
 
 .scrollable-window {
-  max-height: calc(
-    90vh - 64px
-  ); /* Ajusta según la altura de tu barra de herramientas y otros elementos */
-  overflow-y: auto; /* Permite el desplazamiento vertical */
+  max-height: calc(90vh - 64px);
+  overflow-y: auto;
 }
 
 .titulo-lista {
@@ -242,7 +241,7 @@ const listaNavegacion = ref([
 
 .v-list-item {
   position: relative;
-  padding-left: 2.5em; /* Ajusta el padding para dejar espacio para el punto */
+  padding-left: 2.5em;
   margin-left: 2.5em;
 }
 
@@ -252,10 +251,10 @@ const listaNavegacion = ref([
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 6px; /* Tamaño del punto */
-  height: 6px; /* Tamaño del punto */
-  background-color: white; /* Color del punto */
-  border-radius: 50%; /* Hace que el punto sea redondo */
+  width: 6px;
+  height: 6px;
+  background-color: white;
+  border-radius: 50%;
 }
 
 .espaciado-lista {

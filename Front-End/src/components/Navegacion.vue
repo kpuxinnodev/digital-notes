@@ -42,62 +42,65 @@
                   </v-list-item-icon>
                 </v-list-item>
               </router-link>
-              <v-list-item v-for="(salir, index) in rutasalir" :key="index" @click="abrirDialogoSalirAplicacion">
-                  <v-list-item-icon>
-                    <v-icon>{{ salir.icon }}</v-icon>
-                  </v-list-item-icon>
-                </v-list-item>
+              <v-list-item
+                v-for="(salir, index) in rutasalir"
+                :key="index"
+                @click="abrirDialogoSalirAplicacion"
+              >
+                <v-list-item-icon>
+                  <v-icon>{{ salir.icon }}</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
             </v-list>
           </div>
         </v-navigation-drawer>
-        <DialogoSalir ref="salirAplicacion" style="position: absolute;"/>
+        <!-- Componente: DialogoSalir.vue (position: absolute;) -->
+        <DialogoSalir ref="salirAplicacion" style="position: absolute" />
 
         <v-main style="height: 100vh"></v-main>
       </v-layout>
     </v-card>
   </div>
-  
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
-import DialogoSalir from './DialogoSalir.vue';
+import { ref } from "vue";
+import { useRoute } from "vue-router";
+import DialogoSalir from "./DialogoSalir.vue";
 
 //  ->  Rutas de Navegación
-const route = useRoute()
-const rutas_uno = ref([ // Menús principales
-  { path: '/', icon: 'mdi-account' },
-  { path: '/grupo', icon: 'mdi-account-multiple' },
-])
-const rutas_dos = ref([ // Menús secundarios
-  { path: '/notificaciones', icon: 'mdi-bell' },
-  { path: '/faq', icon: 'mdi-frequently-asked-questions' },
-  { path: '/guia', icon: 'mdi-book' },
-  { path: '/configuracion', icon: 'mdi-cog' }
-  
-])
-const rutasalir = ref([
-{ path: '/salir', icon: 'mdi-exit-run' }
-])
+const route = useRoute();
+const rutas_uno = ref([
+  //  ->  Menús principales
+  { path: "/", icon: "mdi-account" },
+  { path: "/grupo", icon: "mdi-account-multiple" },
+]);
+const rutas_dos = ref([
+  //  ->  Menús secundarios
+  { path: "/notificaciones", icon: "mdi-bell" },
+  { path: "/faq", icon: "mdi-frequently-asked-questions" },
+  { path: "/guia", icon: "mdi-book" },
+  { path: "/configuracion", icon: "mdi-cog" },
+]);
+const rutasalir = ref([{ path: "/salir", icon: "mdi-exit-run" }]);
 
 //  ->  Detecta la ruta en la cual se encuentra el usuario.
 const activo = (path) => {
-  return route.path === path
-}
+  return route.path === path;
+};
 //  ->  Activa el ícono de la ruta en la cual se encuentra el usuario.
 const claseIcono = (path) => {
-  return activo(path) ? 'active-icon' : 'inactive-icon'
-}
+  return activo(path) ? "active-icon" : "inactive-icon";
+};
 
 const salirAplicacion = ref(null);
 
-//  Método para abrir el diálogo de Crear Nota usando la referencia
+//  ->  Método para abrir el diálogo de Salir de la Aplicación usando la referencia
 const abrirDialogoSalirAplicacion = () => {
   if (salirAplicacion.value) {
     salirAplicacion.value.abrirDialogoSalirAplicacion();
   }
-}
+};
 </script>
 
 <style>
@@ -127,10 +130,10 @@ img {
 }
 
 .active-icon {
-  color: #2196f3; /* Cambia esto al color azul que desees para el ícono activo */
+  color: #2196f3;
 }
 
 .inactive-icon {
-  color: white; /* Cambia esto al color blanco que desees para los íconos inactivos */
+  color: white;
 }
 </style>

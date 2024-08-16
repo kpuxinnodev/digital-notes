@@ -49,16 +49,17 @@
 <script setup>
 import { ref } from "vue";
 
-// Definir el estado del perfil del usuario
+//  ->  Perfil del usuario importadod esde el Back-End
 const profile = ref({
   name: "",
   username: "",
   biography: "",
 });
 
+//  ->  'valid' por default = false
 const valid = ref(false);
 
-// Reglas
+//  ->  Reglas del nombre, username y biografía del usuario
 const nameRules = [
   (v) => !!v || "El nombre es requerido",
   (v) => (v && v.length <= 30) || "El nombre debe ser menor de 30 caracteres",
@@ -76,10 +77,10 @@ const biographyRules = [
     (v && v.length <= 120) || "La biografía debe ser menor de 120 caracteres",
 ];
 
-// Función para enviar el formulario
+//  ->  Función para enviar el formulario
 const submitForm = () => {
   if (valid.value) {
-    // Solicitudes a la API
+    //  ->  Solicitudes a la API
     console.log("Perfil actualizado:", profile.value);
   } else {
     console.log("Formulario inválido");
