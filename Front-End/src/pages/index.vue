@@ -15,24 +15,19 @@
             <v-btn
               prepend-icon="mdi-plus"
               color="green"
-              @click="abrirDialogoCrearNota">
+              @click="abrirDialogoCrearNota"
+            >
               Crear nota
             </v-btn>
-            <v-btn
-              prepend-icon="mdi-plus-box"
-              color="amber">
+            <v-btn prepend-icon="mdi-plus-box" color="amber">
               Crear grupo
             </v-btn>
           </div>
           <div class="botones-g2">
-            <v-btn
-              prepend-icon="mdi-pencil"
-              color="blue"
-              @click="verBotones">
+            <v-btn prepend-icon="mdi-pencil" color="blue" @click="verBotones">
               Administrar
             </v-btn>
           </div>
-            
         </div>
 
         <div class="completadas">
@@ -53,11 +48,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import Navegacion from '@/components/Navegacion.vue';
-import TareasCompletadas from '@/components/TareasCompletadas.vue';
-import MostrarNotas from '@/components/MostrarNotas.vue';
-import DialogoCrearNota from '@/components/DialogoCrearNota.vue'; 
+import { ref } from "vue";
+import Navegacion from "@/components/Navegacion.vue";
+import TareasCompletadas from "@/components/TareasCompletadas.vue";
+import MostrarNotas from "@/components/MostrarNotas.vue";
+import DialogoCrearNota from "@/components/DialogoCrearNota.vue";
 
 //  ->  Dialogo de Crear Nota.
 const crearNota = ref(null);
@@ -67,7 +62,7 @@ const abrirDialogoCrearNota = () => {
   if (crearNota.value) {
     crearNota.value.abrirDialogoCrearNota();
   }
-}
+};
 
 //  ->  Administrar
 const administrar = ref(false);
@@ -78,8 +73,7 @@ function verBotones() {
 }
 </script>
 <style scoped>
-
-*{
+* {
   font-family: "Poppins", sans-serif;
 }
 
@@ -87,7 +81,7 @@ function verBotones() {
 .main {
   height: 100%;
   width: 100%;
-  
+
   display: flex;
   flex-direction: row;
 }
@@ -107,18 +101,16 @@ function verBotones() {
 
   max-height: 100vh;
 
-  --s: 150px; /* control the size*/
+  --s: 150px;
   --c1: #633d2e;
   --c2: #f7af63;
-  
-  --l:var(--c1) 20%,#0000 0;
-  --g:35%,var(--c2) 0 45%,var(--c1) 0;
-  background:
-    linear-gradient(45deg,var(--l) 45%,var(--c1) 0 70%,#0000 0),
-    linear-gradient(-45deg,var(--l) var(--g) 70%,#0000 0),
-    linear-gradient(45deg,var(--c1) var(--g));
-  background-size: var(--s) var(--s);
 
+  --l: var(--c1) 20%, #0000 0;
+  --g: 35%, var(--c2) 0 45%, var(--c1) 0;
+  background: linear-gradient(45deg, var(--l) 45%, var(--c1) 0 70%, #0000 0),
+    linear-gradient(-45deg, var(--l) var(--g) 70%, #0000 0),
+    linear-gradient(45deg, var(--c1) var(--g));
+  background-size: var(--s) var(--s);
 }
 
 /**----div.notes-options----*/
@@ -129,7 +121,6 @@ function verBotones() {
 
   height: 18%;
   width: 100%;
-
 }
 
 .botones {
@@ -166,7 +157,7 @@ function verBotones() {
 
 ::v-deep .v-card-item__prepend {
   grid-area: prepend;
-  padding-inline-end:0 !important;
+  padding-inline-end: 0 !important;
 }
 
 .v-card-text {
@@ -181,8 +172,5 @@ function verBotones() {
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
-
-
 </style>

@@ -1,7 +1,12 @@
 <template>
     <div class="main">
+      <!-- Main -->
+       <!-- Componente: Navegacion.vue (Barra de Navegación) -->
       <Navegacion />
       <div class="content">
+        <!-- Contenido -->
+
+        <!-- Componente: ComponenteConfig.vue (Menú de Configuración de la Cuenta) -->
         <ComponenteConfig />
       </div>
     </div>

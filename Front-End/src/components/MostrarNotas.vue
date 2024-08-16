@@ -25,7 +25,7 @@
           :key="index"
           :value="ventana.value"
         >
-         <!-- Notas en Grid -->
+          <!-- Notas en Grid -->
           <div class="grid-notas">
             <v-card
               class="nota"
@@ -33,14 +33,22 @@
               :key="index"
               :class="getColorClass(nota.prioridad)"
             >
-            <!-- Notas -->
+              <!-- Notas -->
               <v-icon :icon="getCategoriaIcono(nota.categoria)"></v-icon>
               <v-card-text>{{ nota.texto }}</v-card-text>
               <div class="botones d-flex flex-row align-end justify-end">
-                <v-btn flat id="eliminar" v-if="mostrarBoton"
-                icon="mdi-delete"></v-btn>
-                <v-btn flat id="completar" v-if="mostrarBoton"
-                icon="mdi-check-bold"></v-btn>
+                <v-btn
+                  flat
+                  id="eliminar"
+                  v-if="mostrarBoton"
+                  icon="mdi-delete"
+                ></v-btn>
+                <v-btn
+                  flat
+                  id="completar"
+                  v-if="mostrarBoton"
+                  icon="mdi-check-bold"
+                ></v-btn>
               </div>
             </v-card>
           </div>
@@ -51,67 +59,83 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { defineProps } from 'vue';
+import { ref } from "vue";
+import { defineProps } from "vue";
 
 //  ->  Aplica a tab el valor predeterminado all (muestra todas las notas).
-const tab = ref('all');
+const tab = ref("all");
 
 //  ->  Categorías de las Notas.
 const categorias = ref([
-  { value: 'uno', icono: 'mdi-briefcase' },
-  { value: 'dos', icono: 'mdi-book-open-page-variant' },
-  { value: 'tres', icono: 'mdi-dumbbell' },
-  { value: 'cuatro', icono: 'mdi-food-apple' },
-  { value: 'cinco', icono: 'mdi-glass-cocktail' },
-  { value: 'seis', icono: 'mdi-airplane'},
-  { value: 'siete', icono: 'mdi-archive' }
+  { value: "uno", icono: "mdi-briefcase" },
+  { value: "dos", icono: "mdi-book-open-page-variant" },
+  { value: "tres", icono: "mdi-dumbbell" },
+  { value: "cuatro", icono: "mdi-food-apple" },
+  { value: "cinco", icono: "mdi-glass-cocktail" },
+  { value: "seis", icono: "mdi-airplane" },
+  { value: "siete", icono: "mdi-archive" },
 ]);
 
 //  ->  Ventanas correspondientes a cada categoría.
 const ventanas = ref([
-  { value: 'all', contenido: 'categorias-todas' },
-  { value: 'uno', contenido: 'categoria-1' },
-  { value: 'dos', contenido: 'categoria-2' },
-  { value: 'tres', contenido: 'categoria-3' },
-  { value: 'cuatro', contenido: 'categoria-4' },
-  { value: 'cinco', contenido: 'categoria-5'},
-  { value: 'seis', contenido: 'categoria-6'},
-  { value: 'siete', contenido: 'categoria-7' }
+  { value: "all", contenido: "categorias-todas" },
+  { value: "uno", contenido: "categoria-1" },
+  { value: "dos", contenido: "categoria-2" },
+  { value: "tres", contenido: "categoria-3" },
+  { value: "cuatro", contenido: "categoria-4" },
+  { value: "cinco", contenido: "categoria-5" },
+  { value: "seis", contenido: "categoria-6" },
+  { value: "siete", contenido: "categoria-7" },
 ]);
 
 //  ->  Importar notas desde el Back-End aquí.
 let notas = ref([
-  {categoria:'cinco', texto:'Quedada el Domingo 18/07', prioridad:'baja'},
-  {categoria:'uno', texto:'Presentar currículum en BPS', prioridad:'alta'},
-  {categoria:'dos', texto:'Escrito de Matemáticas 12/09', prioridad:'alta'},
-  {categoria:'cuatro', texto:'Bajar los carbohidratos', prioridad:'media'},
-  {categoria:'tres', texto:'Empezar rutina de hipertrofia', prioridad:'media'},
-  {categoria:'dos', texto:'Presentación de Formación 24/09', prioridad:'alta'},
-  {categoria:'cinco', texto:'Cumpleaños de Noelia 17/10', prioridad:'media'},
-  {categoria:'seis', texto:'Montevideo 28/10', prioridad:'media'},
-  {categoria:'siete', texto:'Otro', prioridad:'media'}
-
+  { categoria: "cinco", texto: "Quedada el Domingo 18/07", prioridad: "baja" },
+  { categoria: "uno", texto: "Presentar currículum en BPS", prioridad: "alta" },
+  {
+    categoria: "dos",
+    texto: "Escrito de Matemáticas 12/09",
+    prioridad: "alta",
+  },
+  { categoria: "cuatro", texto: "Bajar los carbohidratos", prioridad: "media" },
+  {
+    categoria: "tres",
+    texto: "Empezar rutina de hipertrofia",
+    prioridad: "media",
+  },
+  {
+    categoria: "dos",
+    texto: "Presentación de Formación 24/09",
+    prioridad: "alta",
+  },
+  {
+    categoria: "cinco",
+    texto: "Cumpleaños de Noelia 17/10",
+    prioridad: "media",
+  },
+  { categoria: "seis", texto: "Montevideo 28/10", prioridad: "media" },
+  { categoria: "siete", texto: "Otro", prioridad: "media" },
 ]);
-
 
 //  ->  Filtra las notas, teninendo en cuenta la categoría.
 function filtrarNotas(value) {
   let filtradas;
-  if (value === 'all') {
+  if (value === "all") {
     filtradas = notas.value;
   } else {
-    filtradas = notas.value.filter(nota => nota.categoria === value);
+    filtradas = notas.value.filter((nota) => nota.categoria === value);
   }
 
   //  ->  Ordena las notas según la prioridad
-  return filtradas.sort((a, b) => prioridadOrden[a.prioridad] - prioridadOrden[b.prioridad]);
+  return filtradas.sort(
+    (a, b) => prioridadOrden[a.prioridad] - prioridadOrden[b.prioridad]
+  );
 }
 
 //  ->  Obtener el ícono de una categoría.
 function getCategoriaIcono(categoriaValue) {
-  const categoria = categorias.value.find(c => c.value === categoriaValue);
-  return categoria ? categoria.icono : '';
+  const categoria = categorias.value.find((c) => c.value === categoriaValue);
+  return categoria ? categoria.icono : "";
 }
 
 //  ->  Propiedades de "mostrarBotón".
@@ -126,23 +150,22 @@ const propiedadesBoton = defineProps({
 const prioridadOrden = {
   alta: 1,
   media: 2,
-  baja: 3
+  baja: 3,
 };
 
 //  ->  Se le asigna una clase de css según la prioridad.
 const getColorClass = (prioridad) => {
-    switch(prioridad) {
-        case 'alta':
-            return 'prioridad-alta';
-        case 'media':
-            return 'prioridad-media';
-        case 'baja':
-            return 'prioridad-baja';
-        default:
-            return '';
-    }
+  switch (prioridad) {
+    case "alta":
+      return "prioridad-alta";
+    case "media":
+      return "prioridad-media";
+    case "baja":
+      return "prioridad-baja";
+    default:
+      return "";
+  }
 };
-
 </script>
 
 <style scoped>
@@ -175,8 +198,8 @@ const getColorClass = (prioridad) => {
 
 .grid-notas {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tres columnas iguales */
-  gap: 16px; /* Espacio entre las notas */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 
 .nota {
@@ -210,13 +233,12 @@ const getColorClass = (prioridad) => {
 
 /* Colores asignados a los bordes según la prioridad */
 .prioridad-alta {
-  border: 1px solid #ff0000; /* Rojo para alta */
+  border: 1px solid #ff0000;
 }
 .prioridad-media {
-  border: 1px solid #ffff00; /* Amarillo para media */
+  border: 1px solid #ffff00;
 }
 .prioridad-baja {
-  border: 1px solid #00ff00; /* Verde para baja */
+  border: 1px solid #00ff00;
 }
-
 </style>

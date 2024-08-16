@@ -6,9 +6,13 @@
     <Navegacion />
 
     <div class="content">
-      <DialogoAsignarNota ref="asignarNota" style="position: absolute" />
-      <DialogoAbandonarGrupo ref="abandonarGrupo" style="position: absolute" />
       <!--Contenido de la página-->
+
+      <!-- Componente: DialogoCrearNota.vue (Botón: Asignar Nota) -->
+      <DialogoAsignarNota ref="asignarNota" style="position: absolute" />
+      <!-- Componente: DialogoAbandonarGrupo.vue (Botón: Abandonar Grupo) -->
+      <DialogoAbandonarGrupo ref="abandonarGrupo" style="position: absolute" />
+
       <div class="notes-options">
         <!--Opciones de Notas-->
         <div class="botones">
@@ -20,7 +24,6 @@
           >
             Asignar tarea
           </v-btn>
-
           <v-btn prepend-icon="mdi-pencil" color="blue" @click="verBotones">
             Administrar
           </v-btn>
@@ -45,8 +48,6 @@
         <div class="chat"></div>
       </div>
     </div>
-
-    <!-- Componente: DialogoCrearNota.vue (Botón: Crear Nota) -->
   </div>
 </template>
 
@@ -60,38 +61,39 @@ import MostrarNotasGrupo from "@/components/MostrarNotasGrupo.vue";
 
 //  ->  Rutas de Navegación
 const router = useRouter();
-
+//  ->  Ruta para ir a las Preferencias del Grupo
 const preferencias = () => {
   router.push("/grupopreferencias");
 };
 
-//  ->  Dialogo de Crear Nota.
+//  ->  Dialogo de Asignar Nota
 const asignarNota = ref(null);
 
-//  Método para abrir el diálogo de Crear Nota usando la referencia
+//  ->  Método para abrir el diálogo de Asignar Nota
 const abrirDialogoAsignarNota = () => {
   if (asignarNota.value) {
     asignarNota.value.abrirDialogoAsignarNota();
   }
 };
 
-//  ->  Administrar
+//  -> Asigna a Administrar como valor predeterminado false.
 const administrar = ref(false);
 
-//  Administrar activa los botones de eliminar y completar en las notas.
+//  ->  Administrar activa los botones de eliminar y completar en las notas.
 function verBotones() {
   administrar.value = !administrar.value;
 }
 
 const abandonarGrupo = ref(null);
 
-//  Método para abrir el diálogo de Crear Nota usando la referencia
+//  ->  Método para abrir el diálogo de Abandonar Grupo
 const abrirDialogoAbandonarGrupo = () => {
   if (abandonarGrupo.value) {
     abandonarGrupo.value.abrirDialogoAbandonarGrupo();
   }
 };
 </script>
+
 <style scoped>
 * {
   font-family: "Poppins", sans-serif;
@@ -121,7 +123,7 @@ const abrirDialogoAbandonarGrupo = () => {
 
   max-height: 100vh;
 
-  --s: 150px; /* control the size*/
+  --s: 150px;
   --c1: #ccbf82;
   --c2: #604848;
 

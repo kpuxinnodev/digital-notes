@@ -1,6 +1,8 @@
 <template>
   <div class="main">
     <!--Main page-->
+
+    <!-- Componente: FormularioLogin.vue (Formulario de Iniciar Sesión)-->
     <FormularioLogin />
 
     <div class="carousel">
