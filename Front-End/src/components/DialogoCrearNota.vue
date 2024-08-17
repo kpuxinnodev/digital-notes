@@ -4,6 +4,7 @@
       <v-card-text>
         <v-textarea
           label="Contenido de la nota..."
+          :rules="contenidoRules"
           rows="5"
           required
         ></v-textarea>
@@ -11,10 +12,22 @@
         <!-- Sistema de cuadrículas -->
         <v-row>
           <v-col cols="6">
-            <v-select :items="categoria" label="Categoría" required></v-select>
+            <!-- Seleccionar categoría -->
+            <v-select
+              :items="categoria"
+              label="Categoría"
+              :rules="categoriaRules"
+              required
+            ></v-select>
           </v-col>
           <v-col cols="6">
-            <v-select :items="prioridad" label="Prioridad" required></v-select>
+            <!-- Seleccionar prioridad -->
+            <v-select
+              :items="prioridad"
+              label="Prioridad"
+              :rules="prioridadRules"
+              required
+            ></v-select>
           </v-col>
         </v-row>
       </v-card-text>
@@ -23,11 +36,17 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text="Cancelar" variant="plain" @click="cerrarDialogo"></v-btn>
+        <!-- Botón de Cerrar diálogo -->
+        <v-btn
+          text="Cancelar"
+          variant="plain"
+          @click="cerrarDialogo"
+        ></v-btn>
+        <!-- Botón de Guardar nota -->
         <v-btn
           color="primary"
           text="Guardar"
-          variant="tonal"
+          variant="flat" rounded="xl"
           @click="guardarNota"
         ></v-btn>
       </v-card-actions>
@@ -37,6 +56,7 @@
 
 <script setup>
 import { ref, defineExpose } from "vue";
+//  ->  'defineExpose' exporta funciones
 
 //  ->  Categorías, ¿importar del backend?
 const categoria = [
@@ -63,9 +83,24 @@ const cerrarDialogo = () => {
   dialog.value = false;
 };
 
+//  ->  Reglas
+const contenidoRules = [
+  (v) => !!v || "El contenido es requerido",
+  (v) =>
+    (v && v.length <= 120) || "El contenido debe contar con menos de 120 caracteres",
+];
+
+const categoriaRules = [
+  (v) => !!v || "La categoría es requerida"
+];
+
+const prioridadRules = [
+  (v) => !!v || "La prioridad es requerida"
+];
+
 //  ->  Añadir backend para guardar la nota.
 const guardarNota = () => {
-  console.log("Nota guardada");
+  console.log("Nota guardada.");
   cerrarDialogo();
 };
 

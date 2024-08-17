@@ -22,10 +22,9 @@
           ></v-textarea>
 
           <v-col class="d-flex justify-center">
-                <v-btn color="primary" @click="submitForm" class="">
-              Guardar
-            </v-btn>
-            </v-col>
+            <v-btn color="primary" @click="submitForm"
+            >Guardar</v-btn>
+          </v-col>
         </v-form>
     </v-container>
   </template>

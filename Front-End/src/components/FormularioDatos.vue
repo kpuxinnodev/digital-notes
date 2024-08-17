@@ -37,9 +37,7 @@
             color="primary"
             @click="submitForm"
             class="mt-4"
-          >
-            Guardar Cambios
-          </v-btn>
+            >Guardar Cambios</v-btn>
         </v-col>
       </v-form>
     </v-card>

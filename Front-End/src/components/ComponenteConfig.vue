@@ -52,10 +52,10 @@ import FormularioDatos from "./FormularioDatos.vue";
 import FormularioContrasena from "./FormuarioContrasena.vue";
 import PerfilDeUsuario from "./PerfilDeUsuario.vue";
 
-// Definir estado reactivo usando `ref`
+//  ->  Definir estado reactivo usando `ref`
 const mainTab = ref("main-1");
 
-// Opciones para las pestañas principales
+//  ->  Opciones para las pestañas principales
 const principales = ref([
   { value: "main-1", text: "Perfil", icon: "mdi-account" },
   { value: "main-2", text: "Datos", icon: "mdi-book-open-variant" },
@@ -64,7 +64,6 @@ const principales = ref([
 </script>
 
 <style scoped>
-/**----div.component*/
 .component {
   display: flex;
   flex-direction: column;

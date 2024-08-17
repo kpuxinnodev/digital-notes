@@ -2,20 +2,23 @@
     <div class="text-center pa-4">
       <v-dialog v-model="dialog" width="auto">
         <v-card
-          max-width="400"
-          prepend-icon="mdi-exit-to-app"
+          max-width="600"
+          prepend-icon="mdi-exit-run"
           text="¿Estas seguro que deseas abandonar el grupo?"
           title="ABANDONAR GRUPO"
         >
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text="Cancelar" 
-            variant="plain" 
-            @click="cerrarDialogo"></v-btn>
             <v-btn
-              color="primary"
+              text="Cancelar" 
+              variant="plain" 
+              @click="cerrarDialogo"
+            ></v-btn>
+            <v-btn
+              color="#2196f3"
+              rounded="xl"
               text="Abandonar grupo"
-              variant="tonal"
+              variant="flat"
               @click="abandonarGrupo"
             ></v-btn>
           </v-card-actions>

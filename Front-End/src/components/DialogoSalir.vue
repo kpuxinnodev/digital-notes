@@ -3,19 +3,24 @@
     <v-dialog v-model="dialog" width="auto">
       <v-card
         max-width="600"
-        prepend-icon="mdi-exit-run"
-        text="¿Estas seguro que deseas salir de la aplicación?"
-        title="SALIR"
+        prepend-icon="mdi-power-standby"
+        text="¿Estas seguro que deseas cerrar sesión?"
+        title="CERRAR SESIÓN"
       >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn text="Cancelar" 
-          variant="plain" 
-          @click="cerrarDialogo"></v-btn>
+          <!-- Botón de Cerrar diálogo -->
+          <v-btn
+            text="Cancelar" 
+            variant="plain"
+            @click="cerrarDialogo"
+          ></v-btn>
+          <!-- Botón de Salir de la aplicación -->
           <v-btn
             color="#2196f3"
-            text="Salir"
-            variant="tonal"
+            text="Cerrar sesión"
+            variant="flat"
+            rounded="xl"
             @click="salirAplicacion"
           ></v-btn>
         </v-card-actions>
@@ -38,7 +43,7 @@ const cerrarDialogo = () => {
   dialog.value = false;
 };
 
-//  ->  Añadir Back-End para guardar la nota.
+//  ->  Cerrar sesión del usuario.
 const salirAplicacion = () => {
   console.log('Sesión cerrada.');
   cerrarDialogo();

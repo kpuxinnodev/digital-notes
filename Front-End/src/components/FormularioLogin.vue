@@ -5,16 +5,28 @@
     <h2>iniciar sesión</h2>
 
     <v-sheet class="mx-auto" width="340">
-      <v-form fast-fail @submit.prevent>
+      <v-form fast-fail @submit.prevent v-model="valid">
+
         <v-text-field
-          v-for="(campo, index) in campos"
-          :key="index"
-          :v-model="campo.model"
-          :rules="campo.rules"
-          :label="campo.label"
+          v-model="perfilLogin.user"
+          :rules="usuarioRules"
+          label="Usuario"
+          required
         ></v-text-field>
 
-        <v-btn class="mt-2" type="submit" block>Acceder</v-btn>
+        <v-text-field
+          v-model="perfilLogin.password"
+          :rules="passwordRules"
+          label="Contraseña"
+          required
+        ></v-text-field>
+
+        <v-btn 
+        class="mt-2" 
+        type="submit" 
+        block
+        @click="submitForm"
+        >Acceder</v-btn>
       </v-form>
     </v-sheet>
 
@@ -31,11 +43,20 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
-const campos = ref([
-  //  ->  Almacena los campos que se muestran en el formulario.
-  { model: "Usuario", rules: "", label: "Usuario" },
-  { model: "Password", rules: "", label: "Contraseña" },
-]);
+const valid = ref(false);
+
+const perfilLogin = ref({
+  user:"",
+  password: "",
+});
+
+const usuarioRules = [
+  (v) => !!v || "El usuario es requerido"
+];
+
+const passwordRules = [
+  (v) => !!v || "La contraseña es requerida"
+];
 
 const registrarse = () => {
   router.push("/register");
@@ -45,7 +66,7 @@ const registrarse = () => {
 const submitForm = () => {
   if (valid.value) {
     //  ->  Solicitudes a la API
-    console.log("Perfil actualizado:", profile.value);
+    console.log("Perfil actualizado:", perfilLogin.value);
   } else {
     console.log("Formulario inválido");
   }

@@ -3,7 +3,9 @@
     <v-card flat>
       <v-card-title>Integrantes del equipo:</v-card-title>
       <v-card-text>
+
         <div class="grid-miembros">
+        <!-- Container de los miembros -->
           <v-card
             flat
             class="miembro"

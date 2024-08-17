@@ -82,7 +82,7 @@ const rutas_dos = ref([
   { path: "/guia", icon: "mdi-book" },
   { path: "/configuracion", icon: "mdi-cog" },
 ]);
-const rutasalir = ref([{ path: "/salir", icon: "mdi-exit-run" }]);
+const rutasalir = ref([{ path: "/salir", icon: "mdi-power-standby" }]);
 
 //  ->  Detecta la ruta en la cual se encuentra el usuario.
 const activo = (path) => {

@@ -6,7 +6,7 @@
     </v-toolbar>
 
     <div class="d-flex flex-row">
-      <!-- Pestañas principales -->
+      <!--  Pestañas principales -->
       <v-tabs
         v-model="mainTab"
         color="primary"
@@ -26,8 +26,10 @@
 
       <!-- Ventanas de pestañas principales -->
       <v-tabs-window v-model="mainTab" class="custom-tabs-window w-100 mt-2">
+
         <!-- Ventana 1 (Bienvenido) -->
         <v-tabs-window-item value="main-1">
+          <!-- Contenido de la ventana 1 -->
           <v-card flat>
             <v-card-title>Bienvenido al Sistema de FAQ</v-card-title>
             <v-card-text>
@@ -111,14 +113,15 @@
 
         <!-- Ventana 4 (Servicio Técnico) -->
         <v-tabs-window-item value="main-4" class="window">
-              <v-list>
-                <v-list-item>Si quieres comunicarte personalmente con nosotros, aquí están nuestros canales de contacto:</v-list-item>
-                <v-list-item>
-                  <v-list-item>E-mail: digitalnotes@gmail.com</v-list-item>
-                <v-list-item>Whatsapp: +598 12 345 678</v-list-item>
-                <v-list-item>Teléfono: 4643 1234</v-list-item>
-                </v-list-item>
-              </v-list>
+          <!-- Contenido de la ventana 4 -->
+          <v-list>
+            <v-list-item>Si quieres comunicarte personalmente con nosotros, aquí están nuestros canales de contacto:</v-list-item>
+            <v-list-item>
+              <v-list-item>E-mail: digitalnotes@gmail.com</v-list-item>
+              <v-list-item>Whatsapp: +598 12 345 678</v-list-item>
+              <v-list-item>Teléfono: 4643 1234</v-list-item>
+            </v-list-item>
+          </v-list>
         </v-tabs-window-item>
 
         <!-- Fin de las ventanas -->
@@ -130,11 +133,11 @@
 <script setup>
 import { ref, watch } from "vue";
 
-// Definir estado reactivo usando `ref`
+//  ->  Definir estado reactivo usando `ref`
 const mainTab = ref("main-1");
 const itemSelecto = ref(null);
 
-// Opciones para las pestañas principales
+//  ->  Opciones para las pestañas principales
 const principales = ref([
   { value: "main-1", text: "Bienvenido", icon: "mdi-creation" },
   { value: "main-2", text: "Cuenta", icon: "mdi-account" },
@@ -142,7 +145,7 @@ const principales = ref([
   { value: "main-4", text: "Servicio Técnico", icon: "mdi-tools" },
 ]);
 
-// Preguntas y respuestas de la seccion Cuenta
+//  ->  Preguntas y respuestas de la seccion Cuenta
 const faqsCuenta = ref([
   {
     pregunta: "¿Qué datos personales pueden ver el resto de usuarios?",
@@ -161,7 +164,7 @@ const faqsCuenta = ref([
   },
 ]);
 
-// Preguntas y respuestas de la seccion Seguridad
+//  ->  Preguntas y respuestas de la seccion Seguridad
 const faqsSeguridad = ref([
   {
     pregunta:
@@ -182,24 +185,25 @@ function cambiarItem(index) {
   itemSelecto.value = itemSelecto.value === index ? null : index;
 }
 
-//  ->  Restablecer la selección al cambiar de pestaña
-function cambioenTab() {
-  itemSelecto.value = null;
-}
-
 //  ->  Observador para detectar cambios en `mainTab`
 watch(mainTab, (newValue, oldValue) => {
   if (newValue !== oldValue) {
     cambioenTab();
   }
 });
+
+//  ->  Restablecer la selección al cambiar de pestaña
+function cambioenTab() {
+  itemSelecto.value = null;
+}
+
 </script>
 
 <style scoped>
 .component {
   display: flex;
   flex-direction: column;
-  height: 90vh; /* Usa vh para un ajuste de altura relativa a la ventana */
+  height: 90vh;
   width: 90%;
 }
 
@@ -208,27 +212,25 @@ watch(mainTab, (newValue, oldValue) => {
 }
 
 .d-flex {
-  flex: 1; /* Permite que el contenedor flex se expanda para ocupar el espacio disponible */
+  flex: 1;
   display: flex;
-  overflow: hidden; /* Asegura que el contenido no se desborde fuera de los límites del contenedor */
+  overflow: hidden;
 }
 
 .custom-tabs {
-  flex: 0 0 200px; /* Ajusta el tamaño fijo o mínimo para las pestañas */
-  overflow: hidden; /* Oculta el desbordamiento en el área de las pestañas */
+  flex: 0 0 200px;
+  overflow: hidden;
   border-right: 1px solid #2b2b2b;
 }
 
 .custom-tabs-window {
-  flex: 1; /* Ocupa el resto del espacio disponible */
-  overflow-y: auto; /* Permite el desplazamiento vertical en la ventana de pestañas */
+  flex: 1; 
+  overflow-y: auto;
 }
 
 .window {
-  max-height: calc(
-    90vh - 64px
-  ); /* Ajusta según la altura de tu barra de herramientas */
-  overflow-y: auto; /* Permite el desplazamiento vertical */
+  max-height: calc(90vh - 64px); 
+  overflow-y: auto;
 }
 
 .faq-active .v-list-item-subtitle {

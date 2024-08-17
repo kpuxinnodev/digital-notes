@@ -5,16 +5,49 @@
     <h2>crear una cuenta</h2>
 
     <v-sheet class="mx-auto" width="340">
-      <v-form fast-fail @submit.prevent>
+      <v-form fast-fail @submit.prevent v-model="valid">
+        
         <v-text-field
-          v-for="(campo, index) in campos"
-          :key="index"
-          :v-model="campo.model"
-          :rules="campo.rules"
-          :label="campo.label"
+          v-model="perfilRegistro.name"
+          :rules="nombreRules"
+          label="Nombre"
+          required
         ></v-text-field>
 
-        <v-btn class="mt-2" type="submit" block>Registrarse</v-btn>
+        <v-text-field
+          v-model="perfilRegistro.user"
+          :rules="usuarioRules"
+          label="Usuario"
+          required
+        ></v-text-field>
+
+        <v-text-field
+          v-model="perfilRegistro.email"
+          :rules="emailRules"
+          label="E-mail"
+          required
+        ></v-text-field>
+
+        <v-text-field
+          v-model="perfilRegistro.password"
+          :rules="passwordRules"
+          label="Contraseña"
+          required
+        ></v-text-field>
+
+        <v-text-field
+          v-model="perfilRegistro.confirmPassword"
+          :rules="confirmPasswordRules"
+          label="Confirmar Contraseña"
+          required
+        ></v-text-field>
+
+        <v-btn
+          class="mt-2"
+          type="submit"
+          block
+          @click="submitForm"
+        >Registrarse</v-btn>
       </v-form>
     </v-sheet>
 
@@ -31,15 +64,45 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
-const campos = ref([
-  //  ->  Almacena los campos que se muestran en el formulario.
-  { model: "Nombre", rules: "", label: "Nombre" },
-  { model: "Usuario", rules: "", label: "Usuario" },
-  { model: "E-mail", rules: "", label: "E-mail" },
-  { model: "Password", rules: "", label: "Contraseña" },
-  { model: "PasswordValidate", rules: "", label: "Confirmar contraseña" },
-]);
+const valid = ref(false);
 
+const perfilRegistro = ref({
+  name:"",
+  user:"",
+  email:"",
+  password: "",
+  confirmPassword: "",
+});
+
+//  ->  Reglas
+const nombreRules = [
+  (v) => !!v || "El nombre es requerido",
+  (v) =>
+    (v && v.length <= 30) || "El nombre debe tener máximo 30 caracteres",
+];
+
+const usuarioRules = [
+  (v) => !!v || "El usuario es requerido",
+  (v) =>
+    (v && v.length <= 20) || "El usuario debe tener máximo 20 caracteres",
+];
+
+const emailRules = [
+  (v) => !!v || "El email es requerido",
+];
+
+const passwordRules = [
+  (v) => !!v || "La contraseña es requerida",
+  (v) =>
+    (v && v.length >= 8) || "La contraseña debe tener al menos 8 caracteres",
+];
+
+const confirmPasswordRules = [
+  (v) => !!v || "Debes confirmar tu contraseña",
+  (v) => v === perfilRegistro.value.password || "Las contraseñas no coinciden",
+];
+
+//  ->  Cambiar al formulario de login.
 const acceder = () => {
   router.push("/login");
 };
@@ -48,7 +111,7 @@ const acceder = () => {
 const submitForm = () => {
   if (valid.value) {
     //  ->  Solicitudes a la API
-    console.log("Perfil actualizado:", profile.value);
+    console.log("Perfil actualizado:", perfilRegistro.value);
   } else {
     console.log("Formulario inválido");
   }

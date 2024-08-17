@@ -20,22 +20,26 @@
           <v-btn
             prepend-icon="mdi-plus"
             color="green"
-            @click="abrirDialogoAsignarNota"
-          >
+            @click="abrirDialogoAsignarNota">
             Asignar tarea
           </v-btn>
-          <v-btn prepend-icon="mdi-pencil" color="blue" @click="verBotones">
+          <v-btn
+          prepend-icon="mdi-pencil"
+          color="blue"
+          @click="verBotones">
             Administrar
           </v-btn>
         </div>
         <div class="miembros"></div>
         <div class="opciones">
-          <v-btn color="blue" icon="mdi-tools" @click="preferencias"> </v-btn>
           <v-btn
-            icon="mdi-exit-to-app"
-            color="red"
-            @click="abrirDialogoAbandonarGrupo"
-          >
+          color="blue"
+          icon="mdi-tools"
+          @click="preferencias"></v-btn>
+          <v-btn
+          icon="mdi-exit-run"
+          color="red"
+          @click="abrirDialogoAbandonarGrupo">
           </v-btn>
         </div>
       </div>
@@ -153,7 +157,7 @@ const abrirDialogoAbandonarGrupo = () => {
   height: 90%;
   width: 48%;
   align-self: center;
-  background-color: gray;
+  backdrop-filter: blur(10px);
   border: 1px solid white;
   border-radius: 64px;
 }

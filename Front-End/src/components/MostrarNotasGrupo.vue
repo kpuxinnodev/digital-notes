@@ -12,14 +12,14 @@
           :key="index"
           :value="categoria.value"
         >
-          <v-icon :icon="categoria.icono"></v-icon>
+        <v-icon :icon="categoria.icono"></v-icon>
         </v-tab>
       </v-tabs>
     </div>
 
     <div class="contenido">
       <!-- Contenido Desplazable -->
-      <v-tabs-window v-model="tab" class="ventana">
+      <v-tabs-window v-model="tab" class="ventana" >
         <v-tabs-window-item
           v-for="(ventana, index) in ventanas"
           :key="index"
@@ -235,14 +235,14 @@ const prioridadOrden = {
   height: calc(var(--v-btn-height) + 2px) !important;
 }
 
-/* Clases para las prioridades de las notas */
+/* Colores asignados a los bordes según la prioridad */
 .prioridad-alta {
-  border: 1px solid #ff0000;
+  border: 3px outset #ff0000;
 }
 .prioridad-media {
-  border: 1px solid #ffff00;
+  border: 3px outset #ffff00;
 }
 .prioridad-baja {
-  border: 1px solid #00ff00;
+  border: 3px outset #00ff00;
 }
 </style>

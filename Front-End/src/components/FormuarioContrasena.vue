@@ -7,6 +7,7 @@
         <!-- Fila para Contraseña y Confirmar Contraseña -->
         <v-row>
           <v-col cols="12" sm="6">
+            <!-- campo: contraseña -->
             <v-text-field
               v-model="profile.password"
               :rules="passwordRules"
@@ -15,6 +16,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6">
+            <!-- campo: confirmar contraseña -->
             <v-text-field
               v-model="profile.confirmPassword"
               :rules="confirmPasswordRules"
@@ -24,6 +26,7 @@
           </v-col>
         </v-row>
 
+        <!-- checkbox de confirmación -->
         <v-checkbox
           v-model="profile.confirmationChecked"
           :rules="confirmationRules"
@@ -31,14 +34,13 @@
         ></v-checkbox>
 
         <v-col class="d-flex justify-end">
+          <!-- Botón de Guardar cambios -->
           <v-btn
             :disabled="!valid"
             color="primary"
             @click="submitForm"
             class="mt-4"
-          >
-            Guardar Cambios
-          </v-btn>
+          >Guardar Cambios</v-btn>
         </v-col>
       </v-form>
     </v-card>

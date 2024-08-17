@@ -32,8 +32,8 @@
           <v-card flat>
             <v-file-input
               :rules="subirAvatar"
-              label="File input"
-              accept="image/png image/jpg"
+              label="Subir avatar"
+              accept="image/png, image/jpg"
               prepend-icon="mdi-account"
               variant="filled"
             ></v-file-input>
@@ -43,7 +43,7 @@
         <!-- Botón para enviar el formulario -->
         <v-col class="d-flex justify-end">
           <v-btn color="primary" @click="submitForm" class="mt-4">
-            Guardar Cambios
+            Cambiar avatar
           </v-btn>
         </v-col>
       </v-row>

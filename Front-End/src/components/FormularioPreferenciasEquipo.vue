@@ -37,14 +37,16 @@
               variant="filled"
             ></v-file-input>
             <v-col class="d-flex justify-end">
-              <v-btn color="primary" @click="submitForm" class="">
-                Confirmar Logo
-              </v-btn>
+              <v-btn
+              color="primary"
+              @click="submitForm"
+              >Confirmar Logo</v-btn>
             </v-col>
           </v-card>
         </v-col>
       </v-row>
     </v-form>
+    
     <v-divider class="divisor"></v-divider>
 
     <!-- ? Componente: FormularioGrupoPreferencias2.vue -->
@@ -57,6 +59,7 @@ import { ref } from "vue";
 import FormularioGrupoPreferencias2 from "./FormularioGrupoPreferencias2.vue";
 
 const valid = ref(false);
+
 //  ->  Datos cargados desde el Back-End
 let datos = ref([
   {

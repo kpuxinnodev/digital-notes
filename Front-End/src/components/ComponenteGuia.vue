@@ -25,6 +25,7 @@
 
       <!-- Ventana de pestañas principales -->
       <v-tabs-window v-model="mainTab" class="custom-tabs-window w-100 mt-1">
+        
         <!-- Ventana 1 (Bienvenido) -->
         <v-tabs-window-item value="main-1">
           <!-- Contenido de la ventana 1 -->

@@ -233,12 +233,12 @@ const getColorClass = (prioridad) => {
 
 /* Colores asignados a los bordes según la prioridad */
 .prioridad-alta {
-  border: 1px solid #ff0000;
+  border: 3px outset #ff0000;
 }
 .prioridad-media {
-  border: 1px solid #ffff00;
+  border: 3px outset #ffff00;
 }
 .prioridad-baja {
-  border: 1px solid #00ff00;
+  border: 3px outset #00ff00;
 }
 </style>
