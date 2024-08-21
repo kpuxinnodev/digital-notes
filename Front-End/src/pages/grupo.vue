@@ -16,7 +16,7 @@
       <div class="notes-options">
         <!--Opciones de Notas-->
         <div class="botones">
-          <!--Botones-->
+          <!--Botones: Descargar botones-->
           <v-btn
             prepend-icon="mdi-plus"
             color="green"

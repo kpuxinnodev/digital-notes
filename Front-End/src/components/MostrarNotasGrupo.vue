@@ -1,4 +1,7 @@
 <template>
+  <DialogoCompletarTarea ref="completarTarea" style="position: absolute;" />
+  <DialogoEliminarTarea ref="eliminarTarea" style="position: absolute;" />
+
   <v-card class="component">
     <!-- Barra de Categorías -->
     <div class="barra-de-categorias">
@@ -37,16 +40,18 @@
               <v-card-text>{{ nota.texto }}</v-card-text>
               <div class="botones d-flex flex-row align-end justify-end">
                 <v-btn
-                  flat
+                  flat class="mb-1"
                   id="eliminar"
                   v-if="mostrarBoton"
                   icon="mdi-delete"
+                  @click="abrirDialogoEliminarTarea"
                 ></v-btn>
                 <v-btn
-                  flat
+                  flat class="mb-1 mr-2"
                   id="completar"
                   v-if="mostrarBoton"
                   icon="mdi-check-bold"
+                  @click="abrirDialogoCompletarTarea"
                 ></v-btn>
               </div>
             </v-card>
@@ -60,6 +65,8 @@
 <script setup>
 import { ref } from "vue";
 import { defineProps } from "vue";
+import DialogoCompletarTarea from "./DialogoCompletarTarea.vue";
+import DialogoEliminarTarea from "./DialogoEliminarTarea.vue";
 
 //  ->  Aplica a tab el valor predeterminado all (muestra todas las notas).
 const tab = ref("all");
@@ -164,6 +171,24 @@ const prioridadOrden = {
   alta: 1,
   media: 2,
   baja: 3,
+};
+
+const completarTarea = ref(null);
+
+//  Método para abrir el diálogo de Crear Nota usando la referencia
+const abrirDialogoCompletarTarea = () => {
+  if (completarTarea.value) {
+    completarTarea.value.abrirDialogoCompletarTarea();
+  }
+};
+
+const eliminarTarea = ref(null);
+
+//  Método para abrir el diálogo de Crear Nota usando la referencia
+const abrirDialogoEliminarTarea = () => {
+  if (eliminarTarea.value) {
+    eliminarTarea.value.abrirDialogoEliminarTarea();
+  }
 };
 </script>
 

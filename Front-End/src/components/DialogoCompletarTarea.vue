@@ -3,9 +3,9 @@
       <v-dialog v-model="dialog" width="auto">
         <v-card
           max-width="600"
-          prepend-icon="mdi-exit-run"
-          text="¿Estas seguro que deseas abandonar el grupo?"
-          title="ABANDONAR GRUPO"
+          prepend-icon="mdi-check-decagram"
+          text="¿Estas seguro que deseas completar la tarea?"
+          title="COMPLETAR TAREA"
         >
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -17,9 +17,9 @@
             <v-btn
               color="#2196f3"
               rounded="xl"
-              text="Abandonar"
+              text="Completar"
               variant="flat"
-              @click="abandonarGrupo"
+              @click="completarTarea"
             ></v-btn>
           </v-card-actions>
         </v-card>
@@ -34,7 +34,7 @@
   const dialog = ref(false);
   
   //  ->  Funciones para abrir y cerrar el dialogo
-  const abrirDialogoAbandonarGrupo = () => {
+  const abrirDialogoCompletarTarea = () => {
     dialog.value = true;
   };
   const cerrarDialogo = () => {
@@ -42,13 +42,13 @@
   };
   
   //  ->  Añadir backend para abandonar el grupo.
-  const abandonarGrupo = () => {
-    console.log('Has abandonado el grupo.');
+  const completarTarea = () => {
+    console.log('Has completado la tarea.');
     cerrarDialogo();
   };
   
   //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
-  defineExpose({ abrirDialogoAbandonarGrupo });
+  defineExpose({ abrirDialogoCompletarTarea });
   </script>
   
   <style scoped>

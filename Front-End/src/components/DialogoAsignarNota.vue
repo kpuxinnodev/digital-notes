@@ -42,7 +42,7 @@
         <!-- Botón de Guardar nota -->
         <v-btn
           color="primary"
-          text="Guardar"
+          text="Asignar"
           variant="flat"
           rounded="xl"
           @click="asignarNota"

@@ -80,7 +80,7 @@ const confirmationRules = [
 const submitForm = () => {
   if (valid.value) {
     //  ->  Solicitudes a la API
-    console.log("Perfil actualizado:", profile.value);
+    console.log("Contraseña actualizada:", profile.value);
   } else {
     console.log("Formulario inválido");
   }

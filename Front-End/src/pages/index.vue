@@ -1,7 +1,6 @@
 <template>
   <div class="main">
     <!--Main-->
-
     <!-- Componente: Navegacion.vue (Barra de Navegación) -->
     <Navegacion />
 
@@ -19,7 +18,10 @@
             >
               Crear nota
             </v-btn>
-            <v-btn prepend-icon="mdi-plus-box" color="amber">
+            <v-btn
+            prepend-icon="mdi-plus-box"
+            color="amber"
+            @click="abrirDialogoCrearGrupo">
               Crear grupo
             </v-btn>
           </div>
@@ -44,6 +46,7 @@
 
     <!-- Componente: DialogoCrearNota.vue (Botón: Crear Nota) -->
     <DialogoCrearNota ref="crearNota" />
+    <DialogoCrearGrupo ref="crearGrupo" />
   </div>
 </template>
 
@@ -53,6 +56,7 @@ import Navegacion from "@/components/Navegacion.vue";
 import TareasCompletadas from "@/components/TareasCompletadas.vue";
 import MostrarNotas from "@/components/MostrarNotas.vue";
 import DialogoCrearNota from "@/components/DialogoCrearNota.vue";
+import DialogoCrearGrupo from "@/components/DialogoCrearGrupo.vue";
 
 //  ->  Dialogo de Crear Nota.
 const crearNota = ref(null);
@@ -71,6 +75,15 @@ const administrar = ref(false);
 function verBotones() {
   administrar.value = !administrar.value;
 }
+
+const crearGrupo = ref(null);
+
+//  Método para abrir el diálogo de Crear Nota usando la referencia
+const abrirDialogoCrearGrupo = () => {
+  if (crearGrupo.value) {
+    crearGrupo.value.abrirDialogoCrearGrupo();
+  }
+};
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap");
