@@ -49,7 +49,7 @@ import { ref } from "vue";
 import FormularioPreferenciasEquipo from "./FormularioPreferenciasEquipo.vue";
 import ComponenteGrupoMiembros from "./ComponenteGrupoMiembros.vue";
 
-//  ->  Definir estado reactivo usando `ref`
+//  ->  Estado reactivo
 const mainTab = ref("main-1");
 
 //  ->  Opciones para las pestañas principales

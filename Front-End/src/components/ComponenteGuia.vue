@@ -182,7 +182,7 @@
 <script setup>
 import { ref } from "vue";
 
-//  ->  Definir estado reactivo usando `ref`
+//  ->  Estado reactivo
 const mainTab = ref("main-1");
 
 //  ->  Opciones para las pestañas principales

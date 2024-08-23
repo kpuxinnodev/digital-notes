@@ -133,7 +133,7 @@
 <script setup>
 import { ref, watch } from "vue";
 
-//  ->  Definir estado reactivo usando `ref`
+//  ->  Estados reactivos
 const mainTab = ref("main-1");
 const itemSelecto = ref(null);
 

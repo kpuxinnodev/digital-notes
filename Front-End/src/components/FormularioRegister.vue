@@ -46,7 +46,6 @@
           class="mt-2"
           type="submit"
           block
-          @click="submitForm"
         >Registrarse</v-btn>
       </v-form>
     </v-sheet>
@@ -62,6 +61,8 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
+
 const router = useRouter();
 
 const valid = ref(false);
@@ -107,15 +108,16 @@ const acceder = () => {
   router.push("/login");
 };
 
-//  ->  Función para enviar el formulario
-const submitForm = () => {
-  if (valid.value) {
-    //  ->  Solicitudes a la API
-    console.log("Perfil actualizado:", perfilRegistro.value);
-  } else {
-    console.log("Formulario inválido");
+//  ->  Envio de los datos al Back-End
+const data = async() => await axios.post('https://localhost:8000', {
+    perfilRegistro
+  }, {
+    headers: {
+      'Content-Type': 'aplication/JSON'
+    }
   }
-};
+)
+data()
 </script>
 
 <style scoped>
