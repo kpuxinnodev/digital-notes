@@ -16,8 +16,9 @@
       <div class="notes-options">
         <!--Opciones de Notas-->
         <div class="botones">
-          <!--Botones: Descargar botones-->
+          <!--Botones-->
           <v-btn
+            v-if="administrador"
             prepend-icon="mdi-plus"
             color="green"
             @click="abrirDialogoAsignarNota">
@@ -62,6 +63,8 @@ import Navegacion from "@/components/Navegacion.vue";
 import DialogoAsignarNota from "@/components/DialogoAsignarNota.vue";
 import DialogoAbandonarGrupo from "@/components/DialogoAbandonarGrupo.vue";
 import MostrarNotasGrupo from "@/components/MostrarNotasGrupo.vue";
+
+const administrador =ref(true)
 
 //  ->  Rutas de Navegación
 const router = useRouter();
@@ -111,14 +114,8 @@ const abrirDialogoAbandonarGrupo = () => {
 
   display: flex;
   flex-direction: row;
-}
-
-/**----div.content----*/
-.content {
-  height: 100%;
-  width: 100%;
-
-  max-height: 100vh;
+  align-items: center;
+  justify-content: center;
 
   --s: 150px;
   --c1: #ccbf82;
@@ -132,6 +129,16 @@ const abrirDialogoAbandonarGrupo = () => {
     radial-gradient(var(--s) at 0 100%, var(--_g)),
     radial-gradient(var(--s) at 100% 100%, var(--_g)) var(--c1);
   background-size: var(--s) var(--s);
+}
+
+/**----div.content----*/
+.content {
+  height: 100%;
+  width: 100%;
+  max-width: 1440px;
+  min-width: 720px;
+  
+  max-height: 100vh;
 }
 
 /**----div.notes-options----*/

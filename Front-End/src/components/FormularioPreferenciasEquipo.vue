@@ -5,21 +5,21 @@
       <v-card flat class="carta-1">
         <v-card-text class="d-flex flex-column justify-center align-center">
           <!-- Cargar avatar del Back-End -->
-          <img
+          <img class="ml-4 mr-4"
             v-for="(avatar, index) in avatarDB"
             :key="index"
             :src="avatar.img"
             :alt="avatar.descripcion"
           />
-          <p class="mt-2">{{ dato.name }}</p>
+          <p class="mt-2 ml-4 mr-4">{{ dato.name }}</p>
         </v-card-text>
       </v-card>
       <v-card flat class="d-flex align-center pl-8 pr-8">
         <v-card-text>
           <p>{{ dato.description }}</p>
         </v-card-text>
-      </v-card>
-      <p>{{ dato.f_creacion }}</p>
+      </v-card class="align-end">
+      <p style="position: absolute; right: 2rem;" >{{ dato.f_creacion }}</p>
     </div>
 
     <v-divider class="divisor"></v-divider>
@@ -98,4 +98,5 @@ const submitForm = () => {
 .container {
   width: 80%;
 }
+
 </style>

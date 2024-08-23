@@ -121,6 +121,7 @@ img {
   height: 88%;
 }
 
+
 .v-navigation-drawer__content {
   overflow-y: hidden !important;
 }

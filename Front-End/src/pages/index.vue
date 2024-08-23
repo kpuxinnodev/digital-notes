@@ -2,7 +2,7 @@
   <div class="main">
     <!--Main-->
     <!-- Componente: Navegacion.vue (Barra de Navegación) -->
-    <Navegacion />
+    <Navegacion style="position: relative; left: 0;"/>
 
     <div class="content">
       <!--Contenido de la página-->
@@ -98,14 +98,8 @@ const abrirDialogoCrearGrupo = () => {
 
   display: flex;
   flex-direction: row;
-}
-
-/**----div.content----*/
-.content {
-  height: 100%;
-  width: 100%;
-
-  max-height: 100vh;
+  align-items: center;
+  justify-content: center;
 
   --s: 150px;
   --c1: #633d2e;
@@ -117,6 +111,16 @@ const abrirDialogoCrearGrupo = () => {
     linear-gradient(-45deg, var(--l) var(--g) 70%, #0000 0),
     linear-gradient(45deg, var(--c1) var(--g));
   background-size: var(--s) var(--s);
+}
+
+/**----div.content----*/
+.content {
+  height: 100%;
+  width: 100%;
+  max-width: 1440px;
+  min-width: 720px;
+  
+  max-height: 100vh;
 }
 
 /**----div.notes-options----*/

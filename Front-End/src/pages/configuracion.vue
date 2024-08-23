@@ -29,16 +29,8 @@ import ComponenteConfig from "@/components/ComponenteConfig.vue";
 
   display: flex;
   flex-direction: row;
-}
-
-.content {
-  height: 100%;
-  width: 100%;
-  display: flex;
   align-items: center;
   justify-content: center;
-
-  max-height: 100vh;
 
   background-color: #959595;
   background-image: linear-gradient(135deg, #080067 25%, transparent 25%),
@@ -48,5 +40,20 @@ import ComponenteConfig from "@/components/ComponenteConfig.vue";
   background-position: 21px 0, 21px 0, 0 0, 0 0;
   background-size: 42px 42px;
   background-repeat: repeat;
+}
+
+/**----div.content----*/
+.content {
+  height: 100%;
+  width: 100%;
+  max-width: 1440px;
+  min-width: 720px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  
+  max-height: 100vh;
 }
 </style>
