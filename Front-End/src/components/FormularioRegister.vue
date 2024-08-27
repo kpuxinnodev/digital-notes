@@ -5,7 +5,7 @@
     <h2>crear una cuenta</h2>
 
     <v-sheet class="mx-auto" width="340">
-      <v-form fast-fail @submit.prevent v-model="valid">
+      <v-form fast-fail @submit.prevent="enviarFormulario" v-model="valid">
         
         <v-text-field
           v-model="perfilRegistro.name"
@@ -109,15 +109,24 @@ const acceder = () => {
 };
 
 //  ->  Envio de los datos al Back-End
-const data = async() => await axios.post('https://localhost:8000', {
-    perfilRegistro
-  }, {
-    headers: {
-      'Content-Type': 'aplication/JSON'
-    }
+const enviarFormulario = async () => {
+  if (!valid.value) return; // Verifica si el formulario es válido
+  
+  try {
+    const response = await axios.post('https://localhost:8000', perfilRegistro.value, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    console.log('Registro exitoso:', response.data);
+    // Redirigir o mostrar mensaje de éxito
+  } catch (error) {
+    console.error('Error en el registro:', error);
+    // Manejar el error y mostrar un mensaje al usuario
   }
-)
-data()
+};
+
 </script>
 
 <style scoped>
