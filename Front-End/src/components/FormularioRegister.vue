@@ -15,7 +15,7 @@
         ></v-text-field>
 
         <v-text-field
-          v-model="perfilRegistro.user"
+          v-model="perfilRegistro.nickname"
           :rules="usuarioRules"
           label="Usuario"
           required
@@ -69,7 +69,7 @@ const valid = ref(false);
 
 const perfilRegistro = ref({
   name:"",
-  user:"",
+  nickname:"",
   email:"",
   password: "",
   confirmPassword: "",
@@ -113,14 +113,15 @@ const enviarFormulario = async () => {
   if (!valid.value) return; // Verifica si el formulario es válido
   
   try {
-    const response = await axios.post('https://localhost:8000', perfilRegistro.value, {
+    const response = await axios.post('https://localhost:8000/api/users', perfilRegistro.value, {
       headers: {
         'Content-Type': 'application/json'
       }
     });
-    
+
     console.log('Registro exitoso:', response.data);
     // Redirigir o mostrar mensaje de éxito
+
   } catch (error) {
     console.error('Error en el registro:', error);
     // Manejar el error y mostrar un mensaje al usuario
