@@ -14,7 +14,7 @@
 
 <script setup>
 import Navegacion from "@/components/Navegacion.vue";
-import ComponenteConfig from "@/components/ComponenteConfig.vue";
+import ComponenteConfig from "@/components/configuracion/ComponenteConfig.vue";
 </script>
 
 <style scoped>

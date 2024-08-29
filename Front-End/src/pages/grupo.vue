@@ -60,9 +60,9 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import Navegacion from "@/components/Navegacion.vue";
-import DialogoAsignarNota from "@/components/DialogoAsignarNota.vue";
-import DialogoAbandonarGrupo from "@/components/DialogoAbandonarGrupo.vue";
-import MostrarNotasGrupo from "@/components/MostrarNotasGrupo.vue";
+import DialogoAsignarNota from "@/components/grupo/DialogoAsignarNota.vue";
+import DialogoAbandonarGrupo from "@/components/grupo/DialogoAbandonarGrupo.vue";
+import MostrarNotasGrupo from "@/components/grupo/MostrarNotasGrupo.vue";
 
 const administrador =ref(true)
 

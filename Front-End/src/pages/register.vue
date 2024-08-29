@@ -11,7 +11,7 @@
 
 <script setup>
 import { ref } from "vue";
-import FormularioRegister from "@/components/FormularioRegister.vue";
+import FormularioRegister from "@/components/register/FormularioRegister.vue";
 
 </script>
 

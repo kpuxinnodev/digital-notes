@@ -13,7 +13,7 @@
 
 <script setup>
 import { ref } from "vue";
-import FormularioLogin from "@/components/FormularioLogin.vue";
+import FormularioLogin from "@/components/login/FormularioLogin.vue";
 
 </script>
 

@@ -65,8 +65,8 @@
 <script setup>
 import { ref } from "vue";
 import { defineProps } from "vue";
-import DialogoCompletarTarea from "./DialogoCompletarTarea.vue";
-import DialogoEliminarTarea from "./DialogoEliminarTarea.vue";
+import DialogoCompletarTarea from "../DialogoCompletarTarea.vue";
+import DialogoEliminarTarea from "../DialogoEliminarTarea.vue";
 
 //  ->  Aplica a tab el valor predeterminado all (muestra todas las notas).
 const tab = ref("all");

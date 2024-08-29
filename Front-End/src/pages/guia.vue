@@ -15,7 +15,7 @@
 
 <script setup>
 import Navegacion from "@/components/Navegacion.vue";
-import ComponenteGuia from "@/components/ComponenteGuia.vue";
+import ComponenteGuia from "@/components/guia/ComponenteGuia.vue";
 </script>
 
 <style scoped>

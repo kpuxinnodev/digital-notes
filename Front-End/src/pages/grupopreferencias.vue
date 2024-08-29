@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import ComponenteGrupoPreferencias from "@/components/ComponenteGrupoPreferencias.vue";
+import ComponenteGrupoPreferencias from "@/components/grupopreferencias/ComponenteGrupoPreferencias.vue";
 import Navegacion from "@/components/Navegacion.vue";
 </script>
 
