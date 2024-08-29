@@ -3,9 +3,8 @@
     <v-card flat>
       <v-card-title>Integrantes del equipo:</v-card-title>
       <v-card-text>
-
         <div class="grid-miembros">
-        <!-- Container de los miembros -->
+          <!-- Container de los miembros -->
           <v-card
             flat
             class="miembro"
@@ -17,12 +16,27 @@
           </v-card>
         </div>
         <div class="botones mt-8">
-          <v-btn prepend-icon="mdi-plus" color="green" @click="abrirDialogoAgregarMiembro"> Agregar miembro </v-btn>
-          <v-btn prepend-icon="mdi-minus" color="red" @click="abrirDialogoEliminarMiembro"> Eliminar miembro </v-btn>
+          <v-btn
+            prepend-icon="mdi-plus"
+            color="green"
+            @click="abrirDialogoAgregarMiembro"
+          >
+            Agregar miembro
+          </v-btn>
+          <v-btn
+            prepend-icon="mdi-minus"
+            color="red"
+            @click="abrirDialogoEliminarMiembro"
+          >
+            Eliminar miembro
+          </v-btn>
         </div>
       </v-card-text>
-      <DialogoAgregarMiembro ref="agregarMiembro" style="position: absolute;" />
-      <DialogoEliminarMiembro ref="eliminarMiembro" style="position: absolute;" />
+      <DialogoAgregarMiembro ref="agregarMiembro" style="position: absolute" />
+      <DialogoEliminarMiembro
+        ref="eliminarMiembro"
+        style="position: absolute"
+      />
     </v-card>
   </v-container>
 </template>
@@ -63,7 +77,7 @@ const abrirDialogoEliminarMiembro = () => {
   if (eliminarMiembro.value) {
     eliminarMiembro.value.abrirDialogoEliminarMiembro();
   }
-}
+};
 </script>
 
 <style scoped>

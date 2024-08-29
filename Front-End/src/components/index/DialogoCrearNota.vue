@@ -37,16 +37,13 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <!-- Botón de Cerrar diálogo -->
-        <v-btn
-          text="Cancelar"
-          variant="plain"
-          @click="cerrarDialogo"
-        ></v-btn>
+        <v-btn text="Cancelar" variant="plain" @click="cerrarDialogo"></v-btn>
         <!-- Botón de Guardar nota -->
         <v-btn
           color="primary"
           text="Crear"
-          variant="flat" rounded="xl"
+          variant="flat"
+          rounded="xl"
           @click="guardarNota"
         ></v-btn>
       </v-card-actions>
@@ -87,16 +84,13 @@ const cerrarDialogo = () => {
 const contenidoRules = [
   (v) => !!v || "El contenido es requerido",
   (v) =>
-    (v && v.length <= 120) || "El contenido debe contar con menos de 120 caracteres",
+    (v && v.length <= 120) ||
+    "El contenido debe contar con menos de 120 caracteres",
 ];
 
-const categoriaRules = [
-  (v) => !!v || "La categoría es requerida"
-];
+const categoriaRules = [(v) => !!v || "La categoría es requerida"];
 
-const prioridadRules = [
-  (v) => !!v || "La prioridad es requerida"
-];
+const prioridadRules = [(v) => !!v || "La prioridad es requerida"];
 
 //  ->  Añadir backend para guardar la nota.
 const guardarNota = () => {

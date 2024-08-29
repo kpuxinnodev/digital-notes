@@ -6,12 +6,9 @@
     <!-- Barra de Categorías -->
     <div class="barra-de-categorias">
       <v-tabs v-model="tab" bg-color="primary">
-        <v-tab value="all">
-          <v-card-text>TODAS</v-card-text>
-        </v-tab>
 
         <v-tab
-          v-for="(categoria, index) in categorias"
+          v-for="(categoria, index) in categoriasYVentanas"
           :key="index"
           :value="categoria.value"
         >
@@ -24,9 +21,9 @@
       <!-- Contenido Desplazable -->
       <v-tabs-window v-model="tab" class="ventana">
         <v-tabs-window-item
-          v-for="(ventana, index) in ventanas"
+          v-for="(categoria, index) in categoriasYVentanas"
           :key="index"
-          :value="ventana.value"
+          :value="categoria.value"
         >
           <!-- Notas en Grid -->
           <div class="grid-notas">
@@ -72,8 +69,9 @@ import DialogoEliminarTarea from "../DialogoEliminarTarea.vue";
 //  ->  Aplica a tab el valor predeterminado all (muestra todas las notas).
 const tab = ref("all");
 
-//  ->  Categorías de las Notas.
-const categorias = ref([
+//  ->  Categorías de las Notas y Ventanas.
+const categoriasYVentanas = ref([
+  { value: "all", icono: "mdi-view-dashboard" },
   { value: "uno", icono: "mdi-briefcase" },
   { value: "dos", icono: "mdi-book-open-page-variant" },
   { value: "tres", icono: "mdi-dumbbell" },
@@ -81,18 +79,6 @@ const categorias = ref([
   { value: "cinco", icono: "mdi-glass-cocktail" },
   { value: "seis", icono: "mdi-airplane" },
   { value: "siete", icono: "mdi-archive" },
-]);
-
-//  ->  Ventanas correspondientes a cada categoría.
-const ventanas = ref([
-  { value: "all", contenido: "categorias-todas" },
-  { value: "uno", contenido: "categoria-1" },
-  { value: "dos", contenido: "categoria-2" },
-  { value: "tres", contenido: "categoria-3" },
-  { value: "cuatro", contenido: "categoria-4" },
-  { value: "cinco", contenido: "categoria-5" },
-  { value: "seis", contenido: "categoria-6" },
-  { value: "siete", contenido: "categoria-7" },
 ]);
 
 //  ->  Importar notas desde el Back-End aquí.
@@ -141,7 +127,7 @@ function filtrarNotas(value) {
 
 //  ->  Obtener el ícono de una categoría.
 function getCategoriaIcono(categoriaValue) {
-  const categoria = categorias.value.find((c) => c.value === categoriaValue);
+  const categoria = categoriasYVentanas.value.find((c) => c.value === categoriaValue);
   return categoria ? categoria.icono : "";
 }
 
@@ -176,7 +162,7 @@ const getColorClass = (prioridad) => {
 
 const completarTarea = ref(null);
 
-//  Método para abrir el diálogo de Crear Nota usando la referencia
+//  ->  Método para abrir el diálogo de Completar Tarea
 const abrirDialogoCompletarTarea = () => {
   if (completarTarea.value) {
     completarTarea.value.abrirDialogoCompletarTarea();
@@ -185,13 +171,14 @@ const abrirDialogoCompletarTarea = () => {
 
 const eliminarTarea = ref(null);
 
-//  Método para abrir el diálogo de Crear Nota usando la referencia
+//  ->  Método para abrir el diálogo de Eliminar Tarea
 const abrirDialogoEliminarTarea = () => {
   if (eliminarTarea.value) {
     eliminarTarea.value.abrirDialogoEliminarTarea();
   }
 };
 </script>
+
 
 <style scoped>
 .component {
