@@ -21,3 +21,23 @@
 # npm and yarn lock files (optional, depending on your preference)
 # package-lock.json
 # yarn.lock
+
+# Acrchivos de Laravel
+/Back-End/.phpunit.cache
+/Back-End/node_modules
+/Back-End/public/build
+/Back-End/public/hot
+/Back-End/public/storage
+/Back-End/storage/*.key
+/Back-End/vendor
+/Back-End/.env
+/Back-End/.env.backup
+/Back-End/.env.production
+/Back-End/Homestead.json
+/Back-End/Homestead.yaml
+/Back-End/auth.json
+/Back-End/npm-debug.log
+/Back-End/yarn-error.log
+/Back-End/.fleet
+/Back-End/.idea
+/Back-End/.vscode

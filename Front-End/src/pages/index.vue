@@ -53,10 +53,10 @@
 <script setup>
 import { ref } from "vue";
 import Navegacion from "@/components/Navegacion.vue";
-import TareasCompletadas from "@/components/TareasCompletadas.vue";
-import MostrarNotas from "@/components/MostrarNotas.vue";
-import DialogoCrearNota from "@/components/DialogoCrearNota.vue";
-import DialogoCrearGrupo from "@/components/DialogoCrearGrupo.vue";
+import TareasCompletadas from "@/components/index/TareasCompletadas.vue";
+import MostrarNotas from "@/components/index/MostrarNotas.vue";
+import DialogoCrearNota from "@/components/index/DialogoCrearNota.vue";
+import DialogoCrearGrupo from "@/components/index/DialogoCrearGrupo.vue";
 
 //  ->  Dialogo de Crear Nota.
 const crearNota = ref(null);
