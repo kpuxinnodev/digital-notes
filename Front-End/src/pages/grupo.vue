@@ -27,7 +27,8 @@
           <v-btn
           prepend-icon="mdi-pencil"
           color="blue"
-          @click="verBotones">
+          @click="verBotones"
+          rounded="xl">
             Administrar
           </v-btn>
         </div>

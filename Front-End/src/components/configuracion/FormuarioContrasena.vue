@@ -3,7 +3,7 @@
     <v-card flat>
       <v-card-title class="mb-4"></v-card-title>
 
-      <v-form ref="form" v-model="valid">
+      <v-form ref="form" v-model="valid" @submit.prevent="submitForm">
         <!-- Fila para Contraseña y Confirmar Contraseña -->
         <v-row>
           <v-col cols="12" sm="6">
@@ -38,7 +38,7 @@
           <v-btn
             :disabled="!valid"
             color="primary"
-            @click="submitForm"
+            type="submit"
             class="mt-4"
           >Guardar Cambios</v-btn>
         </v-col>

@@ -36,7 +36,7 @@
         ></v-text-field>
 
         <v-text-field
-          v-model="perfilRegistro.confirmPassword"
+          v-model="perfilRegistro.password_confirmation"
           :rules="confirmPasswordRules"
           label="Confirmar Contraseña"
           required
@@ -72,7 +72,7 @@ const perfilRegistro = ref({
   nickname:"",
   email:"",
   password: "",
-  confirmPassword: "",
+  password_confirmation: "",
 });
 
 //  ->  Reglas

@@ -5,10 +5,10 @@
     <h2>iniciar sesión</h2>
 
     <v-sheet class="mx-auto" width="340">
-      <v-form fast-fail @submit.prevent v-model="valid">
+      <v-form fast-fail @submit.prevent="enviarFormulario" v-model="valid">
 
         <v-text-field
-          v-model="perfilLogin.user"
+          v-model="perfilLogin.nickname"
           :rules="usuarioRules"
           label="Usuario"
           required
@@ -22,10 +22,9 @@
         ></v-text-field>
 
         <v-btn 
-        class="mt-2" 
-        type="submit" 
+        class="mt-2"
         block
-        @click="submitForm"
+        type="submit"
         >Acceder</v-btn>
       </v-form>
     </v-sheet>
@@ -48,7 +47,7 @@ const router = useRouter();
 const valid = ref(false);
 
 const perfilLogin = ref({
-  user:"",
+  nickname:"",
   password: "",
 });
 
@@ -65,15 +64,24 @@ const registrarse = () => {
 };
 
 //  ->  Envio de los datos al Back-End
-const data = async() => await axios.post('https://localhost:8000', {
-    perfilLogin
-  }, {
-    headers: {
-      'Content-Type': 'aplication/JSON'
-    }
+const enviarFormulario = async () => {
+  if (!valid.value) return; // Verifica si el formulario es válido
+  
+  try {
+    const response = await axios.post('https://localhost:8000/api/user', perfilLogin.value, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    console.log('Registro exitoso:', response.data);
+    // Redirigir o mostrar mensaje de éxito
+
+  } catch (error) {
+    console.error('Error en el registro:', error);
+    // Manejar el error y mostrar un mensaje al usuario
   }
-)
-data()
+};
 
 </script>
 

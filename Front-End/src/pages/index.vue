@@ -26,7 +26,7 @@
             </v-btn>
           </div>
           <div class="botones-g2">
-            <v-btn prepend-icon="mdi-pencil" color="blue" @click="verBotones">
+            <v-btn prepend-icon="mdi-pencil" color="blue" @click="verBotones" rounded="xl">
               Administrar
             </v-btn>
           </div>
