@@ -34,14 +34,10 @@ import ComponenteGuia from "@/components/guia/ComponenteGuia.vue";
   align-items: center;
   justify-content: center;
 
-  background-color: #959595;
-  background-image: linear-gradient(135deg, #080067 25%, transparent 25%),
-    linear-gradient(225deg, #080067 25%, transparent 25%),
-    linear-gradient(45deg, #080067 25%, transparent 25%),
-    linear-gradient(315deg, #080067 25%, #959595 25%);
-  background-position: 21px 0, 21px 0, 0 0, 0 0;
-  background-size: 42px 42px;
-  background-repeat: repeat;
+  background: linear-gradient(45deg, #6d6d6d 10%,transparent 10%,transparent 90%,#6d6d6d80 90%),linear-gradient(135deg, transparent 40%, #87878780 40%, #87878780 60%, transparent 0),linear-gradient(45deg, transparent 40%, #878787 40%, #878787 60%, transparent 0);
+        background-size: 3em 3em;
+        background-color: #4B4B4b;
+        opacity: 1
 }
 
 /**----div.content----*/

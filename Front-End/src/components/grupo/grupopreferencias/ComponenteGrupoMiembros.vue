@@ -17,16 +17,20 @@
           </v-card>
         </div>
         <div class="botones mt-8">
-          <v-btn prepend-icon="mdi-plus" color="green"> Agregar miembro </v-btn>
-          <v-btn prepend-icon="mdi-minus" color="red"> Eliminar miembro </v-btn>
+          <v-btn prepend-icon="mdi-plus" color="green" @click="abrirDialogoAgregarMiembro"> Agregar miembro </v-btn>
+          <v-btn prepend-icon="mdi-minus" color="red" @click="abrirDialogoEliminarMiembro"> Eliminar miembro </v-btn>
         </div>
       </v-card-text>
+      <DialogoAgregarMiembro ref="agregarMiembro" style="position: absolute;" />
+      <DialogoEliminarMiembro ref="eliminarMiembro" style="position: absolute;" />
     </v-card>
   </v-container>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import DialogoAgregarMiembro from "./DialogoAgregarMiembro.vue";
+import DialogoEliminarMiembro from "./DialogoEliminarMiembro.vue";
 
 //  ->  Cargar miembros desde el Back-End
 let miembros = ref([
@@ -43,6 +47,23 @@ let miembros = ref([
   { avatar: "/img/nav/user.png", username: "miembro11" },
   { avatar: "/img/nav/user.png", username: "miembro12" },
 ]);
+
+const agregarMiembro = ref(null);
+
+//  Método para abrir el diálogo de Agregar Miembro usando la referencia
+const abrirDialogoAgregarMiembro = () => {
+  if (agregarMiembro.value) {
+    agregarMiembro.value.abrirDialogoAgregarMiembro();
+  }
+};
+
+const eliminarMiembro = ref(null);
+
+const abrirDialogoEliminarMiembro = () => {
+  if (eliminarMiembro.value) {
+    eliminarMiembro.value.abrirDialogoEliminarMiembro();
+  }
+}
 </script>
 
 <style scoped>

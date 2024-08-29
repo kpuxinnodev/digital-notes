@@ -101,16 +101,10 @@ const abrirDialogoCrearGrupo = () => {
   align-items: center;
   justify-content: center;
 
-  --s: 150px;
-  --c1: #633d2e;
-  --c2: #f7af63;
-
-  --l: var(--c1) 20%, #0000 0;
-  --g: 35%, var(--c2) 0 45%, var(--c1) 0;
-  background: linear-gradient(45deg, var(--l) 45%, var(--c1) 0 70%, #0000 0),
-    linear-gradient(-45deg, var(--l) var(--g) 70%, #0000 0),
-    linear-gradient(45deg, var(--c1) var(--g));
-  background-size: var(--s) var(--s);
+  background: linear-gradient(0deg,#6d6d6d 25%, transparent 26%, transparent 49%, #6d6d6d80 50%, #6d6d6d80 75%, transparent 76% );
+        background-size: 2em 2em;
+        background-color: #4B4B4b;
+        opacity: 1
 }
 
 /**----div.content----*/

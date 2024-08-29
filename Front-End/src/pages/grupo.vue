@@ -117,19 +117,11 @@ const abrirDialogoAbandonarGrupo = () => {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-
-  --s: 150px;
-  --c1: #ccbf82;
-  --c2: #604848;
-
-  --_g: var(--c1) 6.1%, var(--c2) 6.4% 18.6%, var(--c1) 18.9% 31.1%,
-    var(--c2) 31.4% 43.6%, var(--c1) 43.9% 56.1%, var(--c2) 56.4% 68.6%,
-    #0000 68.9%;
-  background: radial-gradient(var(--s) at 100% 0, var(--_g)),
-    radial-gradient(var(--s) at 0 0, var(--_g)),
-    radial-gradient(var(--s) at 0 100%, var(--_g)),
-    radial-gradient(var(--s) at 100% 100%, var(--_g)) var(--c1);
-  background-size: var(--s) var(--s);
+  
+  background: linear-gradient(0deg,#6d6d6d 25%, transparent 26%, transparent 49%, #6d6d6d80 50%, #6d6d6d80 75%, transparent 76% );
+        background-size: 2em 2em;
+        background-color: #4B4B4b;
+        opacity: 1
 }
 
 /**----div.content----*/
