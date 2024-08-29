@@ -61,8 +61,9 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { defineProps } from "vue";
+import axios from "axios";
 import DialogoCompletarTarea from "../DialogoCompletarTarea.vue";
 import DialogoEliminarTarea from "../DialogoEliminarTarea.vue";
 
@@ -109,6 +110,21 @@ let notas = ref([
   { categoria: "seis", texto: "Montevideo 28/10", prioridad: "media" },
   { categoria: "siete", texto: "Otro", prioridad: "media" },
 ]);
+
+//  ->  Cargar Notas desde el Back-End
+const notasCargadas = ref([])
+const cargarNotas = async () => {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/notas');
+    notasCargadas.value = response.data;
+  } catch (error) {
+    console.error('Error al cargar las notas: ', error);
+  }
+}
+
+onMounted(() => {
+  cargarNotas();
+});
 
 //  ->  Filtra las notas, teninendo en cuenta la categoría.
 function filtrarNotas(value) {
