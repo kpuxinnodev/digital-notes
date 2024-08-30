@@ -13,6 +13,7 @@
 import { ref } from "vue";
 import FormularioRegister from "@/components/register/FormularioRegister.vue";
 
+
 </script>
 
 <style scoped>
@@ -47,4 +48,5 @@ import FormularioRegister from "@/components/register/FormularioRegister.vue";
   height: 100%;
   object-fit: cover;
 }
+
 </style>

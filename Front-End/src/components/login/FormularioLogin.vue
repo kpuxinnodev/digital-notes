@@ -1,4 +1,5 @@
 <template>
+  <LoginError ref="errorLogin" />
   <div class="formulario">
     <!--Formulario-->
 
@@ -8,9 +9,9 @@
       <v-form fast-fail @submit.prevent="enviarFormulario" v-model="valid">
 
         <v-text-field
-          v-model="perfilLogin.nickname"
-          :rules="usuarioRules"
-          label="Usuario"
+          v-model="perfilLogin.email"
+          :rules="emailRules"
+          label="E-mail"
           required
         ></v-text-field>
 
@@ -41,18 +42,19 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
+import LoginError from "./LoginError.vue";
 
 const router = useRouter();
 
 const valid = ref(false);
 
 const perfilLogin = ref({
-  nickname:"",
+  email:"",
   password: "",
 });
 
-const usuarioRules = [
-  (v) => !!v || "El usuario es requerido"
+const emailRules = [
+  (v) => !!v || "El email es requerido"
 ];
 
 const passwordRules = [
@@ -63,26 +65,41 @@ const registrarse = () => {
   router.push("/register");
 };
 
+function iniciarSesion() {
+  router.push('/')
+}
+
 //  ->  Envio de los datos al Back-End
 const enviarFormulario = async () => {
   if (!valid.value) return; // Verifica si el formulario es válido
   
   try {
-    const response = await axios.post('https://localhost:8000/api/user', perfilLogin.value, {
+    const response = await axios.post('https://localhost:8000/api/login', perfilLogin.value, {
       headers: {
         'Content-Type': 'application/json'
       }
     });
 
-    console.log('Registro exitoso:', response.data);
+    console.log('Inicio de sesión exitoso');
     // Redirigir o mostrar mensaje de éxito
+    iniciarSesion()
 
   } catch (error) {
     console.error('Error en el registro:', error);
     // Manejar el error y mostrar un mensaje al usuario
+    abrirMostrarError()
   }
 };
 
+//  ->  Dialogo de Crear Nota.
+const errorLogin = ref(null);
+
+//  Método para abrir el diálogo de Crear Nota usando la referencia
+const abrirMostrarError = () => {
+  if (errorLogin.value) {
+    errorLogin.value.abrirMostrarError();
+  }
+};
 </script>
 
 <style scoped>
