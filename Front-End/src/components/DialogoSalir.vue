@@ -21,7 +21,7 @@
             text="Cerrar sesión"
             variant="flat"
             rounded="xl"
-            @click="salirAplicacion"
+            @click="cerrarSesion"
           ></v-btn>
         </v-card-actions>
       </v-card>
@@ -43,11 +43,31 @@ const cerrarDialogo = () => {
   dialog.value = false;
 };
 
-//  ->  Cerrar sesión del usuario.
-const salirAplicacion = () => {
-  console.log('Sesión cerrada.');
-  cerrarDialogo();
-};
+//  ->  Enviar al inicio de sesión.
+function salirAplicacion() {
+  router.push('/login')
+}
+
+//  ->  Logout
+
+const cerrarSesion = async () =>  {
+  try {
+    //  ->  Llamada a la API
+    await axios.post('http://localhost:8000/api/logout')
+
+    //  ->  Eliminar el token
+    localStorage.removeItem('token')
+
+    //  ->  Actualizar el estado del usuario
+    this.$store.commit('setUser', null)
+
+    //  ->  Redirigir al inicio de sesión
+    salirAplicacion()
+  } catch (error) {
+    console.error('Error al cerrar sesión.', error)
+  }
+}
+
 
 //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
 defineExpose({ abrirDialogoSalirAplicacion });

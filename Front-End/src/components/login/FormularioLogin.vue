@@ -74,7 +74,7 @@ const enviarFormulario = async () => {
   if (!valid.value) return; // Verifica si el formulario es válido
   
   try {
-    const response = await axios.post('https://localhost:8000/api/login', perfilLogin.value, {
+    const response = await axios.post('http://localhost:8000/api/login', perfilLogin.value, {
       headers: {
         'Content-Type': 'application/json'
       }
