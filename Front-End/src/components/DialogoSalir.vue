@@ -31,7 +31,10 @@
 
 <script setup>
 import { ref, defineExpose } from "vue";
+import { useRouter } from 'vue-router';
+import axios from "axios";
 
+const router = useRouter();
 //  ->  'dialog' por referencia default = false
 const dialog = ref(false);
 
@@ -48,15 +51,40 @@ function salirAplicacion() {
   router.push('/login')
 }
 
+//  ->  Token
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+  headers: {
+    'Content-Type': 'application/json',
+    'Autorization': `Bearer ${token}`
+  }
+}
+
 //  ->  Logout
 
 const cerrarSesion = async () =>  {
   try {
     //  ->  Llamada a la API
-    await axios.post('http://localhost:8000/api/logout')
+    await axios.post('http://localhost:8000/api/logout', 
+    {},
+    {
+      headers: {
+        Autorization: `Bearer ${token}`
+      }
+    }
+  ).then(
+    function (response) {
+      if (response.data.sesiones_cerradas >= 1) {
 
+      } else {
+
+      }
+    }
+  )
     //  ->  Eliminar el token
-    localStorage.removeItem('token')
+    localStorage.removeItem('auth-item')
 
     //  ->  Actualizar el estado del usuario
     this.$store.commit('setUser', null)

@@ -78,7 +78,11 @@ const enviarFormulario = async () => {
       headers: {
         'Content-Type': 'application/json'
       }
-    });
+    }).then (
+      function (respuesta) {
+        localStorage.setItem('auth-item', respuesta.data.token)
+      }
+    );
 
     console.log('Inicio de sesión exitoso');
     // Redirigir o mostrar mensaje de éxito

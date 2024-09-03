@@ -3,13 +3,13 @@
     <v-card flat>
       <v-card-title class="mb-4"></v-card-title>
 
-      <v-form ref="form" v-model="valid" @submit.prevent="submitForm">
+      <v-form ref="form" v-model="valid" @submit.prevent="enviarFormulario">
         <!-- Fila para Contraseña y Confirmar Contraseña -->
         <v-row>
           <v-col cols="12" sm="6">
             <!-- campo: contraseña -->
             <v-text-field
-              v-model="profile.password"
+              v-model="cambioPassword.password"
               :rules="passwordRules"
               label="Contraseña"
               required
@@ -18,7 +18,7 @@
           <v-col cols="12" sm="6">
             <!-- campo: confirmar contraseña -->
             <v-text-field
-              v-model="profile.confirmPassword"
+              v-model="cambioPassword.confirmPassword"
               :rules="confirmPasswordRules"
               label="Confirmar Contraseña"
               required
@@ -28,7 +28,7 @@
 
         <!-- checkbox de confirmación -->
         <v-checkbox
-          v-model="profile.confirmationChecked"
+          v-model="cambioPassword.confirmationChecked"
           :rules="confirmationRules"
           label="Estoy seguro de modificar mi contraseña."
         ></v-checkbox>
@@ -51,7 +51,7 @@
 import { ref } from "vue";
 
 //  ->  Definir el estado del perfil del usuario
-const profile = ref({
+const cambioPassword = ref({
   password: "",
   confirmPassword: "",
   confirmationChecked: false,
@@ -83,6 +83,26 @@ const submitForm = () => {
     console.log("Contraseña actualizada:", profile.value);
   } else {
     console.log("Formulario inválido");
+  }
+};
+
+//  ->  Envio de los datos al Back-End
+const enviarFormulario = async () => {
+  if (!valid.value) return; // Verifica si el formulario es válido
+  
+  try {
+    const response = await axios.post('http://localhost:8000/api/user', cambioPassword.value, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    console.log('Tu contraseña ha sido cambiada:', response.data);
+    // Redirigir o mostrar mensaje de éxito
+
+  } catch (error) {
+    console.error('Error al cambiar la contraseña:', error);
+    // Manejar el error y mostrar un mensaje al usuario
   }
 };
 </script>

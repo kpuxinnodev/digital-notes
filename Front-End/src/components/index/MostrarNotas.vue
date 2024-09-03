@@ -113,6 +113,7 @@ let notas = ref([
 
 //  ->  Cargar Notas desde el Back-End
 const notasCargadas = ref([])
+
 const cargarNotas = async () => {
   try {
     const response = await axios.get('http://127.0.0.1:8000/notas');
