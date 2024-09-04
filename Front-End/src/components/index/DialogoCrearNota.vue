@@ -58,6 +58,8 @@
 
 <script setup>
 import { ref, defineExpose } from "vue";
+import axios from "axios";
+
 //  ->  'defineExpose' exporta funciones
 
 const valid = ref(false);
@@ -110,7 +112,7 @@ const guardarNota = async () => {
   if (!valid.value) return; // Verifica si el formulario es válido
   
   try {
-    const response = await axios.post('http://localhost:8000/api/nota', notaPersonal.value, {
+    const response = await axios.post('http://localhost:8000/api/notas', notaPersonal.value, {
       headers: {
         'Content-Type': 'application/json'
       }

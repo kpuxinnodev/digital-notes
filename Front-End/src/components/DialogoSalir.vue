@@ -48,7 +48,7 @@ const cerrarDialogo = () => {
 
 //  ->  Enviar al inicio de sesión.
 function salirAplicacion() {
-  router.push('/login')
+  router.push('login')
 }
 
 //  ->  Token
@@ -56,33 +56,29 @@ const token = localStorage.getItem('auth-item');
 
 //  ->  Encabezado de la Autorización
 const config = {
-  headers: {
-    'Content-Type': 'application/json',
-    'Autorization': `Bearer ${token}`
-  }
-}
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+};
 
 //  ->  Logout
+
 
 const cerrarSesion = async () =>  {
   try {
     //  ->  Llamada a la API
-    await axios.post('http://localhost:8000/api/logout', 
+    await axios.post('http://localhost:8000/api/logout',
     {},
     {
       headers: {
-        Autorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
     }
-  ).then(
-    function (response) {
-      if (response.data.sesiones_cerradas >= 1) {
-
-      } else {
-
-      }
     }
-  )
+      
+    ).then(
+      function (response) {response.data.sesiones_cerradas>=1});
+
     //  ->  Eliminar el token
     localStorage.removeItem('auth-item')
 

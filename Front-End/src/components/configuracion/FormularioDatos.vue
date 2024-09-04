@@ -2,7 +2,7 @@
   <v-container class="container">
     <v-card flat>
       <v-card-title class="mb-4"></v-card-title>
-      <v-form ref="form" v-model="valid">
+      <v-form fast-fail @submit.prevent="enviarFormulario" v-model="valid">
         <!-- Fila para Nombre y Usuario -->
         <v-row>
           <v-col cols="12" sm="6">
@@ -15,8 +15,8 @@
           </v-col>
           <v-col cols="12" sm="6">
             <v-text-field
-              v-model="profile.username"
-              :rules="usernameRules"
+              v-model="profile.nickname"
+              :rules="nicknameRules"
               label="Usuario"
               required
             ></v-text-field>
@@ -25,8 +25,8 @@
 
         <!-- Biografía -->
         <v-textarea
-          v-model="profile.biography"
-          :rules="biographyRules"
+          v-model="profile.biografia"
+          :rules="biografiaRules"
           label="Biografía"
           rows="4"
         ></v-textarea>
@@ -35,7 +35,7 @@
           <v-btn
             :disabled="!valid"
             color="primary"
-            @click="submitForm"
+            type="submit"
             class="mt-4"
             >Guardar Cambios</v-btn>
         </v-col>
@@ -46,12 +46,13 @@
 
 <script setup>
 import { ref } from "vue";
+import axios from "axios";
 
 //  ->  Perfil del usuario importadod esde el Back-End
 const profile = ref({
   name: "",
-  username: "",
-  biography: "",
+  nickname: "",
+  biografia: "",
 });
 
 //  ->  'valid' por default = false
@@ -63,27 +64,47 @@ const nameRules = [
   (v) => (v && v.length <= 30) || "El nombre debe ser menor de 30 caracteres",
 ];
 
-const usernameRules = [
+const nicknameRules = [
   (v) => !!v || "El nombre de usuario es requerido",
   (v) =>
     (v && v.length <= 12) ||
     "El nombre de usuario debe ser menor de 12 caracteres",
 ];
 
-const biographyRules = [
+const biografiaRules = [
   (v) =>
     (v && v.length <= 120) || "La biografía debe ser menor de 120 caracteres",
 ];
 
-//  ->  Función para enviar el formulario
-const submitForm = () => {
-  if (valid.value) {
-    //  ->  Solicitudes a la API
-    console.log("Perfil actualizado:", profile.value);
-  } else {
-    console.log("Formulario inválido");
-  }
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
 };
+
+const enviarFormulario = async () => {
+  if (!valid.value) return;
+
+  try {
+    const response = await axios.put('http://localhost:8000/api/users/actualizar', profile.value, {
+      headers: {
+        "Content-Type": 'application/json',
+         'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(function(respuesta) {
+      localStorage.setItem('auth-item',respuesta.data.token)
+     }); 
+
+     console.log("Perfil actualizado:", response.data);
+  } catch (error) {
+    console.error('Formulario inválido:', error);
+  }
+}
 </script>
 
 <style scoped>

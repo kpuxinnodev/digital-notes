@@ -29,6 +29,7 @@
   
   <script setup>
   import { ref, defineExpose } from "vue";
+  import axios from "axios";
   
   //  ->  'dialog' por referencia default = false
   const dialog = ref(false);
@@ -40,15 +41,34 @@
   const cerrarDialogo = () => {
     dialog.value = false;
   };
-  
-  //  ->  Añadir backend para abandonar el grupo.
-  const eliminarTarea = () => {
-    console.log('Has eliminado la tarea.');
-    cerrarDialogo();
-  };
-  
-  //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
-  defineExpose({ abrirDialogoEliminarTarea });
+
+  const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+};
+
+  const eliminarTarea = async () => {
+    try {
+      const response = await axios.delete('http://localhost:8000/api/users/{id}', {}, {
+       headers: {
+       'Content-Type': 'application/json',
+       Authorization: `Bearer ${token}`,
+      }
+      })
+      .then(function(respuesta) {
+        localStorage.setItem('auth-item',respuesta.data.token)
+      });
+      console.log('Se ha eliminado correctamente el usuario:', response.data);
+    }catch (error) {
+        console.error('Hubo un error no se a podido elimiar al usuario:', error);
+    }
+  }
+
   </script>
   
   <style scoped>

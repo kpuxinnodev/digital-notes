@@ -7,18 +7,27 @@
         <!-- Fila para Contraseña y Confirmar Contraseña -->
         <v-row>
           <v-col cols="12" sm="6">
-            <!-- campo: contraseña -->
+            <!-- campo: contraseña actual-->
             <v-text-field
               v-model="cambioPassword.password"
               :rules="passwordRules"
-              label="Contraseña"
+              label="Contraseña Actual"
+              required
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <!-- campo: contraseña nueva -->
+            <v-text-field
+              v-model="cambioPassword.newpassword"
+              :rules="newpasswordRules"
+              label="Contraseña Nueva"
               required
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6">
             <!-- campo: confirmar contraseña -->
             <v-text-field
-              v-model="cambioPassword.confirmPassword"
+              v-model="cambioPassword.newpassword_confirmation"
               :rules="confirmPasswordRules"
               label="Confirmar Contraseña"
               required
@@ -49,11 +58,13 @@
 
 <script setup>
 import { ref } from "vue";
+import axios from "axios";
 
 //  ->  Definir el estado del perfil del usuario
 const cambioPassword = ref({
-  password: "",
-  confirmPassword: "",
+  password:"",
+  newpassword: "",
+  newpassword_confirmation: "",
   confirmationChecked: false,
 });
 
@@ -62,14 +73,20 @@ const valid = ref(false);
 
 //  ->  Reglas de contraseña, confirmar contraseña y aceptar acción.
 const passwordRules = [
-  (v) => !!v || "La contraseña es requerida",
+  (v) => !!v || "La contraseña actual requerida",
+  (v) =>
+    (v && v.length >= 8) || "La contraseña debe tener al menos 8 caracteres",
+];
+
+const newpasswordRules = [
+  (v) => !!v || "La nueva contraseña es requerida",
   (v) =>
     (v && v.length >= 8) || "La contraseña debe tener al menos 8 caracteres",
 ];
 
 const confirmPasswordRules = [
   (v) => !!v || "Debes confirmar tu contraseña",
-  (v) => v === profile.value.password || "Las contraseñas no coinciden",
+  (v) => v === cambioPassword.value.newpassword || "Las contraseñas no coinciden",
 ];
 
 const confirmationRules = [
@@ -80,10 +97,20 @@ const confirmationRules = [
 const submitForm = () => {
   if (valid.value) {
     //  ->  Solicitudes a la API
-    console.log("Contraseña actualizada:", profile.value);
+    console.log("Contraseña actualizada:", cambioPassword.value);
   } else {
     console.log("Formulario inválido");
   }
+};
+
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
 };
 
 //  ->  Envio de los datos al Back-End
@@ -91,9 +118,10 @@ const enviarFormulario = async () => {
   if (!valid.value) return; // Verifica si el formulario es válido
   
   try {
-    const response = await axios.post('http://localhost:8000/api/user', cambioPassword.value, {
+    const response = await axios.post('http://localhost:8000/api/users/cambiarcontraseña', cambioPassword.value, {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       }
     });
 
@@ -106,6 +134,7 @@ const enviarFormulario = async () => {
   }
 };
 </script>
+
 
 <style scoped>
 .v-card {

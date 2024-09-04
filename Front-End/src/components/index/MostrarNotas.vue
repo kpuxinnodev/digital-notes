@@ -116,7 +116,7 @@ const notasCargadas = ref([])
 
 const cargarNotas = async () => {
   try {
-    const response = await axios.get('http://127.0.0.1:8000/notas');
+    const response = await axios.get('http://127.0.0.1:8000/api/notas');
     notasCargadas.value = response.data;
   } catch (error) {
     console.error('Error al cargar las notas: ', error);
