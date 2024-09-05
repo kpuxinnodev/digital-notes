@@ -10,11 +10,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <!-- Botón de Cerrar diálogo -->
-          <v-btn
-            text="Cancelar" 
-            variant="plain"
-            @click="cerrarDialogo"
-          ></v-btn>
+          <v-btn text="Cancelar" variant="plain" @click="cerrarDialogo"></v-btn>
           <!-- Botón de Salir de la aplicación -->
           <v-btn
             color="#2196f3"
@@ -31,11 +27,10 @@
 
 <script setup>
 import { ref, defineExpose } from "vue";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 import axios from "axios";
 
 const router = useRouter();
-//  ->  'dialog' por referencia default = false
 const dialog = ref(false);
 
 //  ->  Función para abrir y cerrar dialogo
@@ -46,57 +41,51 @@ const cerrarDialogo = () => {
   dialog.value = false;
 };
 
-//  ->  Enviar al inicio de sesión.
-function salirAplicacion() {
-  router.push('login')
-}
-
 //  ->  Token
-const token = localStorage.getItem('auth-item');
+const token = localStorage.getItem("auth-item");
 
 //  ->  Encabezado de la Autorización
 const config = {
-    headers: {
-        'Content-Type':'application/json',
-        'Authorization': `Bearer ${token}`
-    }
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+};
+
+const iniciarSesionUno = () => {
+  router.push("/login")
 };
 
 //  ->  Logout
-
-
-const cerrarSesion = async () =>  {
+const cerrarSesion = async () => {
   try {
     //  ->  Llamada a la API
-    await axios.post('http://localhost:8000/api/logout',
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-    }
-    }
-      
-    ).then(
-      function (response) {response.data.sesiones_cerradas>=1});
+    await axios.post(
+      "http://localhost:8000/api/logout",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     //  ->  Eliminar el token
-    localStorage.removeItem('auth-item')
+    localStorage.removeItem("auth-item");
 
     //  ->  Actualizar el estado del usuario
-    this.$store.commit('setUser', null)
+    this.$store.commit("setUser", null);
 
     //  ->  Redirigir al inicio de sesión
     salirAplicacion()
-  } catch (error) {
-    console.error('Error al cerrar sesión.', error)
-  }
-}
 
+  } catch (error) {
+    console.error("Error al cerrar sesión.", error);
+  }
+};
 
 //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
 defineExpose({ abrirDialogoSalirAplicacion });
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

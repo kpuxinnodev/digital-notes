@@ -25,24 +25,24 @@
     <v-divider class="divisor"></v-divider>
 
     <!-- Formulario para editar datos -->
-    <v-form ref="form" v-model="valid">
+    <v-form ref="form" v-model="valid" @click.prevent="enviarImagen">
       <v-row>
         <!-- Campo de archivo para seleccionar la imagen -->
         <v-col cols="12">
           <v-card flat>
             <v-file-input
-              :rules="subirAvatar"
-              label="Subir avatar"
-              accept="image/png, image/jpg"
-              prepend-icon="mdi-account"
-              variant="filled"
+              v-model="imagen"
+              accept="image/png, image/jpeg, image/bmp, image/jpg"
+              label="Avatar"
+              placeholder="Sube un avatar"
+              prepend-icon="mdi-camera"
             ></v-file-input>
           </v-card>
         </v-col>
 
         <!-- Botón para enviar el formulario -->
         <v-col class="d-flex justify-end">
-          <v-btn color="primary" @click="submitForm" class="mt-4">
+          <v-btn color="primary" type="submit" class="mt-4">
             Cambiar avatar
           </v-btn>
         </v-col>
@@ -53,9 +53,12 @@
 
 <script setup>
 import { ref } from "vue";
+import axios from 'axios';
 
 //  ->  'valid' por referencia default = false
 const valid = ref(false);
+
+const image = ref(null);
 
 //  ->  Datos de Usuario cargados del Back-End
 const datos = ref([
@@ -70,19 +73,28 @@ const datos = ref([
 //  ->  Avatar cargado del Back-End
 const avatarDB = ref([{ img: "/img/nav/user.png", descripcion: "avatar.png" }]);
 
-//  ->  Guardar avatar subido por el usuario.
-const avatar = ref([{ imagen: "" }]);
+//  ->  Envio de los datos al Back-End
+const enviarImagen = async () => {
+  if (!imagen.value) {
+    console.log('Porfavor selecciona una imagen');
+    return;
+  } // Verifica si el formulario es válido
 
-//  ->  Reglas de validación para el avatar
-const subirAvatar = [(v) => !!v || "La imagen es requerida"];
+  const formulario = new Formulario();
+  formulario.append('imagen', imagen.value)
+  
+  try {
+    const response = await axios.post('http://localhost:8000/api/users/avatar', formulario, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
 
-//  ->  Enviar Formulario
-const submitForm = () => {
-  if (valid.value) {
-    //  ->  Solicitudes a la API
-    console.log("Avatar actualizado: ", avatar.value);
-  } else {
-    console.log("Formulario inválido");
+    console.log('Imagen subida exitosamente: ', response.data);
+
+  } catch (error) {
+    console.error('Error al subir la imagen:', error);
+    // Manejar el error y mostrar un mensaje al usuario
   }
 };
 </script>
