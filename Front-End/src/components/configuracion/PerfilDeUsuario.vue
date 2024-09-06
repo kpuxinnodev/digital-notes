@@ -95,6 +95,7 @@ const enviarImagen = async () => {
   } catch (error) {
     console.error('Error al subir la imagen:', error);
     // Manejar el error y mostrar un mensaje al usuario
+    abrirMostrarError()
   }
 };
 </script>
