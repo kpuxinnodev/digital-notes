@@ -65,9 +65,9 @@ const registrarse = () => {
   router.push("/register");
 };
 
-function iniciarSesion() {
-  router.push('/')
-}
+const iniciarSesionUno = () => {
+  router.push("/")
+};
 
 //  ->  Envio de los datos al Back-End
 const enviarFormulario = async () => {
@@ -86,7 +86,7 @@ const enviarFormulario = async () => {
 
     console.log('Inicio de sesión exitoso');
     // Redirigir o mostrar mensaje de éxito
-    iniciarSesion()
+    iniciarSesionUno()
 
   } catch (error) {
     console.error('Error en el registro:', error);
