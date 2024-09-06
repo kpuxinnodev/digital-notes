@@ -108,14 +108,29 @@ const categoriaRules = [(v) => !!v || "La categoría es requerida"];
 const prioridadRules = [(v) => !!v || "La prioridad es requerida"];
 
 
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+};
+
+
 const guardarNota = async () => {
   if (!valid.value) return; // Verifica si el formulario es válido
   
   try {
     const response = await axios.post('http://localhost:8000/api/notas', notaPersonal.value, {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
+    })
+    .then(function(respuesta) {
+      localStorage.setItem('auth-item',respuesta.data.token)
     });
 
     console.log('Nota Guardada:', response.data);

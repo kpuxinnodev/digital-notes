@@ -33,6 +33,7 @@
 import { ref, defineExpose } from "vue";
 import { useRouter } from 'vue-router';
 import axios from "axios";
+import { onMounted } from 'vue';
 
 const router = useRouter();
 //  ->  'dialog' por referencia default = false
@@ -48,7 +49,7 @@ const cerrarDialogo = () => {
 
 //  ->  Enviar al inicio de sesión.
 function salirAplicacion() {
-  router.push('login')
+  router.push('/login')
 }
 
 //  ->  Token
@@ -60,6 +61,10 @@ const config = {
         'Content-Type':'application/json',
         'Authorization': `Bearer ${token}`
     }
+};
+
+const removeToken = () => {
+  localStorage.removeItem('auth.item');
 };
 
 //  ->  Logout
@@ -83,7 +88,9 @@ const cerrarSesion = async () =>  {
     localStorage.removeItem('auth-item')
 
     //  ->  Actualizar el estado del usuario
-    this.$store.commit('setUser', null)
+    onMounted(() => {
+      removeToken();
+    });
 
     //  ->  Redirigir al inicio de sesión
     salirAplicacion()

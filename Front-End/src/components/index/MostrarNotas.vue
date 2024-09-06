@@ -112,11 +112,35 @@ let notas = ref([
 ]);
 
 //  ->  Cargar Notas desde el Back-End
-const notasCargadas = ref([])
+const notasCargadas = ref([]);
+
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+};
 
 const cargarNotas = async () => {
+  
   try {
-    const response = await axios.get('http://127.0.0.1:8000/api/notas');
+    const response = await axios.get('http://localhost:8000/api/notas/ver', config);
+    console.log('Datos de la API:', response.data);  // Agrega esto para depurar
+    notasCargadas.value = response.data;
+  } catch (error) {
+    console.error('Error al cargar las notas: ', error);
+  }
+  
+  try {
+    const response = await axios.get('http://localhost:8000/api/notas/ver', {
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
     notasCargadas.value = response.data;
   } catch (error) {
     console.error('Error al cargar las notas: ', error);
@@ -131,15 +155,15 @@ onMounted(() => {
 function filtrarNotas(value) {
   let filtradas;
   if (value === "all") {
-    filtradas = notas.value;
+    filtradas = notasCargadas.value;
   } else {
-    filtradas = notas.value.filter((nota) => nota.categoria === value);
+    filtradas = notasCargadas.value.filter((nota) => nota.categoria === value);
   }
 
   //  ->  Ordena las notas según la prioridad
-  return filtradas.sort(
+  return filtradas.sort[
     (a, b) => prioridadOrden[a.prioridad] - prioridadOrden[b.prioridad]
-  );
+];
 }
 
 //  ->  Obtener el ícono de una categoría.
