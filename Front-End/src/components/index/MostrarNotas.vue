@@ -61,7 +61,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { defineProps } from "vue";
 import axios from "axios";
 import DialogoCompletarTarea from "../DialogoCompletarTarea.vue";
@@ -124,16 +124,7 @@ const config = {
     }
 };
 
-const cargarNotas = async () => {
-  
-  try {
-    const response = await axios.get('http://localhost:8000/api/notas/ver', config);
-    console.log('Datos de la API:', response.data);  // Agrega esto para depurar
-    notasCargadas.value = response.data;
-  } catch (error) {
-    console.error('Error al cargar las notas: ', error);
-  }
-  
+const cargarNotas =computed(async () => {  
   try {
     const response = await axios.get('http://localhost:8000/api/notas/ver', {
       headers: {
@@ -145,11 +136,9 @@ const cargarNotas = async () => {
   } catch (error) {
     console.error('Error al cargar las notas: ', error);
   }
-}
+})
 
-onMounted(() => {
-  cargarNotas();
-});
+
 
 //  ->  Filtra las notas, teninendo en cuenta la categoría.
 function filtrarNotas(value) {

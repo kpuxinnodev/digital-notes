@@ -44,8 +44,6 @@ import ComponenteGuia from "@/components/guia/ComponenteGuia.vue";
 .content {
   height: 100%;
   width: 100%;
-  max-width: 1440px;
-  min-width: 720px;
 
   display: flex;
   flex-direction: row;
