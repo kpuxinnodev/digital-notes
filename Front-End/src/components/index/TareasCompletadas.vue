@@ -27,6 +27,7 @@
   
   <script setup>
   import { ref } from 'vue';
+  import axios from 'axios';
 
   //  ->  'open' por referencia default = null
   const open = ref(null);

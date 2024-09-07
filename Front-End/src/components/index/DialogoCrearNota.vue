@@ -134,6 +134,7 @@ const guardarNota = async () => {
     });
 
     console.log('Nota Guardada:', response.data);
+    
     // Redirigir o mostrar mensaje de éxito
     cerrarDialogo();
 

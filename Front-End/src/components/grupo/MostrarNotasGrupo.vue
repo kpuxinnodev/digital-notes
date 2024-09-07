@@ -37,7 +37,7 @@
               :class="getColorClass(nota.prioridad)"
             >
               <v-icon :icon="getCategoriaIcono(nota.categoria)"></v-icon>
-              <v-card-text>{{ nota.texto }}</v-card-text>
+              <v-card-text>{{ nota.descripcion }}</v-card-text>
               <div class="botones d-flex flex-row align-end justify-end">
                 <v-btn
                   flat class="mb-1"
@@ -96,31 +96,31 @@ const ventanas = ref([
 
 //  ->  Importar notas desde el Back-End aquí.
 let notas = ref([
-  { categoria: "cinco", texto: "Quedada el Sabado 18/07", prioridad: "baja" },
-  { categoria: "uno", texto: "Presentar currículum en BPS", prioridad: "alta" },
+  { categoria: "cinco", descripcion: "Quedada el Sabado 18/07", prioridad: "baja" },
+  { categoria: "uno", descripcion: "Presentar currículum en BPS", prioridad: "alta" },
   {
     categoria: "dos",
-    texto: "Escrito de Matemáticas 12/09",
+    descripcion: "Escrito de Matemáticas 12/09",
     prioridad: "alta",
   },
-  { categoria: "cuatro", texto: "Bajar los carbohidratos", prioridad: "media" },
+  { categoria: "cuatro", descripcion: "Bajar los carbohidratos", prioridad: "media" },
   {
     categoria: "tres",
-    texto: "Empezar rutina de hipertrofia",
+    descripcion: "Empezar rutina de hipertrofia",
     prioridad: "media",
   },
   {
     categoria: "dos",
-    texto: "Presentación de Formación 24/09",
+    descripcion: "Presentación de Formación 24/09",
     prioridad: "alta",
   },
   {
     categoria: "cinco",
-    texto: "Cumpleaños de Noelia 17/10",
+    descripcion: "Cumpleaños de Noelia 17/10",
     prioridad: "media",
   },
-  { categoria: "seis", texto: "Montevideo 28/10", prioridad: "media" },
-  { categoria: "siete", texto: "Otro", prioridad: "media" },
+  { categoria: "seis", descripcion: "Montevideo 28/10", prioridad: "media" },
+  { categoria: "siete", descripcion: "Otro", prioridad: "media" },
 ]);
 
 //  ->  Obtener el color de la prioridad mediante un switch y asignarlo a una clase de css.

@@ -19,7 +19,7 @@
               rounded="xl"
               text="Eliminar"
               variant="flat"
-              @click="eliminarTarea"
+              @click="eliminarTarea(nota.id)"
             ></v-btn>
           </v-card-actions>
         </v-card>
@@ -28,46 +28,44 @@
   </template>
   
   <script setup>
-  import { ref, defineExpose } from "vue";
-  import axios from "axios";
-  
-  //  ->  'dialog' por referencia default = false
-  const dialog = ref(false);
-  
-  //  ->  Funciones para abrir y cerrar el dialogo
-  const abrirDialogoEliminarTarea = () => {
-    dialog.value = true;
-  };
-  const cerrarDialogo = () => {
-    dialog.value = false;
-  };
+  import { ref } from "vue";
+import axios from "axios";
 
-  const token = localStorage.getItem('auth-item');
+// Estado del diálogo de eliminación
+const dialog = ref(false);
 
-//  ->  Encabezado de la Autorización
-const config = {
-    headers: {
-        'Content-Type':'application/json',
-        'Authorization': `Bearer ${token}`
-    }
+// Funciones para abrir y cerrar el diálogo
+const abrirDialogoEliminarTarea = () => {
+  dialog.value = true;
 };
 
-  const eliminarTarea = async () => {
-    try {
-      const response = await axios.delete('http://localhost:8000/api/users/{id}', {}, {
-       headers: {
-       'Content-Type': 'application/json',
-       Authorization: `Bearer ${token}`,
-      }
-      })
-      .then(function(respuesta) {
-        localStorage.setItem('auth-item',respuesta.data.token)
-      });
-      console.log('Se ha eliminado correctamente el usuario:', response.data);
-    }catch (error) {
-        console.error('Hubo un error no se a podido elimiar al usuario:', error);
-    }
+const cerrarDialogo = () => {
+  dialog.value = false;
+};
+
+const eliminarNota = ref([]);
+
+const token = localStorage.getItem('auth-item');
+
+// Encabezado de la Autorización
+const config = {
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`,
+  },
+};
+
+// Función para eliminar una tarea
+const eliminarTarea = async (notaId) => {
+  try {
+    const response = await axios.delete(`http://localhost:8000/api/notas/${notaId}`, config);
+    eliminarNota.value = response.data;
+    console.log('Se ha eliminado correctamente la nota:', eliminarNota.value);
+  } catch (error) {
+    console.error('Hubo un error, no se ha podido eliminar la nota:', error);
   }
+};
+  
 
   </script>
   

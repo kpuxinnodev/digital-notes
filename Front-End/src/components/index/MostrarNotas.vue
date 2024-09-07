@@ -35,7 +35,7 @@
             >
               <!-- Notas -->
               <v-icon :icon="getCategoriaIcono(nota.categoria)"></v-icon>
-              <v-card-text>{{ nota.texto }}</v-card-text>
+              <v-card-text>{{ nota.descripcion }}</v-card-text>
               <div class="botones d-flex flex-row align-end justify-end">
                 <v-btn
                   flat class="mb-2"
@@ -72,44 +72,46 @@ const tab = ref("all");
 
 //  ->  Categorías de las Notas y Ventanas.
 const categoriasYVentanas = ref([
-  { value: "all", icono: "mdi-view-dashboard" },
-  { value: "uno", icono: "mdi-briefcase" },
-  { value: "dos", icono: "mdi-book-open-page-variant" },
-  { value: "tres", icono: "mdi-dumbbell" },
-  { value: "cuatro", icono: "mdi-food-apple" },
-  { value: "cinco", icono: "mdi-glass-cocktail" },
-  { value: "seis", icono: "mdi-airplane" },
-  { value: "siete", icono: "mdi-archive" },
+  { value: "all", icono: "mdi-view-dashboard", },
+  { value: "Trabajo", icono: "mdi-briefcase" },
+  { value: "Estudios", icono: "mdi-book-open-page-variant" },
+  { value: "Gimnasio", icono: "mdi-dumbbell" },
+  { value: "Dieta", icono: "mdi-food-apple" },
+  { value: "Ocio", icono: "mdi-glass-cocktail" },
+  { value: "Viajes", icono: "mdi-airplane" },
+  { value: "Otro", icono: "mdi-archive" },
 ]);
 
 //  ->  Importar notas desde el Back-End aquí.
 let notas = ref([
-  { categoria: "cinco", texto: "Quedada el Domingo 18/07", prioridad: "baja" },
-  { categoria: "uno", texto: "Presentar currículum en BPS", prioridad: "alta" },
+  { categoria: "Ocio", descripcion: "Quedada el Domingo 18/07", prioridad: "Baja" },
+  { categoria: "Trabajo", descripcion: "Presentar currículum en BPS", prioridad: "Alta" },
   {
-    categoria: "dos",
-    texto: "Escrito de Matemáticas 12/09",
-    prioridad: "alta",
+    categoria: "Estudios",
+    descripcion: "Escrito de Matemáticas 12/09",
+    prioridad: "Alta",
   },
-  { categoria: "cuatro", texto: "Bajar los carbohidratos", prioridad: "media" },
+  { categoria: "Dieta", descripcion: "Bajar los carbohidratos", prioridad: "Media" },
   {
-    categoria: "tres",
-    texto: "Empezar rutina de hipertrofia",
-    prioridad: "media",
-  },
-  {
-    categoria: "dos",
-    texto: "Presentación de Formación 24/09",
-    prioridad: "alta",
+    categoria: "Gimnasio",
+    descripcion: "Empezar rutina de hipertrofia",
+    prioridad: "Media",
   },
   {
-    categoria: "cinco",
-    texto: "Cumpleaños de Noelia 17/10",
-    prioridad: "media",
+    categoria: "Estudios",
+    descripcion: "Presentación de Formación 24/09",
+    prioridad: "Alta",
   },
-  { categoria: "seis", texto: "Montevideo 28/10", prioridad: "media" },
-  { categoria: "siete", texto: "Otro", prioridad: "media" },
+  {
+    categoria: "Ocio",
+    descripcion: "Cumpleaños de Noelia 17/10",
+    prioridad: "Media",
+  },
+  { categoria: "Viajes", descripcion: "Montevideo 28/10", prioridad: "Media" },
+  { categoria: "Otro", descripcion: "Otro", prioridad: "Media" },
 ]);
+
+
 
 //  ->  Cargar Notas desde el Back-End
 const notasCargadas = ref([]);
@@ -124,35 +126,31 @@ const config = {
     }
 };
 
-const cargarNotas =computed(async () => {  
+const cargarNotas = async () => {  
   try {
-    const response = await axios.get('http://localhost:8000/api/notas/ver', {
-      headers: {
-        'Content-Type':'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    });
+    const response = await axios.get('http://localhost:8000/api/notas/ver', config);
     notasCargadas.value = response.data;
+    console.log("Notas cargadas: ", notasCargadas.value);
   } catch (error) {
     console.error('Error al cargar las notas: ', error);
   }
-})
+}
+
+onMounted(async () => {
+  await cargarNotas();
+});
 
 
 
 //  ->  Filtra las notas, teninendo en cuenta la categoría.
-function filtrarNotas(value) {
-  let filtradas;
-  if (value === "all") {
-    filtradas = notasCargadas.value;
-  } else {
-    filtradas = notasCargadas.value.filter((nota) => nota.categoria === value);
-  }
 
-  //  ->  Ordena las notas según la prioridad
-  return filtradas.sort[
-    (a, b) => prioridadOrden[a.prioridad] - prioridadOrden[b.prioridad]
-];
+function filtrarNotas(value) {
+  let filtradas = value === "all" 
+    ? notasCargadas.value 
+    : notasCargadas.value.filter(nota => nota.categoria === value);
+
+  // Si hay notas, ordenarlas por prioridad
+  return filtradas.sort((a, b) => prioridadOrden[a.prioridad] - prioridadOrden[b.prioridad]);
 }
 
 //  ->  Obtener el ícono de una categoría.
@@ -171,20 +169,20 @@ const propiedadesBoton = defineProps({
 
 //  ->  Se definen el orden según la prioridad.
 const prioridadOrden = {
-  alta: 1,
-  media: 2,
-  baja: 3,
+  Alta: 1,
+  Media: 2,
+  Baja: 3,
 };
 
 //  ->  Se le asigna una clase de css según la prioridad.
 const getColorClass = (prioridad) => {
   switch (prioridad) {
-    case "alta":
-      return "prioridad-alta";
-    case "media":
-      return "prioridad-media";
-    case "baja":
-      return "prioridad-baja";
+    case "Alta":
+      return "prioridad-Alta";
+    case "Media":
+      return "prioridad-Media";
+    case "Baja":
+      return "prioridad-Baja";
     default:
       return "";
   }
@@ -274,13 +272,13 @@ const abrirDialogoEliminarTarea = () => {
 }
 
 /* Colores asignados a los bordes según la prioridad */
-.prioridad-alta {
+.prioridad-Alta {
   border: 3px outset #ff0000;
 }
-.prioridad-media {
+.prioridad-Media {
   border: 3px outset #ffff00;
 }
-.prioridad-baja {
+.prioridad-Baja {
   border: 3px outset #00ff00;
 }
 </style>
