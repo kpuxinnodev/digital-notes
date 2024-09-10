@@ -1,7 +1,4 @@
 <template>
-  <DialogoCompletarTarea ref="completarTarea" style="position: absolute" />
-  <DialogoEliminarTarea ref="eliminarTarea" style="position: absolute" />
-
   <v-card class="component">
     <!-- Barra de Categorías -->
     <div class="barra-de-categorias">
@@ -16,30 +13,23 @@
       <!-- Contenido Desplazable -->
       <v-tabs-window v-model="tab" class="ventana">
         <!-- Notas en Grid -->
-        <div class="grid-notas">
-          <v-card v-for="(grupo, index) in grupos" :key="index" 
-           max-width="400">
-              <v-card color="#952175">
-                <div class="d-flex flex-no-wrap justify-space-evenly">
-                  <div>
-                    <v-card-title class="text-h5"> {{ grupo.nombre }} </v-card-title>
-                      <v-btn
-                        class="boton mt-2"
-                        color="white"
-                        icon="mdi-arrow-right"
-                        @click="grupo.ruta"
-                      ></v-btn>
-                  </div>
-
-                  <v-avatar class="ma-3" rounded="0" size="125">
-                    <v-img
-                      :src="grupo.avatar"
-                    ></v-img>
-                  </v-avatar>
-                </div>
-              </v-card>
-          </v-card>
-        </div>
+          <div class="grid-notas">
+  <v-card v-for="(grupo, index) in grupos" :key="index"
+    :image="grupo.avatar"
+    max-width="400"
+    height="120"
+    :title="grupo.nombre"
+    class="d-flex flex-column justify-center align-center"
+  >
+      <v-btn
+        append-icon="mdi-chevron-right"
+        color="white"
+        text="Ir a grupo"
+        variant="outlined"
+        class="mt-6"
+      ></v-btn>
+  </v-card>
+          </div>
       </v-tabs-window>
     </div>
   </v-card>
@@ -49,8 +39,6 @@
 import { ref } from "vue";
 import { defineProps } from "vue";
 import { useRouter } from "vue-router";
-import DialogoCompletarTarea from "../DialogoCompletarTarea.vue";
-import DialogoEliminarTarea from "../DialogoEliminarTarea.vue";
 
 //  ->  Aplica a tab el valor predeterminado all (muestra todas las notas).
 const tab = ref("all");
@@ -65,17 +53,8 @@ const propiedadesBoton = defineProps({
   },
 });
 
-const eliminarTarea = ref(null);
-
-//  Método para abrir el diálogo de Crear Nota usando la referencia
-const abrirDialogoEliminarTarea = () => {
-  if (eliminarTarea.value) {
-    eliminarTarea.value.abrirDialogoEliminarTarea();
-  }
-};
-
 const grupos = ref([
-  {nombre: "Grupo 1", avatar: "https://cdn.vuetifyjs.com/images/cards/halcyon.png", ruta: () => { router.push("/login") }},
+  {nombre: "Grupo 1", avatar: "https://cdn.vuetifyjs.com/docs/images/cards/dark-beach.jpg", ruta: () => { router.push("/login") }},
   {nombre: "Grupo 2", avatar: "https://cdn.vuetifyjs.com/images/cards/halcyon.png", ruta: ""},
   {nombre: "Grupo 3", avatar: "https://cdn.vuetifyjs.com/images/cards/halcyon.png", ruta: ""},
   {nombre: "Grupo 4", avatar: "https://cdn.vuetifyjs.com/images/cards/halcyon.png", ruta: ""}
@@ -112,7 +91,7 @@ const grupos = ref([
 
 .grid-notas {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 }
 
