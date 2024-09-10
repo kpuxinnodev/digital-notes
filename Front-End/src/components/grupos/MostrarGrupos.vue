@@ -1,6 +1,6 @@
 <template>
-  <DialogoCompletarTarea ref="completarTarea" style="position: absolute;" />
-  <DialogoEliminarTarea ref="eliminarTarea" style="position: absolute;" />
+  <DialogoCompletarTarea ref="completarTarea" style="position: absolute" />
+  <DialogoEliminarTarea ref="eliminarTarea" style="position: absolute" />
 
   <v-card class="component">
     <!-- Barra de Categorías -->
@@ -14,19 +14,32 @@
 
     <div class="contenido">
       <!-- Contenido Desplazable -->
-      <v-tabs-window v-model="tab" class="ventana" >
-          <!-- Notas en Grid -->
-          <div class="grid-notas">
-              <div class="botones d-flex flex-row align-end justify-end">
-                <v-btn
-                  flat class="mb-1"
-                  id="eliminar"
-                  v-if="mostrarBoton"
-                  icon="mdi-delete"
-                  @click="abrirDialogoEliminarTarea"
-                ></v-btn>
-              </div>
-          </div>
+      <v-tabs-window v-model="tab" class="ventana">
+        <!-- Notas en Grid -->
+        <div class="grid-notas">
+          <v-card v-for="(grupo, index) in grupos" :key="index" 
+           max-width="400">
+              <v-card color="#952175">
+                <div class="d-flex flex-no-wrap justify-space-evenly">
+                  <div>
+                    <v-card-title class="text-h5"> {{ grupo.nombre }} </v-card-title>
+                      <v-btn
+                        class="boton mt-2"
+                        color="white"
+                        icon="mdi-arrow-right"
+                        @click="grupo.ruta"
+                      ></v-btn>
+                  </div>
+
+                  <v-avatar class="ma-3" rounded="0" size="125">
+                    <v-img
+                      :src="grupo.avatar"
+                    ></v-img>
+                  </v-avatar>
+                </div>
+              </v-card>
+          </v-card>
+        </div>
       </v-tabs-window>
     </div>
   </v-card>
@@ -35,11 +48,14 @@
 <script setup>
 import { ref } from "vue";
 import { defineProps } from "vue";
+import { useRouter } from "vue-router";
 import DialogoCompletarTarea from "../DialogoCompletarTarea.vue";
 import DialogoEliminarTarea from "../DialogoEliminarTarea.vue";
 
 //  ->  Aplica a tab el valor predeterminado all (muestra todas las notas).
 const tab = ref("all");
+
+const router = useRouter();
 
 //  ->  Propiedades de Mostar Botón.
 const propiedadesBoton = defineProps({
@@ -57,6 +73,13 @@ const abrirDialogoEliminarTarea = () => {
     eliminarTarea.value.abrirDialogoEliminarTarea();
   }
 };
+
+const grupos = ref([
+  {nombre: "Grupo 1", avatar: "https://cdn.vuetifyjs.com/images/cards/halcyon.png", ruta: () => { router.push("/login") }},
+  {nombre: "Grupo 2", avatar: "https://cdn.vuetifyjs.com/images/cards/halcyon.png", ruta: ""},
+  {nombre: "Grupo 3", avatar: "https://cdn.vuetifyjs.com/images/cards/halcyon.png", ruta: ""},
+  {nombre: "Grupo 4", avatar: "https://cdn.vuetifyjs.com/images/cards/halcyon.png", ruta: ""}
+])
 </script>
 
 <style scoped>
@@ -90,7 +113,7 @@ const abrirDialogoEliminarTarea = () => {
 .grid-notas {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 12px;
 }
 
 .nota {
@@ -119,5 +142,10 @@ const abrirDialogoEliminarTarea = () => {
 #eliminar {
   width: calc(var(--v-btn-height) + 2px) !important;
   height: calc(var(--v-btn-height) + 2px) !important;
+}
+
+.boton {
+  display: flex;
+  margin: auto;
 }
 </style>
