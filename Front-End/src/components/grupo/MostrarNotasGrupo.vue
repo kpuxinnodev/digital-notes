@@ -73,13 +73,13 @@ const tab = ref("all");
 
 //  ->  Categorias (Miembros) importar desde el Back-End
 const categorias = ref([
-  { value: "uno", icono: "mdi-briefcase" },
-  { value: "dos", icono: "mdi-book-open-page-variant" },
-  { value: "tres", icono: "mdi-dumbbell" },
-  { value: "cuatro", icono: "mdi-food-apple" },
-  { value: "cinco", icono: "mdi-glass-cocktail" },
-  { value: "seis", icono: "mdi-airplane" },
-  { value: "siete", icono: "mdi-archive" },
+  { value: "Trabajo", icono: "mdi-briefcase" },
+  { value: "Estudios", icono: "mdi-book-open-page-variant" },
+  { value: "Gimnasio", icono: "mdi-dumbbell" },
+  { value: "Dieta", icono: "mdi-food-apple" },
+  { value: "Ocio", icono: "mdi-glass-cocktail" },
+  { value: "Viajes", icono: "mdi-airplane" },
+  { value: "Otro", icono: "mdi-archive" },
 ]);
 
 //  ->  Ventanas correspondientes a cada miembro (Enlazar nº miembros con nº ventanas).
@@ -96,42 +96,42 @@ const ventanas = ref([
 
 //  ->  Importar notas desde el Back-End aquí.
 let notas = ref([
-  { categoria: "cinco", descripcion: "Quedada el Sabado 18/07", prioridad: "baja" },
-  { categoria: "uno", descripcion: "Presentar currículum en BPS", prioridad: "alta" },
+{ categoria: "Ocio", descripcion: "Quedada el Domingo 18/07", prioridad: "Baja" },
+  { categoria: "Trabajo", descripcion: "Presentar currículum en BPS", prioridad: "Alta" },
   {
-    categoria: "dos",
+    categoria: "Estudios",
     descripcion: "Escrito de Matemáticas 12/09",
-    prioridad: "alta",
+    prioridad: "Alta",
   },
-  { categoria: "cuatro", descripcion: "Bajar los carbohidratos", prioridad: "media" },
+  { categoria: "Dieta", descripcion: "Bajar los carbohidratos", prioridad: "Media" },
   {
-    categoria: "tres",
+    categoria: "Gimnasio",
     descripcion: "Empezar rutina de hipertrofia",
-    prioridad: "media",
+    prioridad: "Media",
   },
   {
-    categoria: "dos",
+    categoria: "Estudios",
     descripcion: "Presentación de Formación 24/09",
-    prioridad: "alta",
+    prioridad: "Alta",
   },
   {
-    categoria: "cinco",
+    categoria: "Ocio",
     descripcion: "Cumpleaños de Noelia 17/10",
-    prioridad: "media",
+    prioridad: "Media",
   },
-  { categoria: "seis", descripcion: "Montevideo 28/10", prioridad: "media" },
-  { categoria: "siete", descripcion: "Otro", prioridad: "media" },
+  { categoria: "Viajes", descripcion: "Montevideo 28/10", prioridad: "Media" },
+  { categoria: "Otro", descripcion: "Otro", prioridad: "Media" },
 ]);
 
 //  ->  Obtener el color de la prioridad mediante un switch y asignarlo a una clase de css.
 const getColorClass = (prioridad) => {
   switch (prioridad) {
-    case "alta":
-      return "prioridad-alta";
-    case "media":
-      return "prioridad-media";
-    case "baja":
-      return "prioridad-baja";
+    case "Alta":
+      return "prioridad-Alta";
+    case "Media":
+      return "prioridad-Media";
+    case "Baja":
+      return "prioridad-Baja";
     default:
       return "";
   }
@@ -168,9 +168,9 @@ const propiedadesBoton = defineProps({
 
 //    ->  Establece el orden según la prioridad.
 const prioridadOrden = {
-  alta: 1,
-  media: 2,
-  baja: 3,
+  Alta: 1,
+  Media: 2,
+  Baja: 3,
 };
 
 const completarTarea = ref(null);
@@ -261,13 +261,13 @@ const abrirDialogoEliminarTarea = () => {
 }
 
 /* Colores asignados a los bordes según la prioridad */
-.prioridad-alta {
+.prioridad-Alta {
   border: 3px outset #ff0000;
 }
-.prioridad-media {
+.prioridad-Media {
   border: 3px outset #ffff00;
 }
-.prioridad-baja {
+.prioridad-Baja {
   border: 3px outset #00ff00;
 }
 </style>

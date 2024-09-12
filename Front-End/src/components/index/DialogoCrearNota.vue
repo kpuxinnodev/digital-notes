@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { ref, defineExpose } from "vue";
+import { ref, defineExpose, onMounted } from "vue";
 import axios from "axios";
 
 //  ->  'defineExpose' exporta funciones
@@ -123,20 +123,10 @@ const guardarNota = async () => {
   if (!valid.value) return; // Verifica si el formulario es válido
   
   try {
-    const response = await axios.post('http://localhost:8000/api/notas', notaPersonal.value, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    .then(function(respuesta) {
-      localStorage.setItem('auth-item',respuesta.data.token)
-    });
-
+    const response = await axios.post('http://localhost:8000/api/notas', notaPersonal.value, config);
     console.log('Nota Guardada:', response.data);
-    
-    // Redirigir o mostrar mensaje de éxito
     cerrarDialogo();
+    // Redirigir o mostrar mensaje de éxito
 
   } catch (error) {
     console.error('Error al guardar nota:', error);

@@ -1,4 +1,5 @@
 <template>
+  <Registroexitoso ref="exitoalregistrarse" />
   <div class="formulario">
     <!--Formulario-->
 
@@ -62,6 +63,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
+import Registroexitoso from "./Registroexitoso.vue";
 
 const router = useRouter();
 
@@ -121,10 +123,20 @@ const enviarFormulario = async () => {
 
     console.log('Registro exitoso:', response.data);
     // Redirigir o mostrar mensaje de éxito
+    abrirMostrarRegistrado()
 
   } catch (error) {
     console.error('Error en el registro:', error);
     // Manejar el error y mostrar un mensaje al usuario
+  }
+};
+
+const exitoalregistrarse = ref(null);
+
+//  Método para abrir el diálogo de Crear Nota usando la referencia
+const abrirMostrarRegistrado = () => {
+  if (exitoalregistrarse.value) {
+    exitoalregistrarse.value.abrirMostrarRegistrado();
   }
 };
 

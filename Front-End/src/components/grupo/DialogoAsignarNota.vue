@@ -54,7 +54,15 @@
 
 <script setup>
 import { ref, defineExpose } from "vue";
+import axios from "axios";
 //  ->  'defineExpose' exporta funciones para ejecturalas desde otros componentes.
+
+const notaGrupal = ref({
+  descripcion:"",
+  categoria: "",
+  prioridad: "",
+  asignacion: "",
+});
 
 //  ->  Importar miembros del Back-End
 const miembro = ["Miembro1", "Miembro2", "Miembro3", "Miembro4"];
@@ -86,10 +94,45 @@ const usuarioRules = [(v) => !!v || "Debes elegir un usuario"];
 const prioridadRules = [(v) => !!v || "La prioridad es requerida"];
 
 //  ->  Añadir backend para asignar la nota.
-const asignarNota = () => {
-  console.log("Nota asignada.");
-  cerrarDialogo();
+
+
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
 };
+
+
+const asignarNota = async () => {
+  if (!valid.value) return; // Verifica si el formulario es válido
+  
+  try {
+    const response = await axios.post('http://localhost:8000/api/notas', notaGrupal.value, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(function(respuesta) {
+      localStorage.setItem('auth-item',respuesta.data.token)
+    });
+
+    console.log('Nota Guardada:', response.data);
+    
+    // Redirigir o mostrar mensaje de éxito
+    cerrarDialogo();
+
+  } catch (error) {
+    console.error('Error al guardar nota:', error);
+    // Manejar el error y mostrar un mensaje al usuario
+  }
+};
+
+
 
 //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
 defineExpose({ abrirDialogoAsignarNota });
