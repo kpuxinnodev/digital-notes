@@ -18,12 +18,6 @@
             >
               Crear nota
             </v-btn>
-            <v-btn
-            prepend-icon="mdi-plus-box"
-            color="amber"
-            @click="abrirDialogoCrearGrupo">
-              Crear grupo
-            </v-btn>
           </div>
           <div class="botones-g2">
             <v-btn prepend-icon="mdi-pencil" color="blue" @click="verBotones" rounded="xl">
@@ -46,7 +40,6 @@
 
     <!-- Componente: DialogoCrearNota.vue (Botón: Crear Nota) -->
     <DialogoCrearNota ref="crearNota" />
-    <DialogoCrearGrupo ref="crearGrupo" />
   </div>
 </template>
 
@@ -75,15 +68,6 @@ const administrar = ref(false);
 function verBotones() {
   administrar.value = !administrar.value;
 }
-
-const crearGrupo = ref(null);
-
-//  Método para abrir el diálogo de Crear Nota usando la referencia
-const abrirDialogoCrearGrupo = () => {
-  if (crearGrupo.value) {
-    crearGrupo.value.abrirDialogoCrearGrupo();
-  }
-};
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap");
@@ -110,7 +94,9 @@ const abrirDialogoCrearGrupo = () => {
 /**----div.content----*/
 .content {
   height: 100%;
-  width: 100%;
+  width: 100%;  
+  max-height: 100vh;
+
 }
 
 /**----div.notes-options----*/
