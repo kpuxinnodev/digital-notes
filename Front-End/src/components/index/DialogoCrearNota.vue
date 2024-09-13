@@ -59,6 +59,7 @@
 <script setup>
 import { ref, defineExpose } from "vue";
 import axios from "axios";
+import { io } from "socket.io-client";
 
 //  ->  'defineExpose' exporta funciones
 
@@ -119,30 +120,33 @@ const config = {
 };
 
 
+
 const guardarNota = async () => {
   if (!valid.value) return; // Verifica si el formulario es válido
   
   try {
+    // Esperar la respuesta de la API
     const response = await axios.post('http://localhost:8000/api/notas', notaPersonal.value, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       }
-    })
-    .then(function(respuesta) {
-      localStorage.setItem('auth-item',respuesta.data.token)
     });
 
-    console.log('Nota Guardada:', response.data);
+    // Guardar el nuevo token si está presente en la respuesta
+    localStorage.setItem('auth-item', response.data.token);
     
-    // Redirigir o mostrar mensaje de éxito
-    cerrarDialogo();
+    console.log('Nota Guardada:', response.data);
+    cerrarDialogo(); // Cerrar el diálogo después de guardar la nota
+
+    // Aquí podrías agregar una redirección o mostrar un mensaje de éxito
 
   } catch (error) {
     console.error('Error al guardar nota:', error);
     // Manejar el error y mostrar un mensaje al usuario
   }
 };
+
 
 //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
 defineExpose({ abrirDialogoCrearNota });

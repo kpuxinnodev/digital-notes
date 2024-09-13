@@ -77,8 +77,6 @@
     }
   //  ->  Encabezado de la Autorización
 
-
-<<<<<<< HEAD
   //  ->  Envio de los datos al Back-End
   const obtenerDatos = async () => {
     try {
@@ -121,16 +119,9 @@
     await obtenerDatos();
   });
 
-  </script>
-=======
-  } catch (error) {
-    console.error('Error al subir la imagen:', error);
-    // Manejar el error y mostrar un mensaje al usuario
-    abrirMostrarError()
-  }
-};
+  
 </script>
->>>>>>> 1bd5f0bfeb8ee04e5e93edddd4602510c85c772d
+
 
 <style scoped>
 .v-card {

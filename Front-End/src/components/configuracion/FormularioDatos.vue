@@ -85,7 +85,6 @@ const config = {
         'Authorization': `Bearer ${token}`
     }
 };
-
 const enviarFormulario = async () => {
   if (!valid.value) return;
 
@@ -93,19 +92,26 @@ const enviarFormulario = async () => {
     const response = await axios.put('http://localhost:8000/api/users/actualizar', profile.value, {
       headers: {
         "Content-Type": 'application/json',
-         'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`
       }
-    })
-    .then(function(respuesta) {
-      localStorage.setItem('auth-item',respuesta.data.token)
-     }); 
+    });
 
-     console.log("Perfil actualizado:", response.data);
+    // Verifica si response está definido antes de acceder a response.data
+    if (response && response.data) {
+      localStorage.setItem('auth-item', response.data.token);
+      console.log("Perfil actualizado:", response.data);
+    }
   } catch (error) {
-    console.error('Formulario inválido:', error);
+    // Asegúrate de que error.response esté presente antes de acceder a él
+    if (error.response) {
+      console.error('Error en la respuesta:', error.response.data);
+    } else {
+      console.error('Error desconocido:', error);
+    }
   }
 }
 </script>
+
 
 <style scoped>
 .v-card {

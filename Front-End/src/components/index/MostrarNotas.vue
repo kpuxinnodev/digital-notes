@@ -113,6 +113,7 @@ let notas = ref([
 
 
 
+
 //  ->  Cargar Notas desde el Back-End
 const notasCargadas = ref([]);
 
@@ -197,14 +198,22 @@ const abrirDialogoCompletarTarea = () => {
   }
 };
 
+const selecionarNotasID = ref(null);
+
 const eliminarTarea = ref(null);
 
 //  ->  Método para abrir el diálogo de Eliminar Tarea
-const abrirDialogoEliminarTarea = () => {
+const abrirDialogoEliminarTarea = (notaId) => {
+  selecionarNotasID.value = notaId;
   if (eliminarTarea.value) {
     eliminarTarea.value.abrirDialogoEliminarTarea();
   }
 };
+
+const actualizarNotas = async () => {
+  await cargarNotas();
+};
+
 </script>
 
 
