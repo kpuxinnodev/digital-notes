@@ -29,8 +29,8 @@
           <div class="grid-notas">
             <v-card
               class="nota"
-              v-for="(nota, index) in filtrarNotas(tab)"
-              :key="index"
+              v-for="nota in filtrarNotas(tab)"
+              :key="nota.id"
               :class="getColorClass(nota.prioridad)"
             >
               <!-- Notas -->
@@ -42,7 +42,7 @@
                   id="eliminar"
                   v-if="mostrarBoton"
                   icon="mdi-delete"
-                  @click="abrirDialogoEliminarTarea"
+                  @click="abrirDialogoEliminarTarea(nota.id)"
                 ></v-btn>
                 <v-btn
                   flat class="mb-2 mr-2"
@@ -58,10 +58,15 @@
       </v-tabs-window>
     </div>
   </v-card>
+  <DialogoEliminarTarea 
+  ref="eliminarTarea" 
+  :nota-id="selecionarNotasID"
+  @nota-eliminada="actualizarNotas" 
+/>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, nextTick } from "vue";
 import { defineProps } from "vue";
 import axios from "axios";
 import DialogoCompletarTarea from "../DialogoCompletarTarea.vue";
@@ -203,14 +208,17 @@ const selecionarNotasID = ref(null);
 const eliminarTarea = ref(null);
 
 //  ->  Método para abrir el diálogo de Eliminar Tarea
-const abrirDialogoEliminarTarea = (notaId) => {
-  selecionarNotasID.value = notaId;
+const abrirDialogoEliminarTarea = async (notaId) => {
+  console.log("ID de nota seleccionada para eliminar:", notaId);
+  selecionarNotasID.value = notaId;  // Asegura que el ID se asigna correctamente
+  await nextTick();  // Espera a que el DOM y el estado se actualicen
   if (eliminarTarea.value) {
     eliminarTarea.value.abrirDialogoEliminarTarea();
   }
 };
 
 const actualizarNotas = async () => {
+  selecionarNotasID.value = null;
   await cargarNotas();
 };
 

@@ -19,7 +19,7 @@
             rounded="xl"
             text="Eliminar"
             variant="flat"
-            @click="eliminarTarea(nota.id)"
+            @click="eliminarTarea"
           ></v-btn>
         </v-card-actions>
       </v-card>
@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import axios from "axios";
 import MostrarNotas from "./index/MostrarNotas.vue";
 
@@ -47,8 +47,10 @@ const emit = defineEmits(['notaEliminada']);
 const dialog = ref(false);
 
 // Funciones para abrir y cerrar el diálogo
+
 const abrirDialogoEliminarTarea = () => {
-  dialog.value = true;
+  console.log("Abriendo diálogo para eliminar nota con ID:", props.notaId);
+  dialog.value = true;  // Esto debería abrir el diálogo
 };
 
 const cerrarDialogo = () => {
@@ -66,7 +68,12 @@ const config = {
 };
 
 // Función para eliminar una tarea
-const eliminarTarea = async (notaId) => {
+const eliminarTarea = async () => {
+  if (!props.notaId || isNaN(props.notaId)) { // Verifica si notaId es válido y es un número
+    console.error('No se ha proporcionado un ID de nota válido');
+    return;
+  }
+
   try {
     const response = await axios.delete(`http://localhost:8000/api/notas/${props.notaId}`, config);
     console.log('Se ha eliminado correctamente la nota:', response.data);
@@ -78,6 +85,11 @@ const eliminarTarea = async (notaId) => {
 };
 
 defineExpose({ abrirDialogoEliminarTarea });
+
+watch(() => props.notaId, (newId) => {
+  console.log('Nuevo ID de nota a eliminar:', newId);
+});
+
 </script>
 
 <style scoped>
