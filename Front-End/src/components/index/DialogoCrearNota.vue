@@ -65,6 +65,8 @@ import { io } from "socket.io-client";
 
 const valid = ref(false);
 
+const emit = defineEmits(['notaCreada']);
+
 const notaPersonal = ref({
   descripcion:"",
   categoria: "",
@@ -138,7 +140,7 @@ const guardarNota = async () => {
     
     console.log('Nota Guardada:', response.data);
     cerrarDialogo(); // Cerrar el diálogo después de guardar la nota
-
+    emit('notaCreada');
     // Aquí podrías agregar una redirección o mostrar un mensaje de éxito
 
   } catch (error) {

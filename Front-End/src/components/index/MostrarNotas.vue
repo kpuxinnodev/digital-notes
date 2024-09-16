@@ -49,7 +49,7 @@
                   id="completar"
                   v-if="mostrarBoton"
                   icon="mdi-check-bold"
-                  @click="abrirDialogoCompletarTarea"
+                  @click="abrirDialogoCompletarTarea(nota.id)"
                 ></v-btn>
               </div>
             </v-card>
@@ -62,6 +62,11 @@
   ref="eliminarTarea" 
   :nota-id="selecionarNotasID"
   @nota-eliminada="actualizarNotas" 
+/>
+<DialogoCompletarTarea
+ref="completarTarea"
+:nota-id="selecionarNotasID"
+@nota-completada="actualizarNotas"
 />
 </template>
 
@@ -194,16 +199,13 @@ const getColorClass = (prioridad) => {
   }
 };
 
-const completarTarea = ref(null);
+
 
 //  ->  Método para abrir el diálogo de Completar Tarea
-const abrirDialogoCompletarTarea = () => {
-  if (completarTarea.value) {
-    completarTarea.value.abrirDialogoCompletarTarea();
-  }
-};
 
 const selecionarNotasID = ref(null);
+
+const completarTarea = ref(null);
 
 const eliminarTarea = ref(null);
 
@@ -214,6 +216,15 @@ const abrirDialogoEliminarTarea = async (notaId) => {
   await nextTick();  // Espera a que el DOM y el estado se actualicen
   if (eliminarTarea.value) {
     eliminarTarea.value.abrirDialogoEliminarTarea();
+  }
+};
+
+const abrirDialogoCompletarTarea = async (notaId) => {
+  console.log("ID de nota seleccionada para completar:", notaId);
+  selecionarNotasID.value = notaId;  // Asegura que el ID se asigna correctamente
+  await nextTick();  // Espera a que el DOM y el estado se actualicen
+  if (completarTarea.value) {
+    completarTarea.value.abrirDialogoCompletarTarea();
   }
 };
 

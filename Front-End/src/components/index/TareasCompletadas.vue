@@ -14,32 +14,82 @@
             ></v-list-item>
           </template>
 
-          <v-list-item v-for="(carta, index) in tareas_completadas" :key="index" class="scrolleable">
+          <v-list-item 
+          v-for="(carta, index) in notasCompletadas"
+          :key="index" 
+          class="scrolleable">
+
+
             <v-card class="cartas">
-              <v-icon :icon="carta.icono" class="cartas-icono" id="icono-categoria-completadas"></v-icon>
-              <v-card-text class="d-flex flex-row justify-space-between"> {{ carta.texto }} <span class="fecha">{{ carta.date }}</span> </v-card-text>
+              <v-icon :icon="getCategoriaIcono(carta.categoria)"></v-icon>
+              <v-card-text class="d-flex flex-row justify-space-between">
+                {{ carta.descripcion }} 
+                <span class="fecha">{{ carta.finalizacion }}</span> 
+              </v-card-text>
             </v-card>
           </v-list-item>
+          <completar-tarea @notaCompletada="recargarNotasCompletadas" />
         </v-list-group>
       </v-list>
     </v-card>
   </template>
   
   <script setup>
-  import { ref } from 'vue';
+  import { ref, onMounted } from 'vue';
   import axios from 'axios';
+  import DialogoCompletarTarea from '../DialogoCompletarTarea.vue';
 
   //  ->  'open' por referencia default = null
   const open = ref(null);
 
-  //  ->  Importar las tareas completadas desde el Back-End.
-  const tareas_completadas = ref([
-    {icono:'mdi-briefcase', texto:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere. Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere.', date:'21/10/23'},
-    {icono:'mdi-briefcase', texto:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere. Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere.', date:'29/11/23'},
-    {icono:'mdi-briefcase', texto:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere. Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere.', date:'12/10/23'},
-    {icono:'mdi-briefcase', texto:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere. Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere.', date:'15/09/23'},
-    {icono:'mdi-briefcase', texto:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere. Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere.', date:'01/08/23'}
-  ]);
+
+  const categoriasYVentanas = ref([
+  { value: "all", icono: "mdi-view-dashboard", },
+  { value: "Trabajo", icono: "mdi-briefcase" },
+  { value: "Estudios", icono: "mdi-book-open-page-variant" },
+  { value: "Gimnasio", icono: "mdi-dumbbell" },
+  { value: "Dieta", icono: "mdi-food-apple" },
+  { value: "Ocio", icono: "mdi-glass-cocktail" },
+  { value: "Viajes", icono: "mdi-airplane" },
+  { value: "Otro", icono: "mdi-archive" },
+]);
+
+  function getCategoriaIcono(categoriaValue) {
+  const categoria = categoriasYVentanas.value.find((c) => c.value === categoriaValue);
+  return categoria ? categoria.icono : "mdi-alert";
+}
+
+  const notasCompletadas = ref([]);
+
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+};
+
+  const mostrarTareasCompletadas = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/notas/vercompletadas', config);
+      const ordenadasPorFecha = response.data.sort((a, b) => new Date(b.finalizacion) - new Date(a.finalizacion));
+      notasCompletadas.value = ordenadasPorFecha.slice(0, 5); 
+      console.log("Ultimas 5 tareas completadas: ", notasCompletadas.value);
+    }catch (error) {
+      console.error("Error al cargar las Tareas Completadas: ", error);
+    }
+  }
+
+  const recargarNotasCompletadas = () => {
+  mostrarTareasCompletadas();
+};
+
+// Montar el componente y cargar las notas completadas inicialmente
+onMounted(() => {
+  mostrarTareasCompletadas();
+});
 
   </script>
   
@@ -69,7 +119,7 @@
     padding-inline-start: 0 !important;
   }
 
-  #icono-categoria-completadas {
+  #icono-icono-completadas {
     margin-left: 15px !important;
   }
 

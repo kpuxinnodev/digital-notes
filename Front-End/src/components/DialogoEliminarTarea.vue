@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import axios from "axios";
 import MostrarNotas from "./index/MostrarNotas.vue";
 
@@ -85,10 +85,6 @@ const eliminarTarea = async () => {
 };
 
 defineExpose({ abrirDialogoEliminarTarea });
-
-watch(() => props.notaId, (newId) => {
-  console.log('Nuevo ID de nota a eliminar:', newId);
-});
 
 </script>
 
