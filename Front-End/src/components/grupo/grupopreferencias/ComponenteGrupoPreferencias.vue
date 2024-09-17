@@ -29,7 +29,7 @@
         <!-- Ventana 1 (Preferencias del Equipo) -->
         <v-tabs-window-item value="main-1">
           <!-- ? Componente: FormularioPreferenciasEquipo.vue () -->
-          <FormularioPreferenciasEquipo />
+          <FormularioPreferenciasEquipo :grupoId="grupoId"/>
         </v-tabs-window-item>
 
         <!-- Ventana 2 (Administrar Miembros) -->
@@ -46,8 +46,17 @@
 
 <script setup>
 import { ref } from "vue";
+import { defineProps } from 'vue';
 import FormularioPreferenciasEquipo from "./FormularioPreferenciasEquipo.vue";
 import ComponenteGrupoMiembros from "./ComponenteGrupoMiembros.vue";
+
+
+const props = defineProps({
+  grupoId: {
+    type: Number,
+    required: true
+  }
+});
 
 //  ->  Estado reactivo
 const mainTab = ref("main-1");

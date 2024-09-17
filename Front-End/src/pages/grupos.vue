@@ -23,12 +23,10 @@
             Crear grupo
           </v-btn>
         </div>
-        <div class="datos">
+        <div class="datos" v-if="datosCargados.name">
           <img src="/img/avatar/avatar1.png" alt="avatar.png" />
-          <p>
-            name <br />
-            @username
-          </p>
+          <p>{{ datosCargados.name }}</p>
+          <p>{{ datosCargados.nickname }}</p>
         </div>
       </div>
 
@@ -40,19 +38,23 @@
       </div>
     </div>
   </div>
+/>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import Navegacion from "@/components/Navegacion.vue";
 import MostrarGrupos from "@/components/grupos/MostrarGrupos.vue";
 import DialogoCrearGrupo from "@/components/index/DialogoCrearGrupo.vue";
+import axios from "axios";
 
 //  ->  Rutas de Navegación
 const router = useRouter();
 
 const crearGrupo = ref(null);
+
+const datosCargados = ref({});
 
 //  Método para abrir el diálogo de Crear Nota usando la referencia
 const abrirDialogoCrearGrupo = () => {
@@ -60,6 +62,32 @@ const abrirDialogoCrearGrupo = () => {
     crearGrupo.value.abrirDialogoCrearGrupo();
   }
 };
+
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+};
+
+const cargarDatos = async() => {
+  try{
+    const response = await axios.get('http://localhost:8000/api/grupos/datos', config);
+    datosCargados.value = response.data;
+    console.log("Datos catgados: ", datosCargados.value);
+  }catch (error){
+    console.error("Error al cargar los datos: ", error);
+  }
+}
+
+onMounted( async() =>{
+  await cargarDatos();
+});
+
+
 </script>
 
 <style scoped>

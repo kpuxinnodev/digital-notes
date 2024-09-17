@@ -11,7 +11,7 @@
         </v-tab>
 
         <v-tab
-          v-for="(categoria, index) in categorias"
+          v-for="(categoria, index) in categoriasYVentanas"
           :key="index"
           :value="categoria.value"
         >
@@ -24,34 +24,34 @@
       <!-- Contenido Desplazable -->
       <v-tabs-window v-model="tab" class="ventana" >
         <v-tabs-window-item
-          v-for="(ventana, index) in ventanas"
+          v-for="(categoria, index) in categoriasYVentanas"
           :key="index"
-          :value="ventana.value"
+          :value="categoria.value"
         >
           <!-- Notas en Grid -->
           <div class="grid-notas">
             <v-card
               class="nota"
-              v-for="(nota, index) in filtrarNotas(tab)"
-              :key="index"
+              v-for="nota in filtrarNotas(tab)"
+              :key="nota.id"
               :class="getColorClass(nota.prioridad)"
             >
               <v-icon :icon="getCategoriaIcono(nota.categoria)"></v-icon>
               <v-card-text>{{ nota.descripcion }}</v-card-text>
               <div class="botones d-flex flex-row align-end justify-end">
                 <v-btn
-                  flat class="mb-1"
+                  flat class="mb-2"
                   id="eliminar"
                   v-if="mostrarBoton"
                   icon="mdi-delete"
-                  @click="abrirDialogoEliminarTarea"
+                  @click="abrirDialogoEliminarTarea(nota.id)"
                 ></v-btn>
                 <v-btn
-                  flat class="mb-1 mr-2"
+                  flat class="mb-2 mr-2"
                   id="completar"
                   v-if="mostrarBoton"
                   icon="mdi-check-bold"
-                  @click="abrirDialogoCompletarTarea"
+                  @click="abrirDialogoCompletarTarea(nota.id)"
                 ></v-btn>
               </div>
             </v-card>
@@ -60,38 +60,48 @@
       </v-tabs-window>
     </div>
   </v-card>
+  <DialogoEliminarTarea 
+  ref="eliminarTarea" 
+  :nota-id="selecionarNotasID"
+  @nota-eliminada="actualizarNotas" 
+/>
+<DialogoCompletarTarea
+ref="completarTarea"
+:nota-id="selecionarNotasID"
+@nota-completada="actualizarNotas"
+/>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, nextTick } from "vue";
 import { defineProps } from "vue";
+import axios from "axios";
 import DialogoCompletarTarea from "../DialogoCompletarTarea.vue";
 import DialogoEliminarTarea from "../DialogoEliminarTarea.vue";
 
 //  ->  Aplica a tab el valor predeterminado all (muestra todas las notas).
 const tab = ref("all");
 
-//  ->  Categorias (Miembros) importar desde el Back-End
-const categorias = ref([
-  { value: "uno", icono: "mdi-briefcase" },
-  { value: "dos", icono: "mdi-book-open-page-variant" },
-  { value: "tres", icono: "mdi-dumbbell" },
-  { value: "cuatro", icono: "mdi-food-apple" },
-  { value: "cinco", icono: "mdi-glass-cocktail" },
-  { value: "seis", icono: "mdi-airplane" },
-  { value: "siete", icono: "mdi-archive" },
-]);
+const propiedadesBoton = defineProps({
+  mostrarBoton: {
+    type: Boolean,
+    default: true,
+  },
+  grupoId: {
+    type: Number,
+    required: true
+  },
+});
 
-//  ->  Ventanas correspondientes a cada miembro (Enlazar nº miembros con nº ventanas).
-const ventanas = ref([
-  { value: "all", contenido: "categorias-todas" },
-  { value: "uno", contenido: "categoria-1" },
-  { value: "dos", contenido: "categoria-2" },
-  { value: "tres", contenido: "categoria-3" },
-  { value: "cuatro", contenido: "categoria-4" },
-  { value: "cinco", contenido: "categoria-5" },
-  { value: "seis", contenido: "categoria-6" },
-  { value: "siete", contenido: "categoria-7" },
+const categoriasYVentanas = ref([
+  { value: "all", icono: "mdi-view-dashboard", },
+  { value: "Trabajo", icono: "mdi-briefcase" },
+  { value: "Estudios", icono: "mdi-book-open-page-variant" },
+  { value: "Gimnasio", icono: "mdi-dumbbell" },
+  { value: "Dieta", icono: "mdi-food-apple" },
+  { value: "Ocio", icono: "mdi-glass-cocktail" },
+  { value: "Viajes", icono: "mdi-airplane" },
+  { value: "Otro", icono: "mdi-archive" },
 ]);
 
 //  ->  Importar notas desde el Back-End aquí.
@@ -123,73 +133,108 @@ let notas = ref([
   { categoria: "siete", descripcion: "Otro", prioridad: "media" },
 ]);
 
-//  ->  Obtener el color de la prioridad mediante un switch y asignarlo a una clase de css.
+
+//  ->  Cargar Notas desde el Back-End
+const notasCargadas = ref([]);
+
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+};
+
+const cargarNotas = async () => {  
+  try {
+    const response = await axios.get(`http://localhost:8000/api/notas/shownotagrupo/${propiedadesBoton.grupoId}`, config);
+    notasCargadas.value = response.data;
+    console.log("Notas cargadas: ", notasCargadas.value);
+  } catch (error) {
+    console.error('Error al cargar las notas: ', error);
+  }
+}
+
+onMounted(async () => {
+  await cargarNotas();
+});
+
+
+function filtrarNotas(value) {
+  let filtradas = value === "all" 
+    ? notasCargadas.value 
+    : notasCargadas.value.filter(nota => nota.categoria === value);
+
+  // Si hay notas, ordenarlas por prioridad
+  return filtradas.sort((a, b) => prioridadOrden[a.prioridad] - prioridadOrden[b.prioridad]);
+}
+
+//  ->  Obtener el ícono de una categoría.
+function getCategoriaIcono(categoriaValue) {
+  const categoria = categoriasYVentanas.value.find((c) => c.value === categoriaValue);
+  return categoria ? categoria.icono : "";
+}
+
+//  ->  Propiedades de "mostrarBotón".
+
+
+//  ->  Se definen el orden según la prioridad.
+const prioridadOrden = {
+  Alta: 1,
+  Media: 2,
+  Baja: 3,
+};
+
+//  ->  Se le asigna una clase de css según la prioridad.
 const getColorClass = (prioridad) => {
   switch (prioridad) {
-    case "alta":
-      return "prioridad-alta";
-    case "media":
-      return "prioridad-media";
-    case "baja":
-      return "prioridad-baja";
+    case "Alta":
+      return "prioridad-Alta";
+    case "Media":
+      return "prioridad-Media";
+    case "Baja":
+      return "prioridad-Baja";
     default:
       return "";
   }
 };
 
-//  ->  Filtra notas según el filtro seleccionado.
-function filtrarNotas(value) {
-  let filtradas;
-  if (value === "all") {
-    filtradas = notas.value;
-  } else {
-    filtradas = notas.value.filter((nota) => nota.categoria === value);
-  }
 
-  //    ->  Ordena las notas según la prioridad
-  return filtradas.sort(
-    (a, b) => prioridadOrden[a.prioridad] - prioridadOrden[b.prioridad]
-  );
-}
 
-//  ->  Obtener el ícono de una categoría.
-function getCategoriaIcono(categoriaValue) {
-  const categoria = categorias.value.find((c) => c.value === categoriaValue);
-  return categoria ? categoria.icono : "";
-}
+//  ->  Método para abrir el diálogo de Completar Tarea
 
-//  ->  Propiedades de Mostar Botón.
-const propiedadesBoton = defineProps({
-  mostrarBoton: {
-    type: Boolean,
-    default: true,
-  },
-});
-
-//    ->  Establece el orden según la prioridad.
-const prioridadOrden = {
-  alta: 1,
-  media: 2,
-  baja: 3,
-};
+const selecionarNotasID = ref(null);
 
 const completarTarea = ref(null);
 
-//  Método para abrir el diálogo de Crear Nota usando la referencia
-const abrirDialogoCompletarTarea = () => {
+const eliminarTarea = ref(null);
+
+//  ->  Método para abrir el diálogo de Eliminar Tarea
+const abrirDialogoEliminarTarea = async (notaId) => {
+  console.log("ID de nota seleccionada para eliminar:", notaId);
+  selecionarNotasID.value = notaId;  // Asegura que el ID se asigna correctamente
+  await nextTick();  // Espera a que el DOM y el estado se actualicen
+  if (eliminarTarea.value) {
+    eliminarTarea.value.abrirDialogoEliminarTarea();
+  }
+};
+
+const abrirDialogoCompletarTarea = async (notaId) => {
+  console.log("ID de nota seleccionada para completar:", notaId);
+  selecionarNotasID.value = notaId;  // Asegura que el ID se asigna correctamente
+  await nextTick();  // Espera a que el DOM y el estado se actualicen
   if (completarTarea.value) {
     completarTarea.value.abrirDialogoCompletarTarea();
   }
 };
 
-const eliminarTarea = ref(null);
-
-//  Método para abrir el diálogo de Crear Nota usando la referencia
-const abrirDialogoEliminarTarea = () => {
-  if (eliminarTarea.value) {
-    eliminarTarea.value.abrirDialogoEliminarTarea();
-  }
+const actualizarNotas = async () => {
+  selecionarNotasID.value = null;
+  await cargarNotas();
 };
+
 </script>
 
 <style scoped>
@@ -261,13 +306,13 @@ const abrirDialogoEliminarTarea = () => {
 }
 
 /* Colores asignados a los bordes según la prioridad */
-.prioridad-alta {
+.prioridad-Alta {
   border: 3px outset #ff0000;
 }
-.prioridad-media {
+.prioridad-Media {
   border: 3px outset #ffff00;
 }
-.prioridad-baja {
+.prioridad-Baja {
   border: 3px outset #00ff00;
 }
 </style>

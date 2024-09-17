@@ -8,14 +8,20 @@
       <!-- Contenido -->
 
       <!-- Componente: ComponenteGrupoPreferencias.vue (Menú de GrupoPreferencias) -->
-      <ComponenteGrupoPreferencias />
+      <ComponenteGrupoPreferencias :grupoId="grupoId" />
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
+import { useRoute } from 'vue-router';
 import ComponenteGrupoPreferencias from "@/components/grupo/grupopreferencias/ComponenteGrupoPreferencias.vue";
 import Navegacion from "@/components/Navegacion.vue";
+
+
+const route = useRoute(); // Obtén la ruta actual
+const grupoId = ref(route.params.id)
 </script>
 
 <style scoped>

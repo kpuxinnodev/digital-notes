@@ -11,15 +11,15 @@
             :src="avatar.img"
             :alt="avatar.descripcion"
           />
-          <p class="mt-2 ml-4 mr-4">{{ dato.name }}</p>
+          <p class="mt-2 ml-4 mr-4">{{ dato.nombre }}</p>
         </v-card-text>
       </v-card>
       <v-card flat class="d-flex align-center pl-8 pr-8">
         <v-card-text>
-          <p>{{ dato.description }}</p>
+          <p>{{ dato.descripcion }}</p>
         </v-card-text>
       </v-card class="align-end">
-      <p style="position: absolute; right: 2rem;" >{{ dato.f_creacion }}</p>
+      <p style="position: absolute; right: 2rem;" >{{ dato.created_at }}</p>
     </div>
 
     <v-divider class="divisor"></v-divider>
@@ -50,25 +50,34 @@
     <v-divider class="divisor"></v-divider>
 
     <!-- ? Componente: FormularioGrupoPreferencias2.vue -->
-    <FormularioGrupoPreferencias2 />
+    <FormularioGrupoPreferencias2 :grupoId="grupoId" />
   </v-container>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, defineProps } from "vue";
 import FormularioGrupoPreferencias2 from "./FormularioGrupoPreferencias2.vue";
+import axios from "axios";
+import { onMounted } from "vue";
+
+
+const props = defineProps({
+  grupoId: {
+    type: Number,
+    required: true
+  }
+});
+
+
+const grupoId = ref(props.grupoId); 
+
+console.log('grupoId recibido:', props.grupoId);
 
 const valid = ref(false);
 
+
 //  ->  Datos cargados desde el Back-End
-let datos = ref([
-  {
-    name: "nombre",
-    f_creacion: "21-10-2024",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui libero quisquam incidunt deserunt voluptatum facilis porro vitae. Facere, a nemo id quod eligendi velit illum soluta, voluptatum perferendis dolores culpa!",
-  },
-]);
+const datos = ref([]);
 
 //  ->  Avatar cargado del Back-End
 let avatarDB = ref([{ img: "/img/nav/user.png", descripcion: "avatar.png" }]);
@@ -80,14 +89,33 @@ const avatar = ref([{ imagen: "" }]);
 const subirAvatar = [(v) => !!v || "La imagen es requerida"];
 
 //  ->  Enviar Formulario
-const submitForm = () => {
-  if (valid.value) {
-    //  ->  Solicitudes a la API
-    console.log("Avatar actualizado: ", avatar.value);
-  } else {
-    console.log("Formulario inválido");
-  }
-};
+
+const token = localStorage.getItem('auth-item');
+
+  //  ->  Encabezado de la Autorización
+  const config = {
+      headers: {
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${token}`
+      }
+    }
+
+const obtenerDatos = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8000/api/grupos/${props.grupoId}/preferencias`, config);
+      datos.value = response.data;
+      console.log('Datos obtenidos correctamente: ', response.data);
+
+    } catch (error) {
+      console.error('Error al obtener los datos:', error);
+      // Manejar el error y mostrar un mensaje al usuario
+    }
+  };
+
+
+  onMounted(async () => {
+    await obtenerDatos();
+  });
 </script>
 
 <style scoped>

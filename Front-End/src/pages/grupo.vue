@@ -9,7 +9,7 @@
       <!--Contenido de la página-->
 
       <!-- Componente: DialogoCrearNota.vue (Botón: Asignar Nota) -->
-      <DialogoAsignarNota ref="asignarNota" style="position: absolute" />
+      <DialogoAsignarNota ref="asignarNota" :grupoId="id" style="position: absolute" />
       <!-- Componente: DialogoAbandonarGrupo.vue (Botón: Abandonar Grupo) -->
       <DialogoAbandonarGrupo ref="abandonarGrupo" style="position: absolute" />
 
@@ -49,7 +49,7 @@
       <div class="notasychat">
         <div class="notas">
           <!-- Componente: MostrarNotas.vue -->
-          <MostrarNotasGrupo :mostrarBoton="administrar" />
+          <MostrarNotasGrupo :mostrarBoton="administrar" :grupoId="id" />
         </div>
         <div class="chat"></div>
       </div>
@@ -58,12 +58,22 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import Navegacion from "@/components/Navegacion.vue";
 import DialogoAsignarNota from "@/components/grupo/DialogoAsignarNota.vue";
 import DialogoAbandonarGrupo from "@/components/grupo/DialogoAbandonarGrupo.vue";
 import MostrarNotasGrupo from "@/components/grupo/MostrarNotasGrupo.vue";
+import { defineProps } from 'vue';
+
+const props = defineProps({
+  id: {
+    type: Number,
+    required: true
+  }
+});
+
+const id = props.id; // Extraer el ID del grupo del prop
 
 const administrador =ref(true)
 
@@ -71,7 +81,7 @@ const administrador =ref(true)
 const router = useRouter();
 //  ->  Ruta para ir a las Preferencias del Grupo
 const preferencias = () => {
-  router.push("/grupopreferencias");
+  router.push({ path: `/grupopreferencias/${id}` });
 };
 
 //  ->  Dialogo de Asignar Nota

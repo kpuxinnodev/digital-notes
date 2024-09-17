@@ -1,11 +1,13 @@
 <template>
   <v-dialog v-model="dialog" max-width="600">
-    <v-card prepend-icon="mdi-creation" title="ASIGNAR UNA TAREA">
+    <v-form fast-fail v-model="valid" @submit.prevent="asignarNota">
+      <v-card prepend-icon="mdi-creation" title="ASIGNAR UNA TAREA">
       <v-card-text>
         <!-- Textbox -->
         <v-textarea
           label="Contenido de la nota..."
           rows="5"
+          v-model="notaGrupal.descripcion"
           :rules="contenidoRules"
           required
         ></v-textarea>
@@ -15,9 +17,10 @@
           <v-col cols="6">
             <!-- Seleccionar miembro -->
             <v-select
-              :items="miembro"
+              :items="asignacion"
               label="Miembro"
               :rules="usuarioRules"
+              v-model="notaGrupal.asignacion"
               required
             ></v-select>
           </v-col>
@@ -27,6 +30,7 @@
               :items="prioridad"
               label="Prioridad"
               :rules="prioridadRules"
+              v-model="notaGrupal.prioridad"
               required
             ></v-select>
           </v-col>
@@ -49,21 +53,42 @@
         ></v-btn>
       </v-card-actions>
     </v-card>
+    </v-form>
   </v-dialog>
 </template>
 
 <script setup>
-import { ref, defineExpose } from "vue";
+import { ref, defineExpose, onMounted } from "vue";
+import axios from "axios";
+import { defineProps } from "vue";
 //  ->  'defineExpose' exporta funciones para ejecturalas desde otros componentes.
 
+const props = defineProps({
+  grupoId: {
+    type: Number,
+    required: true
+  }
+});
+
+const emit = defineEmits(['notaAsignada']);
+
+const notaGrupal = ref({
+  descripcion:"",
+  asignacion: "",
+  prioridad: "",
+});
+
 //  ->  Importar miembros del Back-End
-const miembro = ["Miembro1", "Miembro2", "Miembro3", "Miembro4"];
+const asignacion = ["Miembro1", "Miembro2", "Miembro3", "Miembro4"];
 
 //  ->  Prioridades de las notas
 const prioridad = ["Alta", "Media", "Baja"];
 
 //  ->  'dialog' por referencia default = false
 const dialog = ref(false);
+
+const valid = ref(false);
+
 
 //  ->  Funciones para abrir y cerrar el dialogo
 const abrirDialogoAsignarNota = () => {
@@ -86,10 +111,50 @@ const usuarioRules = [(v) => !!v || "Debes elegir un usuario"];
 const prioridadRules = [(v) => !!v || "La prioridad es requerida"];
 
 //  ->  Añadir backend para asignar la nota.
-const asignarNota = () => {
-  console.log("Nota asignada.");
-  cerrarDialogo();
+
+
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
 };
+
+
+
+const asignarNota = async () => {
+  if (!valid.value) return; // Verifica si el formulario es válido
+   notaGrupal.value.asignacion = true;
+
+   if (!props.grupoId || isNaN(props.grupoId)) {
+    console.error('No se ha proporcionado un ID de grupo válido');
+    return;
+  }
+  try {
+    // Esperar la respuesta de la API
+    const response = await axios.post(`http://localhost:8000/api/notas/${props.grupoId}/grupo`, notaGrupal.value, config);
+
+    // Guardar el nuevo token si está presente en la respuesta
+    localStorage.setItem('auth-item', response.data.token);
+    
+    console.log('Nota asignada:', response.data);
+    emit('notaAsignada');
+    cerrarDialogo(); // Cerrar el diálogo después de guardar la nota
+    
+    // Aquí podrías agregar una redirección o mostrar un mensaje de éxito
+
+  } catch (error) {
+    console.error('Error al guardar nota:', error);
+    // Manejar el error y mostrar un mensaje al usuario
+  }
+};
+
+onMounted( async() => {
+  await asignarNota();
+})
 
 //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
 defineExpose({ abrirDialogoAsignarNota });

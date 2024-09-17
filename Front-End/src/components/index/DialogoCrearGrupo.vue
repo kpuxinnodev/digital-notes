@@ -60,6 +60,7 @@ const nuevoGrupo = ref({
   descripcion: "",
 });
 
+const emit = defineEmits(['grupoCreado']);
 
 //  ->  'dialog' por referencia default = false
 const dialog = ref(false);
@@ -89,18 +90,24 @@ const contenidoRules = [
     "El contenido debe contar con menos de 120 caracteres",
 ];
 
+const token = localStorage.getItem('auth-item');
+
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+};
+
 const crearGrupo = async () => {
   if (!valid.value) return;
 
   try {
-    const response = await axios.post('http://localhost:8000/api/grupos', nuevoGrupo.value, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    const response = await axios.post('http://localhost:8000/api/grupos', nuevoGrupo.value, config);
     console.log('Grupo Creado:', response.data);
     // Redirigir o mostrar mensaje de éxito
     cerrarDialogo();
+    emit('grupoCreado');
   }catch (error) {
     console.error('Error al crear el grupo:', error);
   }

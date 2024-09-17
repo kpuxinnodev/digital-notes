@@ -73,7 +73,7 @@ const route = useRoute();
 const rutas_uno = ref([
   //  ->  Menús principales
   { path: "/", icon: "mdi-account" },
-  { path: "/grupo", icon: "mdi-account-multiple" },
+  { path: "/grupos", icon: "mdi-account-multiple" },
 ]);
 const rutas_dos = ref([
   //  ->  Menús secundarios

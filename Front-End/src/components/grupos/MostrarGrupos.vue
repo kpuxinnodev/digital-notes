@@ -14,7 +14,8 @@
       <v-tabs-window v-model="tab" class="ventana">
         <!-- Notas en Grid -->
           <div class="grid-notas">
-  <v-card v-for="(grupo, index) in grupos" :key="index"
+  <v-card v-for="(grupo, index) in gruposCargados"
+    :key="index"
     :image="grupo.avatar"
     max-width="400"
     height="120"
@@ -27,18 +28,24 @@
         text="Ir a grupo"
         variant="outlined"
         class="mt-6"
+        @click="iraGrupo(grupo.id)"
       ></v-btn>
   </v-card>
           </div>
       </v-tabs-window>
     </div>
   </v-card>
+  <DialogoCrearGrupo 
+  ref="crearGrupo" 
+  @grupo-creado="actualizarGrupos" 
+  />
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { defineProps } from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
 
 //  ->  Aplica a tab el valor predeterminado all (muestra todas las notas).
 const tab = ref("all");
@@ -54,11 +61,51 @@ const propiedadesBoton = defineProps({
 });
 
 const grupos = ref([
-  {nombre: "Grupo 1", avatar: "https://cdn.vuetifyjs.com/docs/images/cards/dark-beach.jpg", ruta: () => { router.push("/login") }},
-  {nombre: "Grupo 2", avatar: "https://cdn.vuetifyjs.com/images/cards/halcyon.png", ruta: ""},
-  {nombre: "Grupo 3", avatar: "https://cdn.vuetifyjs.com/images/cards/halcyon.png", ruta: ""},
-  {nombre: "Grupo 4", avatar: "https://cdn.vuetifyjs.com/images/cards/halcyon.png", ruta: ""}
+  {id:"1", nombre: "Grupo 1", avatar: "https://cdn.vuetifyjs.com/docs/images/cards/dark-beach.jpg", ruta: () => { router.push("/login") }},
+  {id:"2  ", nombre: "Grupo 2", avatar: "https://cdn.vuetifyjs.com/images/cards/halcyon.png", ruta: ""},
+  {id:"3", nombre: "Grupo 3", avatar: "https://cdn.vuetifyjs.com/images/cards/halcyon.png", ruta: ""},
+  {id:"4", nombre: "Grupo 4", avatar: "https://cdn.vuetifyjs.com/images/cards/halcyon.png", ruta: ""}
 ])
+
+const gruposCargados = ref([]);
+
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+};
+
+const cargarGrupos = async() => {
+  try{
+      const response = await axios.get('http://localhost:8000/api/grupos/ver', config);
+      gruposCargados.value = response.data;
+      console.log("Grupos Cargados: ", gruposCargados.value);
+  } catch (error) {
+    console.error("Error al cargar los Grupos: ", error);
+  }
+}
+
+onMounted(async () => {
+  await cargarGrupos();
+});
+
+const iraGrupo = (id) => {
+  if (id) {
+    router.push(`/grupo/${id}`);
+  } else {
+    console.error('ID del grupo no definido.');
+  }
+};
+
+
+const actualizarGrupos = async () => {
+  await cargarGrupos();
+};
+
 </script>
 
 <style scoped>
