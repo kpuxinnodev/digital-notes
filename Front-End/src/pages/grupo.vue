@@ -49,7 +49,7 @@
       <div class="notasychat">
         <div class="notas">
           <!-- Componente: MostrarNotas.vue -->
-          <MostrarNotasGrupo :mostrarBoton="administrar" :grupoId="id" />
+          <MostrarNotasGrupo :mostrarBoton="administrar" :grupoId="grupoId" />
         </div>
         <div class="chat"></div>
       </div>
@@ -65,6 +65,9 @@ import DialogoAsignarNota from "@/components/grupo/DialogoAsignarNota.vue";
 import DialogoAbandonarGrupo from "@/components/grupo/DialogoAbandonarGrupo.vue";
 import MostrarNotasGrupo from "@/components/grupo/MostrarNotasGrupo.vue";
 import { defineProps } from 'vue';
+
+const route = useRoute(); // Obtén la ruta actual
+const grupoId = ref(route.params.id)
 
 const props = defineProps({
   id: {

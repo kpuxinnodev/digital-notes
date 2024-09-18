@@ -1,6 +1,6 @@
 <template>
-  <DialogoCompletarTarea ref="completarTarea" style="position: absolute;" />
-  <DialogoEliminarTarea ref="eliminarTarea" style="position: absolute;" />
+  <DialogoCompletarTarea ref="completarTareaGrupo" style="position: absolute;" />
+  <DialogoEliminarTarea ref="eliminarTareaGrupo" style="position: absolute;" />
 
   <v-card class="component">
     <!-- Barra de Categorías -->
@@ -44,14 +44,14 @@
                   id="eliminar"
                   v-if="mostrarBoton"
                   icon="mdi-delete"
-                  @click="abrirDialogoEliminarTarea(nota.id)"
+                  @click="abrirDialogoEliminarTareaGrupo(nota.id)"
                 ></v-btn>
                 <v-btn
                   flat class="mb-2 mr-2"
                   id="completar"
                   v-if="mostrarBoton"
                   icon="mdi-check-bold"
-                  @click="abrirDialogoCompletarTarea(nota.id)"
+                  @click="abrirDialogoCompletarTareaGrupo(nota.id)"
                 ></v-btn>
               </div>
             </v-card>
@@ -60,15 +60,17 @@
       </v-tabs-window>
     </div>
   </v-card>
-  <DialogoEliminarTarea 
-  ref="eliminarTarea" 
+  <DialogoEliminarTareaGrupo 
+  ref="eliminarTareaGrupo" 
   :nota-id="selecionarNotasID"
   @nota-eliminada="actualizarNotas" 
+  :grupo-id="grupoId"
 />
-<DialogoCompletarTarea
-ref="completarTarea"
+<DialogoCompletarTareaGrupo
+ref="completarTareaGrupo"
 :nota-id="selecionarNotasID"
 @nota-completada="actualizarNotas"
+:grupo-id="grupoId"
 />
 </template>
 
@@ -76,13 +78,14 @@ ref="completarTarea"
 import { ref, onMounted, nextTick } from "vue";
 import { defineProps } from "vue";
 import axios from "axios";
-import DialogoCompletarTarea from "../DialogoCompletarTarea.vue";
-import DialogoEliminarTarea from "../DialogoEliminarTarea.vue";
+import DialogoCompletarTareaGrupo from "./DialogoCompletarTareaGrupo.vue";
+import DialogoEliminarTareaGrupo from "./DialogoEliminarTareaGrupo.vue";
+
 
 //  ->  Aplica a tab el valor predeterminado all (muestra todas las notas).
 const tab = ref("all");
 
-const propiedadesBoton = defineProps({
+const props = defineProps({
   mostrarBoton: {
     type: Boolean,
     default: true,
@@ -92,6 +95,7 @@ const propiedadesBoton = defineProps({
     required: true
   },
 });
+const grupoId = ref(props.grupoId); 
 
 const categoriasYVentanas = ref([
   { value: "all", icono: "mdi-view-dashboard", },
@@ -149,7 +153,7 @@ const config = {
 
 const cargarNotas = async () => {  
   try {
-    const response = await axios.get(`http://localhost:8000/api/notas/shownotagrupo/${propiedadesBoton.grupoId}`, config);
+    const response = await axios.get(`http://localhost:8000/api/notas/shownotagrupo/${props.grupoId}`, config);
     notasCargadas.value = response.data;
     console.log("Notas cargadas: ", notasCargadas.value);
   } catch (error) {
@@ -207,26 +211,26 @@ const getColorClass = (prioridad) => {
 
 const selecionarNotasID = ref(null);
 
-const completarTarea = ref(null);
+const completarTareaGrupo = ref(null);
 
-const eliminarTarea = ref(null);
+const eliminarTareaGrupo = ref(null);
 
 //  ->  Método para abrir el diálogo de Eliminar Tarea
-const abrirDialogoEliminarTarea = async (notaId) => {
+const abrirDialogoEliminarTareaGrupo = async (notaId) => {
   console.log("ID de nota seleccionada para eliminar:", notaId);
   selecionarNotasID.value = notaId;  // Asegura que el ID se asigna correctamente
   await nextTick();  // Espera a que el DOM y el estado se actualicen
-  if (eliminarTarea.value) {
-    eliminarTarea.value.abrirDialogoEliminarTarea();
+  if (eliminarTareaGrupo.value) {
+    eliminarTareaGrupo.value.abrirDialogoEliminarTareaGrupo();
   }
 };
 
-const abrirDialogoCompletarTarea = async (notaId) => {
+const abrirDialogoCompletarTareaGrupo = async (notaId) => {
   console.log("ID de nota seleccionada para completar:", notaId);
   selecionarNotasID.value = notaId;  // Asegura que el ID se asigna correctamente
   await nextTick();  // Espera a que el DOM y el estado se actualicen
-  if (completarTarea.value) {
-    completarTarea.value.abrirDialogoCompletarTarea();
+  if (completarTareaGrupo.value) {
+    completarTareaGrupo.value.abrirDialogoCompletarTareaGrupo();
   }
 };
 
