@@ -26,6 +26,7 @@
           v-model="perfilRegistro.email"
           :rules="emailRules"
           label="E-mail"
+          type="email"
           required
         ></v-text-field>
 
@@ -92,6 +93,7 @@ const usuarioRules = [
 
 const emailRules = [
   (v) => !!v || "El email es requerido",
+  (v) => /.+@.+\..+/.test(v) || "Debe ser un email válido",
 ];
 
 const passwordRules = [
