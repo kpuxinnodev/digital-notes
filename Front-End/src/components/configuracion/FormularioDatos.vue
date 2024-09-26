@@ -98,7 +98,6 @@ const enviarFormulario = async () => {
 
     // Verifica si response está definido antes de acceder a response.data
     if (response && response.data) {
-      localStorage.setItem('auth-item', response.data.token);
       console.log("Perfil actualizado:", response.data);
     }
   } catch (error) {

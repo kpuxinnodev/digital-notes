@@ -136,9 +136,6 @@ const asignarNota = async () => {
   try {
     // Esperar la respuesta de la API
     const response = await axios.post(`http://localhost:8000/api/notas/${props.grupoId}/grupo`, notaGrupal.value, config);
-
-    // Guardar el nuevo token si está presente en la respuesta
-    localStorage.setItem('auth-item', response.data.token);
     
     console.log('Nota asignada:', response.data);
     emit('notaAsignada');

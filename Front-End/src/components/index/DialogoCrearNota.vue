@@ -134,9 +134,6 @@ const guardarNota = async () => {
         'Authorization': `Bearer ${token}`
       }
     });
-
-    // Guardar el nuevo token si está presente en la respuesta
-    localStorage.setItem('auth-item', response.data.token);
     
     console.log('Nota Guardada:', response.data);
     cerrarDialogo(); // Cerrar el diálogo después de guardar la nota
