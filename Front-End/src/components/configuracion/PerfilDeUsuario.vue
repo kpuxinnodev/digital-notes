@@ -6,9 +6,7 @@
           <v-card-text class="d-flex flex-column justify-center align-center">
             <!-- Cargar avatar del Back-End -->
             <img
-              v-if="dato.avatar"
-              :src="dato.avatar"
-              :alt="dato.name"
+              src="/img/avatar/avatar2.png"
             />
             <p class="mt-2">{{ dato.name }}</p>
             <p>@{{ dato.nickname }}</p>
@@ -24,29 +22,7 @@
       <v-divider class="divisor"></v-divider>
 
       <!-- Formulario para editar datos -->
-      <v-form ref="form" v-model="valid" @submit.prevent="enviarImagen">
-        <v-row>
-          <!-- Campo de archivo para seleccionar la imagen -->
-          <v-col cols="12">
-            <v-card flat>
-              <v-file-input
-                v-model="imagen"
-                accept="image/png, image/jpeg, image/bmp, image/jpg"
-                label="Avatar"
-                placeholder="Sube un avatar"
-                prepend-icon="mdi-camera"
-              ></v-file-input>
-            </v-card>
-          </v-col>
-
-          <!-- Botón para enviar el formulario -->
-          <v-col class="d-flex justify-end">
-            <v-btn color="primary" type="submit" class="mt-4">
-              Cambiar avatar
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-form>
+      
     </v-container>
   </template>
 

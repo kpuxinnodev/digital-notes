@@ -35,7 +35,7 @@
             >
               <!-- Notas -->
               <v-icon :icon="getCategoriaIcono(nota.categoria)"></v-icon>
-              <v-card-text>{{ nota.descripcion }}</v-card-text>
+              <v-card-text class="notas-descripcion">{{ nota.descripcion }}</v-card-text>
               <div class="botones d-flex flex-row align-end justify-end">
                 <v-btn
                   flat class="mb-2"

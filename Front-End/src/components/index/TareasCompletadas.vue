@@ -21,8 +21,8 @@
 
 
             <v-card class="cartas">
-              <v-icon :icon="getCategoriaIcono(carta.categoria)"></v-icon>
-              <v-card-text class="d-flex flex-row justify-space-between">
+              <v-icon :icon="getCategoriaIcono(carta.categoria)" class="cartas-icono"></v-icon>
+              <v-card-text class="d-flex flex-row justify-space-between cartas-texto">
                 {{ carta.descripcion }} 
                 <span class="fecha">{{ carta.finalizacion }}</span> 
               </v-card-text>
@@ -113,6 +113,12 @@ onMounted(() => {
 
   .cartas-icono {
     align-self: center;
+    padding-left: 28px;
+  }
+
+  .cartas-texto {
+    padding-left: 28px;
+    padding-right: 28px;
   }
 
   .v-list-group__items .v-list-item {
