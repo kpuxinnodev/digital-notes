@@ -25,7 +25,6 @@
 
       <!-- Ventana de pestañas principales -->
       <v-tabs-window v-model="mainTab" class="custom-tabs-window w-100 mt-1">
-        
         <!-- Ventana 1 (Bienvenido) -->
         <v-tabs-window-item value="main-1">
           <!-- Contenido de la ventana 1 -->
@@ -33,17 +32,18 @@
             <v-card-title>Bienvenido a la Guía de Usuario</v-card-title>
             <v-card-text>
               <p>
-                En la Guía de Usuario podrás encontrar la ayuda necesaria para
-                entender el funcionamiento de Digital Notes. En la misma
-                aprenderás a navegar entre los diferentes menús y comprender las
-                tareas que puedes realizar en los mismos, por ejemplo:
-                administrar tareas y grupos, configurar tu cuenta y consultar
-                dudas sobre la herramienta con nuestro sistema de FAQ.
+                En la <b>Guía de Usuario</b> podrás encontrar la
+                <b>ayuda necesaria</b> para entender el funcionamiento de
+                Digital Notes. En la misma aprenderás a navegar entre los
+                diferentes menús y comprender las tareas que puedes realizar en
+                los mismos, por ejemplo: administrar tareas y grupos, configurar
+                tu cuenta y consultar dudas sobre la herramienta con nuestro
+                sistema de FAQ.
               </p>
               <br />
               <p>
-                Utiliza el menú lateral de la ventana para navegar entre las
-                guías específicas de cada elemento de la herramienta.
+                Utiliza el <b>menú lateral</b> de la ventana para navegar entre
+                las guías específicas de cada elemento de la herramienta.
               </p>
             </v-card-text>
           </v-card>
@@ -87,17 +87,61 @@
             <v-card-title>Mi Espacio</v-card-title>
             <v-card-text>
               <p>
-                En este menú puedes gestionar notas personales las cuales solo
-                tu puedes ver, como dicta su título, es tu espacio personal.
-                Aquí podrás gestionar tus notas; creándolas, eliminándolas y
-                visualizarlas.
+                En este menú puedes <b>gestionar notas personales</b> las cuales
+                solo tu puedes ver, como dicta su título, es tu
+                <b>espacio personal</b>. Aquí podrás gestionar tus notas;
+                creándolas, eliminándolas y visualizarlas.
               </p>
               <br />
               <p>
                 El menú se divide en tres secciones; dos de ellas en la parte
                 superior y la otra el resto de la ventana. En la estructura
                 superior, a la izquierda, se encuentran botones los cuales te
-                permitirán: crear una nota, eliminar una nota y crear un grupo.
+                permitirán: <b>crear una nota</b>y <b>administrar tus notas</b>.
+              </p>
+              <br />
+            </v-card-text>
+
+            <img
+              id="imagen-botonescrearydaministrar"
+              src="/img/guia/botonescorearyadministrar.png"
+              alt="botonescorearyadministrar.png"
+            />
+
+            <v-divider class="mt-4 mb-6"></v-divider>
+            <v-card-title>Crear una nota</v-card-title>
+            <v-card-text>
+              <p>
+                Para crear una nota solo basta con dar click en dicho botón y se
+                abrirá un formulario con campos a rellenar.
+              </p>
+            </v-card-text>
+
+            <img
+              id="imagen-formulariocrearunanota"
+              src="/img/guia/crearunanota.png"
+              alt="crearunanota.png"
+            />
+
+            <v-card-text>
+              <p>
+                El formulario para crear una nota cuenta con
+                <b>tres espacios a rellenar</b>, los cuales son
+                <b>obligatorios</b> para crear una nota.
+              </p>
+              <br />
+              <p>
+                El <b>primer espacio</b> a rellenar el es
+                <b>contenido de la nota</b>, en él se coloca la
+                <b>información a almacenar</b>, dicha nota tiene un máximo de
+                120 caracteres y de sobrepasar los mismos no se dejará crear la
+                nota.
+              </p>
+              <br />
+              <p>
+                Debajo estará <b>la categoría y la prioridad</b>; la categoría sirve
+                para determinar a que grupo de tareas pertenecerá dicha nota, y
+                la prioridad que tan prioritaria es la nota.
               </p>
             </v-card-text>
           </v-card>
@@ -260,5 +304,13 @@ const listaNavegacion = ref([
 
 .espaciado-lista {
   min-height: 32px;
+}
+
+#imagen-botonescrearydaministrar {
+  height: 100px;
+}
+
+#imagen-formulariocrearunanota {
+  height: 357px;
 }
 </style>

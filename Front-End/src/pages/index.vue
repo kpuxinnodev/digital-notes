@@ -85,10 +85,7 @@ function verBotones() {
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(0deg,#6d6d6d 25%, transparent 26%, transparent 49%, #6d6d6d80 50%, #6d6d6d80 75%, transparent 76% );
-        background-size: 2em 2em;
-        background-color: #4B4B4b;
-        opacity: 1
+  background:#3B3B3b;
 }
 
 /**----div.content----*/
