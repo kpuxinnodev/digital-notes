@@ -2,16 +2,16 @@
     <v-card
       class="fixed-card"
     >
-      <v-list v-model:opened="open">
+      <v-list v-model:opened="open" class="lista">
 
         <v-list-group value="Tareas Completadas">
           <template v-slot:activator="{ props }">
-            <v-list-item
+            <v-list-item class="iconotitulo"
               v-bind="props"
               prepend-icon="mdi-check-decagram"
-              title="Tareas Completadas"
-              color="primary"
-            ></v-list-item>
+            >
+            <v-card-title class="titulo">Tareas Completadas</v-card-title>
+          </v-list-item>
           </template>
 
           <v-list-item 
@@ -100,15 +100,23 @@ onMounted(() => {
     position: fixed;
     top: 4%;
     z-index: 1000;
-    background: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     max-height: 300px;
     overflow-y: auto;
   }
 
+  .v-list {
+    background-color: #6894ac;
+
+  }
+
   .cartas {
     display: flex;
     flex-direction: row;
+    background-color: #6894ac;
+    border-top: 1px dotted white;
+    border-radius: 0px;
+    padding-left: 5px;
   }
 
   .cartas-icono {
@@ -117,8 +125,8 @@ onMounted(() => {
   }
 
   .cartas-texto {
-    padding-left: 28px;
-    padding-right: 28px;
+    padding-left: 40px;
+    padding-right: 40px;
   }
 
   .v-list-group__items .v-list-item {
@@ -134,7 +142,15 @@ onMounted(() => {
     top: 4px;
     right: 0;
     font-size: 10px;
-    color: #2196f3;
+    color: #FFFFFF;
+  }
+
+  .iconotitulo {
+    margin-left: 5px;
+  }
+
+  .titulo {
+    font-size: 16px;
   }
   </style>
   

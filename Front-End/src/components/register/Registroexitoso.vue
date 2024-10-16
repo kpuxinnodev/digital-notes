@@ -1,7 +1,7 @@
 <template>
     <div class="componente">
         <v-sheet
-    class="pa-4 text-center mx-auto"
+    class="pa-4 text-center mx-auto colorfondo"
     elevation="12"
     max-width="600"
     rounded="lg"
@@ -18,7 +18,7 @@
     <h2 class="text-h5 mb-6">Se ha registrado exitosamente</h2>
 
     <p class="mb-4 text-medium-emphasis text-body-2">
-      Se ha registrado exitosamente, todos los datos ingresados son correctos.
+      La cuenta se ha creado correctamente, ya puedes ingresar a la aplicación.
     </p>
 
     <v-divider class="mb-4"></v-divider>
@@ -65,5 +65,9 @@ const cerrar = () => {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.colorfondo {
+  background-color: #263238;
 }
 </style>

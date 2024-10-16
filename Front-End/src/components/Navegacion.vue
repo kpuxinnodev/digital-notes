@@ -2,7 +2,7 @@
   <div class="principal">
     <v-card>
       <v-layout>
-        <v-navigation-drawer app permanent absolute location="left" rail>
+        <v-navigation-drawer color="white" app permanent absolute location="left" rail class="drawer">
           <v-list>
             <img src="/img/nav/logoapp.png" alt="logo.png" />
           </v-list>
@@ -73,11 +73,11 @@ const route = useRoute();
 const rutas_uno = ref([
   //  ->  Menús principales
   { path: "/", icon: "mdi-account" },
-  { path: "/grupos", icon: "mdi-account-multiple" },
+  //{ path: "/grupos", icon: "mdi-account-multiple" },
 ]);
 const rutas_dos = ref([
   //  ->  Menús secundarios
-  { path: "/notificaciones", icon: "mdi-bell" },
+  //{ path: "/notificaciones", icon: "mdi-bell" },
   { path: "/faq", icon: "mdi-frequently-asked-questions" },
   { path: "/guia", icon: "mdi-book" },
   { path: "/configuracion", icon: "mdi-cog" },
@@ -110,6 +110,7 @@ const abrirDialogoSalirAplicacion = () => {
   text-decoration: none;
 }
 
+
 img {
   height: 53px;
 }
@@ -135,6 +136,7 @@ img {
 }
 
 .inactive-icon {
-  color: white;
+  color: #5B5B5B;
 }
+
 </style>

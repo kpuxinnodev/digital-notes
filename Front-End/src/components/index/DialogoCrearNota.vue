@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="600">
     <v-form fast-fail v-model="valid" @submit.prevent="guardarNota">
-      <v-card prepend-icon="mdi-creation" title="CREAR UNA NOTA">
+      <v-card prepend-icon="mdi-creation" title="CREAR UNA NOTA" class="colorfondo">
         <v-card-text>
           <v-textarea
             label="Contenido de la nota..."
@@ -102,8 +102,8 @@ const cerrarDialogo = () => {
 const contenidoRules = [
   (v) => !!v || "El contenido es requerido",
   (v) =>
-    (v && v.length <= 120) ||
-    "El contenido debe contar con menos de 120 caracteres",
+    (v && v.length <= 80) ||
+    "El contenido debe contar con menos de 80 caracteres",
 ];
 
 const categoriaRules = [(v) => !!v || "La categoría es requerida"];
@@ -150,3 +150,10 @@ const guardarNota = async () => {
 //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
 defineExpose({ abrirDialogoCrearNota });
 </script>
+
+<style scoped>
+.colorfondo {
+  background-color: #263238;
+}
+
+</style>

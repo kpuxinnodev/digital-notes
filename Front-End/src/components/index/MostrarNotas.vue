@@ -31,14 +31,14 @@
               class="nota"
               v-for="nota in filtrarNotas(tab)"
               :key="nota.id"
-              :class="getColorClass(nota.prioridad)"
             >
               <!-- Notas -->
-              <v-icon :icon="getCategoriaIcono(nota.categoria)"></v-icon>
+              <v-icon class="icono" :icon="getCategoriaIcono(nota.categoria)"></v-icon>
+              <div class="prioridad" :class="getColorClass(nota.prioridad)"></div>
               <v-card-text class="notas-descripcion">{{ nota.descripcion }}</v-card-text>
               <div class="botones d-flex flex-row align-end justify-end">
                 <v-btn
-                  flat class="mb-2"
+                  flat class="mb-2 mr-2"
                   id="eliminar"
                   v-if="mostrarBoton"
                   icon="mdi-delete"
@@ -91,38 +91,6 @@ const categoriasYVentanas = ref([
   { value: "Viajes", icono: "mdi-airplane" },
   { value: "Otro", icono: "mdi-archive" },
 ]);
-
-//  ->  Importar notas desde el Back-End aquí.
-let notas = ref([
-  { categoria: "Ocio", descripcion: "Quedada el Domingo 18/07", prioridad: "Baja" },
-  { categoria: "Trabajo", descripcion: "Presentar currículum en BPS", prioridad: "Alta" },
-  {
-    categoria: "Estudios",
-    descripcion: "Escrito de Matemáticas 12/09",
-    prioridad: "Alta",
-  },
-  { categoria: "Dieta", descripcion: "Bajar los carbohidratos", prioridad: "Media" },
-  {
-    categoria: "Gimnasio",
-    descripcion: "Empezar rutina de hipertrofia",
-    prioridad: "Media",
-  },
-  {
-    categoria: "Estudios",
-    descripcion: "Presentación de Formación 24/09",
-    prioridad: "Alta",
-  },
-  {
-    categoria: "Ocio",
-    descripcion: "Cumpleaños de Noelia 17/10",
-    prioridad: "Media",
-  },
-  { categoria: "Viajes", descripcion: "Montevideo 28/10", prioridad: "Media" },
-  { categoria: "Otro", descripcion: "Otro", prioridad: "Media" },
-]);
-
-
-
 
 //  ->  Cargar Notas desde el Back-End
 const notasCargadas = ref([]);
@@ -240,14 +208,18 @@ const actualizarNotas = async () => {
 .component {
   display: flex;
   flex-direction: column;
-  height: 90%;
-  width: 90%;
+  height: 100%;
+  width: 100%;
 }
 
 .barra-de-categorias {
   position: sticky;
+  display: flex;
+  background-color:#2196f3;
   top: 0;
   z-index: 1;
+  align-items: center;
+  justify-content: center;
 }
 
 .category-tabs {
@@ -258,6 +230,7 @@ const actualizarNotas = async () => {
   flex: 1;
   overflow-y: auto;
   padding: 16px;
+  background-color: #3f7f9c;
 }
 
 .ventana {
@@ -266,7 +239,7 @@ const actualizarNotas = async () => {
 
 .grid-notas {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
 
@@ -275,6 +248,8 @@ const actualizarNotas = async () => {
   align-items: center;
   padding: 16px;
   border-radius: 8px;
+  border: 2px solid white;
+  background-color: #6894ac;
 }
 
 .nota-icono {
@@ -290,23 +265,44 @@ const actualizarNotas = async () => {
 
 /* Botones de completar y eliminar notas */
 #completar {
-  width: calc(var(--v-btn-height) + 2px) !important;
-  height: calc(var(--v-btn-height) + 2px) !important;
+  width: calc(var(--v-btn-height) + 1px) !important;
+  height: calc(var(--v-btn-height) + 1px) !important;
+  color: #6894ac;
+  background-color: white;
 }
 
 #eliminar {
-  width: calc(var(--v-btn-height) + 2px) !important;
-  height: calc(var(--v-btn-height) + 2px) !important;
+  width: calc(var(--v-btn-height) + 1px) !important;
+  height: calc(var(--v-btn-height) + 1px) !important;
+  color: #6894ac;
+  background-color: white;
 }
 
 /* Colores asignados a los bordes según la prioridad */
 .prioridad-Alta {
-  border: 3px outset #ff0000;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  background-color: #EF5350;
 }
 .prioridad-Media {
-  border: 3px outset #ffff00;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  background-color: #FFEE58;
 }
 .prioridad-Baja {
-  border: 3px outset #00ff00;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  background-color: #66BB6A;
+}
+
+.prioridad {
+  height: 100%;
+  width: 30px;
+  position: absolute;
+  z-index: 39;
+}
+.icono {
+  z-index: 40;
+  margin-left: 3px;
 }
 </style>

@@ -152,7 +152,7 @@ const abrirMostrarRegistrado = () => {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  background-color: darkblue;
+  background-color: #3f7f9c;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -191,7 +191,7 @@ const abrirMostrarRegistrado = () => {
 }
 
 button {
-  background-color: rgb(0, 230, 0);
+  background-color: #66BB6A;
   border-radius: 10px;
   margin: auto;
   font-weight: bolder;
@@ -211,7 +211,7 @@ button {
   margin-bottom: 5%;
   display: flex;
   flex-direction: row;
-  background-color: darkblue;
+  background-color: #3f7f9c;
   justify-content: space-evenly;
   align-items: center;
 }
@@ -223,8 +223,8 @@ button {
 
 .acceder > a {
   font-size: 15px;
-  text-decoration: none;
-  color: rgb(0, 230, 0);
+  text-decoration: underline;
+  color: #66BB6A;
   font-weight: bolder;
 }
 

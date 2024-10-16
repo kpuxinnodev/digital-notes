@@ -6,6 +6,7 @@
         prepend-icon="mdi-power-standby"
         text="¿Estas seguro que deseas cerrar sesión?"
         title="CERRAR SESIÓN"
+        class="colorfondo"
       >
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -105,5 +106,7 @@ defineExpose({ abrirDialogoSalirAplicacion });
 </script>
 
 <style scoped>
-
+.colorfondo {
+  background-color: #263238;
+}
 </style>

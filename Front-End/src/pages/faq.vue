@@ -34,10 +34,7 @@ import ComponenteFaq from "@/components/faq/ComponenteFaq.vue";
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(45deg, #6d6d6d 10%,transparent 10%,transparent 90%,#6d6d6d80 90%),linear-gradient(135deg, transparent 40%, #87878780 40%, #87878780 60%, transparent 0),linear-gradient(45deg, transparent 40%, #878787 40%, #878787 60%, transparent 0);
-        background-size: 3em 3em;
-        background-color: #4B4B4b;
-        opacity: 1
+  background: white;
 }
 
 /**----div.content----*/
