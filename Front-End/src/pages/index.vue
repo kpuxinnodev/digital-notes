@@ -83,7 +83,7 @@ function verBotones() {
   align-items: center;
   justify-content: center;
 
-  background:#ECEFF1;
+  background:#F9F9F9;
 }
 
 /**----div.content----*/
