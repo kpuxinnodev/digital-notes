@@ -5,11 +5,10 @@
       <v-card-title>GUÍA DE USUARIO</v-card-title>
     </v-toolbar>
 
-    <div class="d-flex flex-row">
+    <div class="d-flex flex-row windowcolor">
       <!-- Pestañas principales -->
       <v-tabs
         v-model="mainTab"
-        color="primary"
         class="mb-4 custom-tabs scrollable-window"
         direction="vertical"
       >
@@ -24,11 +23,11 @@
       </v-tabs>
 
       <!-- Ventana de pestañas principales -->
-      <v-tabs-window v-model="mainTab" class="custom-tabs-window w-100 mt-1">
+      <v-tabs-window v-model="mainTab" class="custom-tabs-window w-100">
         <!-- Ventana 1 (Bienvenido) -->
-        <v-tabs-window-item value="main-1">
+        <v-tabs-window-item value="main-1" class="window">
           <!-- Contenido de la ventana 1 -->
-          <v-card flat>
+          <v-card flat class="windowcolor">
             <v-card-title>Bienvenido a la Guía de Usuario</v-card-title>
             <v-card-text>
               <p>
@@ -50,9 +49,9 @@
         </v-tabs-window-item>
 
         <!-- Ventana 2 (Navegación) -->
-        <v-tabs-window-item value="main-2" class="scrollable-window">
+        <v-tabs-window-item value="main-2" class="scrollable-window window">
           <!-- Contenido de la ventana 2 -->
-          <v-card flat>
+          <v-card flat class="windowcolor">
             <v-card-title>Barra de Navegación</v-card-title>
             <v-card-text>
               <p>
@@ -61,9 +60,9 @@
                 al usuario <b>navegar entre los distintos menús</b> de la
                 aplicación.
               </p>
-              <v-list>
+              <v-list class="windowcolor"> 
                 <v-subheader>Los cuales son:</v-subheader>
-                <v-list-item
+                <v-list-item 
                   v-for="(item, index) in listaNavegacion"
                   :key="index"
                   class="espaciado-lista"
@@ -81,9 +80,9 @@
         </v-tabs-window-item>
 
         <!-- Ventana 3 (Mi Espacio) -->
-        <v-tabs-window-item value="main-3" class="scrollable-window">
+        <v-tabs-window-item value="main-3" class="scrollable-window window">
           <!-- Contenido de la ventana 3 -->
-          <v-card flat>
+          <v-card flat class="windowcolor">
             <v-card-title>Mi Espacio</v-card-title>
             <v-card-text>
               <p>
@@ -147,10 +146,9 @@
           </v-card>
         </v-tabs-window-item>
 
-        <!-- Ventana 4 (Grupo) -->
-        <v-tabs-window-item value="main-4" class="scrollable-window">
-          <!-- Contenido de la ventana 4 -->
-          <v-card flat>
+        <!-- Ventana 4 (Grupo) 
+         <v-tabs-window-item value="main-4" class="scrollable-window window">
+          <v-card flat class="windowcolor">
             <v-card-title>Grupo</v-card-title>
             <v-card-text>
               <p>
@@ -163,11 +161,11 @@
             </v-card-text>
           </v-card>
         </v-tabs-window-item>
+        -->
 
-        <!-- Ventana 5 (Notificaciones) -->
-        <v-tabs-window-item value="main-5" class="scrollable-window">
-          <!-- Contenido de la ventana 5 -->
-          <v-card flat>
+        <!-- Ventana 5 (Notificaciones) 
+         <v-tabs-window-item value="main-5" class="scrollable-window window">
+          <v-card flat class="windowcolor">
             <v-card-title>Notificaciones</v-card-title>
             <v-card-text>
               <p>
@@ -182,11 +180,12 @@
             </v-card-text>
           </v-card>
         </v-tabs-window-item>
+        -->
 
         <!-- Ventana 6 (FAQ) -->
-        <v-tabs-window-item value="main-6" class="scrollable-window">
+        <v-tabs-window-item value="main-6" class="scrollable-window window">
           <!-- Contenido de la ventana 6 -->
-          <v-card flat>
+          <v-card flat class="windowcolor">
             <v-card-title>FAQ (Preguntas Frecuentes)</v-card-title>
             <v-card-text>
               <p>
@@ -201,9 +200,9 @@
         </v-tabs-window-item>
 
         <!-- Ventana 7 (Configuración) -->
-        <v-tabs-window-item value="main-7" class="scrollable-window">
+        <v-tabs-window-item value="main-7" class="scrollable-window window">
           <!-- Contenido de la ventana 7 -->
-          <v-card flat>
+          <v-card flat class="windowcolor">
             <v-card-title>Configuración de la Cuenta</v-card-title>
             <v-card-text>
               <p>
@@ -234,8 +233,8 @@ const principales = ref([
   { value: "main-1", text: "Bienvenido", icon: "mdi-creation" },
   { value: "main-2", text: "Navegación", icon: "mdi-navigation" },
   { value: "main-3", text: "Mi Espacio", icon: "mdi-account" },
-  { value: "main-4", text: "Grupo", icon: "mdi-account-multiple" },
-  { value: "main-5", text: "Notificaciones", icon: "mdi-bell" },
+  //{ value: "main-4", text: "Grupo", icon: "mdi-account-multiple" },
+  //{ value: "main-5", text: "Notificaciones", icon: "mdi-bell" },
   { value: "main-6", text: "FAQ", icon: "mdi-frequently-asked-questions" },
   { value: "main-7", text: "Configuración", icon: "mdi-cog" },
 ]);
@@ -243,8 +242,8 @@ const principales = ref([
 //  ->  Opciones de la lista de Navegación (Ventana: 2)
 const listaNavegacion = ref([
   { text: "Mi Espacio" },
-  { text: "Grupo" },
-  { text: "Notificaciones" },
+  //{ text: "Grupo" },
+  //{ text: "Notificaciones" },
   { text: "FAQ" },
   { text: "Guía" },
   { text: "Configuración" },
@@ -256,8 +255,8 @@ const listaNavegacion = ref([
 .component {
   display: flex;
   flex-direction: column;
-  height: 90%;
-  width: 90%;
+  height: 100%;
+  width: 100%;
 }
 
 #toolbar-icon {
@@ -266,7 +265,8 @@ const listaNavegacion = ref([
 
 .custom-tabs {
   overflow: hidden !important;
-  border-right: 1px solid #2b2b2b;
+  border-right: 1px solid white;
+  border-top: 1px solid white;
 }
 
 .custom-tabs-window {
@@ -275,7 +275,7 @@ const listaNavegacion = ref([
 }
 
 .scrollable-window {
-  max-height: calc(90vh - 64px);
+  max-height: calc(100vh - 64px);
   overflow-y: auto;
 }
 
@@ -312,5 +312,14 @@ const listaNavegacion = ref([
 
 #imagen-formulariocrearunanota {
   height: 357px;
+}
+
+.window {
+  border-top: 1px solid white;
+  background-color: #3f7f9c;
+}
+
+.windowcolor {
+  background-color: #3f7f9c;
 }
 </style>

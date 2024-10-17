@@ -1,9 +1,9 @@
 <template>
   <v-container class="container">
-    <v-card flat>
+    <v-card flat class="windowcolor">
       <v-card-title class="mb-4"></v-card-title>
 
-      <v-form ref="form" v-model="valid" @submit.prevent="enviarFormulario">
+      <v-form ref="form" v-model="valid" @submit.prevent="enviarFormulario" class="container">
         <!-- Fila para Contraseña y Confirmar Contraseña -->
         <v-row>
           <v-col cols="12" sm="6">
@@ -143,5 +143,10 @@ const enviarFormulario = async () => {
 
 .container {
   width: 80%;
+  background-color: #3f7f9c;
+}
+
+.windowcolor {
+  background-color: #3f7f9c;
 }
 </style>

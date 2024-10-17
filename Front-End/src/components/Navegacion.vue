@@ -47,7 +47,7 @@
                 :key="index"
                 @click="abrirDialogoSalirAplicacion"
               >
-                <v-list-item-icon>
+                <v-list-item-icon class="colorsalir">
                   <v-icon>{{ salir.icon }}</v-icon>
                 </v-list-item-icon>
               </v-list-item>
@@ -139,4 +139,7 @@ img {
   color: #5B5B5B;
 }
 
+.colorsalir {
+  color: #5B5B5B;
+}
 </style>

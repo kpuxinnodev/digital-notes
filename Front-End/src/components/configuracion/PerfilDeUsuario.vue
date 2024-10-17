@@ -1,7 +1,7 @@
   <template>
     <v-container class="container">
       <!-- Muestra los datos -->
-      <div class="d-flex flex-row" v-for="(dato, index) in datos" :key="index">
+      <div class="cartas d-flex flex-row" v-for="(dato, index) in datos" :key="index">
         <v-card flat class="carta-1">
           <v-card-text class="d-flex flex-column justify-center align-center">
             <!-- Cargar avatar del Back-End -->
@@ -12,7 +12,7 @@
             <p>@{{ dato.nickname }}</p>
           </v-card-text>
         </v-card>
-        <v-card flat class="d-flex align-center pl-8 pr-8">
+        <v-card flat class="carta-2 d-flex align-center pl-8 pr-8">
           <v-card-text>
             <p>{{ dato.biografia }}</p>
           </v-card-text>
@@ -104,7 +104,25 @@
   padding: 20px;
 }
 
-.container {
-  width: 80%;
+.carta-1 {
+  width: 300px;
+  background-color: #3f7f9c;
 }
+
+.carta-2 {
+  width: 500px;
+  background-color: #3f7f9c;
+}
+
+.container {
+  width: 100%;
+}
+
+.cartas {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 </style>
