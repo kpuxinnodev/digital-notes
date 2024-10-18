@@ -29,7 +29,7 @@
           <v-card flat>
             <v-file-input
               v-model="imagen"
-              label="Cambiar logo de usuario"
+              label="Cambiar avatar de usuario"
               prepend-icon="mdi-account"
               variant="filled"
             ></v-file-input>

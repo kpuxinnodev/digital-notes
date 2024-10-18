@@ -17,10 +17,10 @@
           <v-col cols="6">
             <!-- Seleccionar miembro -->
             <v-select
-             v-if="datos"
+              v-if="datos && datos.length > 0"
               :items="datos"
-              item-text="nickname"
-              item-value="idusuario"
+              item-text="nickname"  
+              item-value="idusuario" 
               label="Asignacion"
               :rules="usuarioRules"
               v-model="notaGrupal.asignacion"
@@ -79,6 +79,11 @@ const notaGrupal = ref({
   prioridad: "",
 });
 
+let miembros = ref([
+  { "idusuario": 1, "nickname": "Usuario1" },
+  { "idusuario": 2, "nickname": "Usuario2" }
+]);
+
 const datos = ref([]);
 
 //  ->  Prioridades de las notas
@@ -128,17 +133,13 @@ const cargarMiembros = async () => {
     console.error('No se ha proporcionado un ID de grupo válido');
     return;
   } try {
-    const response = await axios.get(`http://localhost:8000/api/grupos/${props.grupoId}/showmiembros`, config);
-    datos.value = [response.data];
-    console.log("Miembros Cargados: ", response.value);
+    const response = await axios.get(`http://localhost:8000/api/grupos/${props.grupoId}/showmiembrosnotas`, config);
+    datos.value = response.data;
+    console.log("Miembros Cargados: ", datos.value);
   } catch (error) {
     console.error("Error al cargar los miembros: ", error);
   }
 }
-
-onMounted( async() => {
-  await cargarMiembros();
-})
 
 const asignarNota = async () => {
   if (!valid.value) return; // Verifica si el formulario es válido
@@ -152,8 +153,7 @@ const asignarNota = async () => {
     const response = await axios.post(`http://localhost:8000/api/notas/${props.grupoId}/grupo`, notaGrupal.value, config);
     console.log('Nota asignada:', response.data);
     cerrarDialogo(); // Cerrar el diálogo después de guardar la nota
-    
-    // Aquí podrías agregar una redirección o mostrar un mensaje de éxito
+
 
   } catch (error) {
     console.error('Error al guardar nota:', error);
@@ -162,6 +162,7 @@ const asignarNota = async () => {
 };
 
 onMounted( async() => {
+  await cargarMiembros();
   await asignarNota();
 })
 
