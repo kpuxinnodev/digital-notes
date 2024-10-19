@@ -56,7 +56,6 @@
         </v-navigation-drawer>
         <!-- Componente: DialogoSalir.vue (position: absolute;) -->
         <DialogoSalir ref="salirAplicacion" style="position: absolute" />
-
         <v-main style="height: 100vh"></v-main>
       </v-layout>
     </v-card>
@@ -64,7 +63,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 import DialogoSalir from "./DialogoSalir.vue";
 
@@ -84,6 +83,8 @@ const rutas_dos = ref([
 ]);
 const rutasalir = ref([{ path: "/salir", icon: "mdi-power-standby" }]);
 
+
+
 //  ->  Detecta la ruta en la cual se encuentra el usuario.
 const activo = (path) => {
   return route.path === path;
@@ -101,6 +102,7 @@ const abrirDialogoSalirAplicacion = () => {
     salirAplicacion.value.abrirDialogoSalirAplicacion();
   }
 };
+
 </script>
 
 <style>
