@@ -139,7 +139,7 @@ const itemSelecto = ref(null);
 
 //  ->  Opciones para las pestañas principales
 const principales = ref([
-  { value: "main-1", text: "Bienvenido", icon: "mdi-creation" },
+  //{ value: "main-1", text: "Bienvenido", icon: "mdi-creation" },
   { value: "main-2", text: "Cuenta", icon: "mdi-account" },
   { value: "main-3", text: "Seguridad", icon: "mdi-security" },
   { value: "main-4", text: "Servicio Técnico", icon: "mdi-tools" },

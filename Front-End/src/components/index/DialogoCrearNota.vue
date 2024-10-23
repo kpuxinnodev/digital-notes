@@ -73,7 +73,7 @@ const notaPersonal = ref({
   prioridad: "",
 });
 
-//  ->  Categorías, ¿importar del backend?
+//  ->  Categorías
 const categoria = [
   "Trabajo",
   "Estudios",
