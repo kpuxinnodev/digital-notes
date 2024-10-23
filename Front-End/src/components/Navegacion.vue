@@ -50,9 +50,12 @@
                 <!-- Panel de notificaciones -->
                 <v-card flat min-width="300" max-width="400" max-height="200" class="notificaciones-panel">
                   <v-list class="notificaciones-fondo">
-                    <v-list-subheader class="notificaciones-titulo">Notificaciones</v-list-subheader>
-                    
-                    <v-list-item
+                    <div class="titulonotificaciones">
+                      <v-list-header class="notificaciones-titulo">Notificaciones</v-list-header>
+                    </div>
+
+                    <div class="cuerponotificaciones">
+                      <v-list-item
                       v-for="(notification, index) in notificaciones"
                       :key="index"
                       :class="{ 'unread': !notification.read }"
@@ -69,6 +72,7 @@
                         ></v-btn>
                       </template>
                     </v-list-item>
+                    </div>
 
                     <v-divider></v-divider>
 
@@ -270,7 +274,22 @@ img {
 }
 
 .notificaciones-titulo {
-  color: black !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+.titulonotificaciones {
+  background-color: #2196f3 !important;
+  z-index: 100;
+  height: 42px;
+  display: flex;
+  padding-left: 12px;
+  align-items: center;
+
+}
+
+.cuerponotificaciones {
+  background-color: white !important;
 }
 
 .unread {
