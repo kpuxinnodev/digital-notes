@@ -35,6 +35,7 @@ const routes = [
     path: '/',
     name: 'home',
     component: Index,
+    meta: { requiresAuth: true },
   },
   {
     path: '/grupos',
@@ -85,6 +86,18 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 })
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = !!localStorage.getItem('auth-item'); // Verificamos si el token está presente
+
+  if (to.matched.some((record) => record.meta.requiresAuth) && !isAuthenticated) {
+    // Si la ruta requiere autenticación y el usuario no está autenticado, redirigimos al login
+    next({ name: 'login' });
+  } else {
+    // Si no se requiere autenticación o el usuario está autenticado, permitimos el acceso
+    next();
+  }
+});
 
 // Workaround for https://github.com/vitejs/vite/issues/11804
 router.onError((err, to) => {
