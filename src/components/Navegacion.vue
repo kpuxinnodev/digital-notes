@@ -195,6 +195,7 @@ const eliminarNotificacion = (index) => {
 const route = useRoute();
 const rutas_uno = ref([
   { path: "/", icon: "mdi-account" },
+  { path: "/grupos", icon: "mdi-account-group"}
 ]);
 
 // Separamos las rutas para manejar las notificaciones
