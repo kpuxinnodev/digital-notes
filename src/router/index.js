@@ -98,7 +98,10 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+<<<<<<< HEAD
 //Nuevas cosas
+=======
+>>>>>>> master
 
 // Workaround for https://github.com/vitejs/vite/issues/11804
 router.onError((err, to) => {

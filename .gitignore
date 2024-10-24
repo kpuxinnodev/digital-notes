@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Node modules
 /Front-End/node_modules/
 
@@ -41,4 +42,6 @@
 /Back-End/.fleet
 /Back-End/.idea
 /Back-End/.vscode
+=======
+>>>>>>> master
 node_modules
