@@ -7,7 +7,9 @@
         text="Agrega a un usuario para que forme parte de tu equipo."
       >
         <v-card-text>
-          <v-text-field label="Usuario" required></v-text-field>
+          <v-text-field label="Usuario"
+          v-model="nickname"
+          required></v-text-field>
 
           <!-- Sistema de cuadrículas -->
         </v-card-text>
@@ -24,7 +26,7 @@
             variant="flat"
             rounded="xl"
             type="submit"
-          ></v-btn>
+          >Agregar</v-btn>
         </v-card-actions>
       </v-card>
     </v-form>
@@ -33,9 +35,20 @@
 
 <script setup>
 import { ref, defineExpose } from "vue";
+import axios from "axios";
+import { defineProps } from 'vue';
+
+const props = defineProps({
+  grupoId: {
+    type: Number,
+    required: true
+  }
+});
 
 //  ->  'dialog' por referencia default = false
 const dialog = ref(false);
+const valid = ref(true);
+const nickname = ref("");
 
 //  ->  Funciones para abrir y cerrar el dialogo
 const abrirDialogoAgregarMiembro = () => {
@@ -45,10 +58,38 @@ const cerrarDialogo = () => {
   dialog.value = false;
 };
 
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+};
+
 //  ->  Añadir backend para agregar el miembro
-const agregarMiembro = () => {
-  console.log("Miembro agregado.");
-  cerrarDialogo();
+// Función para agregar el miembro
+const agregarMiembro = async () => {
+  if (!nickname.value) return; // Validar que haya un nombre de usuario
+  if (!props.grupoId || isNaN(props.grupoId)) {
+    console.error('No se ha proporcionado un ID de grupo válido');
+    return;
+  }
+  const body = {
+    nickname: nickname.value
+  };
+  try {
+    const response = await axios.post(`http://localhost:8000/api/notificacion/${props.grupoId}/enviar`, body, config, );
+
+    // Manejar la respuesta del backend
+    console.log("Respuesta del servidor:", response.data);
+
+    // Cerrar el diálogo al completar la operación
+    cerrarDialogo();
+  } catch (error) {
+    console.error("Error al agregar el miembro:", error);
+  }
 };
 
 //  ->  Exponer el método para que se pueda abrir desde fuera del componente.

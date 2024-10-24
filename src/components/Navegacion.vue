@@ -50,18 +50,33 @@
                 <!-- Panel de notificaciones -->
                 <v-card flat min-width="300" max-width="400" max-height="200" class="notificaciones-panel">
                   <v-list class="notificaciones-fondo">
-                    <div class="titulonotificaciones">
                       <v-list-header class="notificaciones-titulo">Notificaciones</v-list-header>
-                    </div>
-
+                    <v-list-item v-if="notificaciones.length === 0">
+                      <v-list-item-title class="text-center">No hay notificaciones nuevas</v-list-item-title>
+                    </v-list-item>
                     <div class="cuerponotificaciones">
                       <v-list-item
-                      v-for="(notification, index) in notificaciones"
+                      v-for="(notificacion, index) in notificacionesCargadas"
                       :key="index"
-                      :class="{ 'unread': !notification.read }"
+                      :class="{ 'unread': !notificacion.read }"
                     >
-                      <v-list-item-title>{{ notification.title }}</v-list-item-title>
-                      <v-list-item-subtitle>{{ notification.message }}</v-list-item-subtitle>
+                      <v-list-item-title>{{ notificacion.titulo }}</v-list-item-title>
+                      <v-list-item-subtitle>
+                        {{ notificacion.mensaje }}
+
+                        (Grupo ID: {{ notificacion.idgrupo }})
+                      </v-list-item-subtitle>
+
+                      <div class="acciones-notificacion" style="display: flex; align-items: center; justify-content: space-between;">
+                        <v-btn icon="mdi-check" variant="text" small min-width="80px" style="font-size: 12px;" @click="responderInvitacion(notificacion.id, 'Aceptada', index)">
+                          Aceptar
+                        </v-btn>
+                        <v-spacer></v-spacer> 
+                        <v-btn icon="mdi-close" variant="text" small   min-width="80px" style="font-size: 12px;" @click="responderInvitacion(notificacion.id, 'Rechazada', index)">
+                          Rechazar
+                        </v-btn>
+                        
+                      </div>
 
                       <template v-slot:append>
                         <v-btn
@@ -120,61 +135,84 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import DialogoSalir from "./DialogoSalir.vue";
+import axios from "axios";
+import { defineProps } from "vue";
 
+
+const props = defineProps({
+  notificacionId: {
+    type: Number,
+    required: true,
+  },
+  grupoId: {
+    type: Number,
+    required: true,
+  }
+});
 // Estado del menú de notificaciones
 const menuNotificaciones = ref(false);
 
 // Importar las notificaciones aquí
 const notificaciones = ref([
   {
+    id: 1,
     title: 'Nueva actualización',
     message: 'Se ha publicado una nueva versión',
     read: false
   },
   {
+    id: 2,
     title: 'Mensaje nuevo',
     message: 'Tienes un mensaje de Juan',
     read: false
   },
   {
+    id: 3,
     title: 'Mensaje nuevo',
     message: 'Tienes un mensaje de Juan',
     read: false
   },
   {
+    id: 4,
     title: 'Mensaje nuevo',
     message: 'Tienes un mensaje de Juan',
     read: false
   },
   {
+    id: 5,
     title: 'Mensaje nuevo',
     message: 'Tienes un mensaje de Juan',
     read: false
   },
   {
+    id: 6,
     title: 'Mensaje nuevo',
     message: 'Tienes un mensaje de Juan',
     read: false
   },
   {
+    id: 7,
     title: 'Mensaje nuevo',
     message: 'Tienes un mensaje de Juan',
     read: false
   },
   {
+    id: 8,
     title: 'Mensaje nuevo',
     message: 'Tienes un mensaje de Juan',
     read: false
   },
   {
+    id: 9,
     title: 'Mensaje nuevo',
     message: 'Tienes un mensaje de Juan',
     read: false
   },
   {
+    id: 10,
     title: 'Mensaje nuevo',
     message: 'Tienes un mensaje de Juan',
     read: false
@@ -189,6 +227,54 @@ const notificacionesCount = computed(() => {
 // Métodos para manejar notificaciones
 const eliminarNotificacion = (index) => {
   notificaciones.value.splice(index, 1);
+};
+
+
+//  ->  Cargar Notas desde el Back-End
+const notificacionesCargadas = ref([]);
+
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+};
+
+const cargarNotificaciones = async () => {  
+  try {
+    const response = await axios.get('http://localhost:8000/api/notificacion/ver', config);
+    notificacionesCargadas.value = response.data;
+    console.log("Notas cargadas: ", notificacionesCargadas.value);
+  } catch (error) {
+    console.error('Error al cargar las notas: ', error);
+  }
+}
+
+onMounted(async () => {
+  await cargarNotificaciones();
+});
+
+
+// Método para responder a la invitación
+const responderInvitacion = async (id, estado, index) => {
+  const body =  {
+    estado: estado
+  }
+  try {
+    // Realizar la solicitud POST al backend
+    const response = await axios.post(`http://localhost:8000/api/notificacion/${id}/responder`, body, config);
+
+    // Actualizar la interfaz según la respuesta
+    if (response.data.message) {
+      // Marcar la notificación como leída o eliminarla
+      eliminarNotificacion(index);
+    }
+  } catch (error) {
+    console.error("Error al responder a la invitación:", error);
+  }
 };
 
 // Rutas de Navegación

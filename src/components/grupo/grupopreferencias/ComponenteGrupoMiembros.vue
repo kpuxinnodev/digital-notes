@@ -37,7 +37,7 @@
           </v-btn>
         </div>
       </v-card-text>
-      <DialogoAgregarMiembro ref="agregarMiembro" style="position: absolute" />
+      <DialogoAgregarMiembro ref="agregarMiembro" :grupoId="grupoId" style="position: absolute" />
       <DialogoEliminarMiembro
         ref="eliminarMiembro"
         style="position: absolute"
