@@ -24,7 +24,7 @@
 
     <!-- Formulario para editar datos -->
     <v-form ref="form" v-model="valid" class="mt-6">
-      <v-row>
+      <v-row v-if="esAdmin">
         <!-- Campo de archivo para seleccionar la imagen -->
         <v-col cols="12">
           <v-card flat>
@@ -34,6 +34,7 @@
               prepend-icon="mdi-account-multiple"
               variant="filled"
               v-model="imagen"
+              accept="image/*"
             ></v-file-input>
             <v-col class="d-flex justify-end">
               <v-btn
@@ -54,11 +55,10 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref, defineProps, onMounted } from "vue";
 import FormularioGrupoPreferencias2 from "./FormularioGrupoPreferencias2.vue";
 import axios from "axios";
-import { onMounted } from "vue";
-import { ca } from "vuetify/locale";
+
 
 const imagen = ref(null);
 const props = defineProps({
@@ -73,6 +73,8 @@ const valid = ref(false);
 
 //  ->  Datos cargados desde el Back-End
 const datos = ref([]);
+
+const esAdmin = ref(false);
 
 //  ->  Avatar cargado del Back-End
 let avatarDB = ref([{ img: "/img/nav/user.png", descripcion: "avatar.png" }]);
@@ -90,7 +92,6 @@ const token = localStorage.getItem('auth-item');
   //  ->  Encabezado de la Autorización
   const config = {
       headers: {
-          'Content-Type':'application/json',
           'Authorization': `Bearer ${token}`
       }
     }
@@ -103,12 +104,7 @@ const cambiarLogo = async () => {
       formData.append("logo", imagen.value);
     }
 
-    const response = await axios.post(`http://localhost:8000/api/grupos/${props.grupoId}/logo`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': `Bearer ${token}`
-      }
-    });
+    const response = await axios.post(`http://localhost:8000/api/grupos/${props.grupoId}/logo`, formData, config);
     console.log("ID del grupo:", props.grupoId);
 
     console.log("Logo del grupo cambiado: ", response.data);
@@ -120,21 +116,23 @@ const cambiarLogo = async () => {
 }
 
 const obtenerDatos = async () => {
-    try {
-      const response = await axios.get(`http://localhost:8000/api/grupos/${props.grupoId}/preferencias`, config);
-      datos.value = response.data;
-      console.log('Datos obtenidos correctamente: ', datos.value);
+  try {
+    const response = await axios.get(`http://localhost:8000/api/grupos/${props.grupoId}/preferencias`, config);
+    datos.value = response.data.grupo; // Asegúrate de acceder al grupo
+    esAdmin.value = response.data.isAdmin; // Accede a la propiedad isAdmin
 
-    } catch (error) {
-      console.error('Error al obtener los datos:', error);
-      // Manejar el error y mostrar un mensaje al usuario
-    }
-  };
+    console.log('Datos obtenidos correctamente: ', datos.value);
+  } catch (error) {
+    console.error('Error al obtener los datos:', error);
+  }
+};
 
 
   onMounted(async () => {
     await obtenerDatos();
   });
+
+
 </script>
 
 <style scoped>
@@ -146,4 +144,9 @@ const obtenerDatos = async () => {
   width: 80%;
 }
 
+img {
+  border-radius: 50%;
+  width: 70px; /* Tamaño del avatar */
+  height: 64px;
+}
 </style>

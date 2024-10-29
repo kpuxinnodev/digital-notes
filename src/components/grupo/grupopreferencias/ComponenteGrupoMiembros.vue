@@ -8,19 +8,31 @@
           <v-card
             flat
             class="miembro"
-            v-for="(dato, index) in datos"
+            v-for="(miembro, index) in miembros"
             :key="index"
           >
           <img
-            v-if="dato.avatar"
+            v-if="miembro.avatar"
             class="ml-4 mr-4"
-            :src="dato.avatar"
-            :alt="dato.nickname"
+            :src="miembro.avatar"
+            :alt="miembro.nickname"
             />
-            <v-card-text>{{ "@" + dato.nickname }}</v-card-text>
+            <v-icon v-if="miembro.idusuario === adminId" small class="ml-2" color="blue">
+              mdi-shield-account
+            </v-icon>
+            <v-card-text>
+              {{ "@" + miembro.nickname }}
+            </v-card-text>
           </v-card>
         </div>
-        <div class="botones mt-8">
+        <div class="botones mt-8" v-if="esAdmin">
+          <v-btn
+            prepend-icon="mdi-shield-account"
+            color="blue"
+            @click="abrirDialogoAsignarAdmin"
+          >
+            Asignar Administrador
+          </v-btn>
           <v-btn
             prepend-icon="mdi-plus"
             color="green"
@@ -38,10 +50,8 @@
         </div>
       </v-card-text>
       <DialogoAgregarMiembro ref="agregarMiembro" :grupoId="grupoId" style="position: absolute" />
-      <DialogoEliminarMiembro
-        ref="eliminarMiembro"
-        style="position: absolute"
-      />
+      <DialogoEliminarMiembro ref="eliminarMiembro" :grupoId="grupoId" style="position: absolute" />
+      <DialogoAsignarAdmin ref="asignarAdmin" :grupoId="grupoId" style="position: absolute" />
     </v-card>
   </v-container>
 </template>
@@ -51,33 +61,23 @@ import { onMounted, ref } from "vue";
 import axios from "axios";
 import DialogoAgregarMiembro from "./DialogoAgregarMiembro.vue";
 import DialogoEliminarMiembro from "./DialogoEliminarMiembro.vue";
+import DialogoAsignarAdmin from "./DialogoAsignarAdmin.vue";
 import { defineProps } from "vue";
 
 const props = defineProps({
   grupoId: {
     type: Number,
     required: true
-  }
+  },
 });
 
 
 //  ->  Cargar miembros desde el Back-End
-let miembros = ref([
-  { avatar: "/img/nav/user.png", nickname: "miembro1" },
-  { avatar: "/img/nav/user.png", nickname: "miembro2" },
-  { avatar: "/img/nav/user.png", nickname: "miembro3" },
-  { avatar: "/img/nav/user.png", nickname: "miembro4" },
-  { avatar: "/img/nav/user.png", nickname: "miembro5" },
-  { avatar: "/img/nav/user.png", nickname: "miembro6" },
-  { avatar: "/img/nav/user.png", nickname: "miembro7" },
-  { avatar: "/img/nav/user.png", nickname: "miembro8" },
-  { avatar: "/img/nav/user.png", nickname: "miembro9" },
-  { avatar: "/img/nav/user.png", nickname: "miembro10" },
-  { avatar: "/img/nav/user.png", nickname: "miembro11" },
-  { avatar: "/img/nav/user.png", nickname: "miembro12" },
-]);
+const miembros = ref([]);
 
-const datos = ref([]);
+const esAdmin = ref(false);
+
+const adminId = ref(null); 
 
 const token = localStorage.getItem('auth-item');
 
@@ -95,16 +95,27 @@ const cargarMiembros = async () => {
     return;
   } try {
     const response = await axios.get(`http://localhost:8000/api/grupos/${props.grupoId}/showmiembros`, config);
-    datos.value = [response.data];
-    console.log("Miembros Cargados: ", response.data);
+    miembros.value = response.data.miembros;
+    esAdmin.value = response.data.esAdmin;
+    adminId.value = response.data.adminId;
     }catch (error) {
     console.error("Error al cargar los miembros: ", error);
   }
 }
 
 onMounted(async () => {
-  await cargarMiembros();
+  await cargarMiembros(); // Carga miembros
 });
+
+// Función para verificar si el usuario es administrador
+const verificarAdmin = async () => {
+  try {
+    const response = await axios.get(`http://localhost:8000/api/grupos/${props.grupoId}/verificaradmin`, config);
+    esAdmin.value = response.data.esAdmin; // Asigna true o false según la respuesta
+  } catch (error) {
+    console.error("Error al verificar si es administrador:", error);
+  }
+};
 
 const agregarMiembro = ref(null);
 
@@ -122,6 +133,14 @@ const abrirDialogoEliminarMiembro = () => {
     eliminarMiembro.value.abrirDialogoEliminarMiembro();
   }
 };
+
+  const asignarAdmin = ref(null);
+
+  const abrirDialogoAsignarAdmin = () => {
+    if (asignarAdmin.value) {
+      asignarAdmin.value.abrirDialogoAsignarAdmin();
+    }
+  };
 </script>
 
 <style scoped>
@@ -147,9 +166,16 @@ const abrirDialogoEliminarMiembro = () => {
 }
 
 .miembro {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+img {
+  border-radius: 50%;
+  width: 70px; /* Tamaño del avatar */
+  height: 64px;
 }
 
 .botones {

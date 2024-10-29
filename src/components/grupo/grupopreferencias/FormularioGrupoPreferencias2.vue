@@ -1,6 +1,6 @@
 <template>
     <v-container class="container">
-        <v-form ref="form" v-model="valid" class="mt-6">
+        <v-form ref="form" v-model="valid" v-if="esAdmin" class="mt-6">
           <!-- Fila para Nombre y Usuario -->
           <v-row>
             <v-col cols="12" sm="12">
@@ -30,7 +30,7 @@
   </template>
   
   <script setup>
-  import { ref, defineProps } from "vue";
+  import { ref, defineProps, onMounted } from "vue";
   import axios from "axios";
 
   const props = defineProps({
@@ -49,6 +49,8 @@
   
   //  ->  'valid' por default = false
   const valid = ref(false);
+
+  const esAdmin = ref(false);
   
   //  ->  Reglas de nombre y descripción del grupo
   const nombreRules = [
@@ -70,6 +72,26 @@
         'Authorization': `Bearer ${token}`
     }
   };
+
+  const cargarDatosGrupo = async () => {
+  try {
+    const response = await axios.get(`http://localhost:8000/api/grupos/${props.grupoId}/admin`, config);
+    
+    if (response && response.data) {
+      grupoProfile.value = response.data;
+      esAdmin.value = response.data.esAdmin; // El backend debe devolver este campo
+    }
+  } catch (error) {
+    console.error("Error al cargar los datos del grupo:", error.response ? error.response.data : error);
+  }
+};
+
+// Llamar a la función de carga de datos al montar el componente
+onMounted(() => {
+  cargarDatosGrupo();
+});
+
+
 
   //  ->  Función para enviar el formulario
   const enviarFormulario = async () => {

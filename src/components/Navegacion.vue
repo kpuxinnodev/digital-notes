@@ -40,8 +40,9 @@
                         :value="notificacionesCount"
                         color="error"
                         :class="claseIcono('')"
+                        
                       >
-                        <v-icon class="notificacionesicono">mdi-bell</v-icon>
+                        <v-icon class="notificacionesicono" >mdi-bell</v-icon>
                       </v-badge>
                     </v-list-item-icon>
                   </v-list-item>
@@ -91,7 +92,7 @@
 
                     <v-divider></v-divider>
 
-                    <v-list-item v-if="notificaciones.length === 0">
+                    <v-list-item v-if="notificacionesCargadas.length === 0">
                       <v-list-item-title class="text-center">
                         No hay notificaciones nuevas
                       </v-list-item-title>
@@ -211,17 +212,11 @@ const notificaciones = ref([
     message: 'Tienes un mensaje de Juan',
     read: false
   },
-  {
-    id: 10,
-    title: 'Mensaje nuevo',
-    message: 'Tienes un mensaje de Juan',
-    read: false
-  },
 ]);
 
 // Computed para contar notificaciones no leídas
 const notificacionesCount = computed(() => {
-  return notificaciones.value.filter(n => !n.read).length
+  return notificacionesCargadas.value.filter(n => !n.read).length
 });
 
 // Métodos para manejar notificaciones
@@ -256,7 +251,6 @@ const cargarNotificaciones = async () => {
 onMounted(async () => {
   await cargarNotificaciones();
 });
-
 
 // Método para responder a la invitación
 const responderInvitacion = async (id, estado, index) => {
@@ -311,6 +305,16 @@ const abrirDialogoSalirAplicacion = () => {
     salirAplicacion.value.abrirDialogoSalirAplicacion();
   }
 };
+const eliminar_notificacion_icono = computed(()=>{
+ /* if(notificacionesCount.value ===0){
+    return "none"  
+  }
+  else{
+    return "flex"
+  }*/
+  return notificacionesCount.value ===0 ? "none" : "flex"
+  
+})
 </script>
 
 <style>
@@ -389,5 +393,8 @@ img {
 
 .v-list-item--density-default.v-list-item--one-line {
   min-width: 70px;
+}
+.v-badge__badge{
+  display: v-bind(eliminar_notificacion_icono) !important;
 }
 </style>

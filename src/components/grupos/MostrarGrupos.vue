@@ -19,15 +19,17 @@
     :image="grupo.logo"
     max-width="400"
     height="120"
-    :title="grupo.nombre"
     class="d-flex flex-column justify-center align-center"
   >
+      <div class="titulo-fondo">
+        <span class="titulo-texto">{{ grupo.nombre }}</span>
+      </div>
       <v-btn
         append-icon="mdi-chevron-right"
         color="white"
         text="Ir a grupo"
         variant="outlined"
-        class="mt-6"
+        class="mt-auto"
         @click="iraGrupo(grupo.id)"
       ></v-btn>
   </v-card>
@@ -169,5 +171,22 @@ const actualizarGrupos = async () => {
 .boton {
   display: flex;
   margin: auto;
+}
+
+.titulo-fondo {
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  padding: 8px 16px;
+  border-radius: 8px;
+  position: absolute;
+  top: 10px;                             /* Posición en la parte superior del card */
+  left: 30px;
+  right: 30px;
+  text-align: center;
+}
+
+.titulo-texto {
+  color: white;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 </style>

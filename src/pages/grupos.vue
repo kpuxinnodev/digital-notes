@@ -208,4 +208,10 @@ onMounted( async() =>{
   align-items: center;
   justify-content: center;
 }
+
+img {
+  border-radius: 50%;
+  width: 70px; /* Tamaño del avatar */
+  height: 64px;
+}
 </style>

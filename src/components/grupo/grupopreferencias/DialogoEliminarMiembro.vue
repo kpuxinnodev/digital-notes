@@ -1,56 +1,106 @@
 <template>
   <v-dialog v-model="dialog" max-width="600">
-    <v-card
-      prepend-icon="mdi-account-minus"
-      title="ELIMINAR MIEMBRO"
-      text="Elige al usuario que quieres eliminar del grupo."
-    >
+    <v-card>
+      <v-card-title class="text-h5">Eliminar Miembro</v-card-title>
       <v-card-text>
-        <v-text-field label="Usuario" required></v-text-field>
-
-        <!-- Sistema de cuadrículas -->
+        <v-select
+          v-if="miembros && miembros.length > 0"
+          v-model="miembroSeleccionado"
+          :items="nuevo_miembros"
+          label="Selecciona un miembro para eliminar"
+          required
+        ></v-select>
       </v-card-text>
 
       <v-divider></v-divider>
 
       <v-card-actions>
-        <!-- Botón de Cerrar diálogo -->
-        <v-btn text="Cancelar" variant="plain" @click="cerrarDialogo"></v-btn>
-        <!-- Botón de Guardar nota -->
-        <v-btn
-          color="primary"
-          text="Eliminar"
-          variant="flat"
-          rounded="xl"
-          @click="eliminarMiembro"
-        ></v-btn>
+        <v-btn text="Cancelar" @click="cerrarDialogo">Cancelar</v-btn>
+        <v-btn color="red" @click="eliminarMiembro">Eliminar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script setup>
-import { ref, defineExpose } from "vue";
+import { ref, defineExpose, onMounted } from "vue";
+import axios from "axios";
+import { defineProps } from "vue";
 
-//  ->  'dialog' por referencia default = false
+const props = defineProps({
+  grupoId: {
+    type: Number,
+    required: true
+  },
+});
+
 const dialog = ref(false);
 
-//  ->  Funciones para abrir y cerrar el dialogo
+const miembroSeleccionado = ref(null); // Guardar el ID del miembro seleccionado
+const miembros = ref([]); // Lista de miembros cargados
+const nuevo_miembros = ref([]);
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+};
+
+// Cargar los miembros del grupo al montar el componente
+const cargarMiembros = async () => {
+  if (!props.grupoId || isNaN(props.grupoId)) {
+    console.error('No se ha proporcionado un ID de grupo válido');
+    return;
+  }
+  await axios.get(`http://localhost:8000/api/grupos/${props.grupoId}/showmiembrosnotas`, config)
+  .then(response => {
+    miembros.value = response.data; // Acceder a 'response.data' que es donde están los datos reales
+    nuevo_miembros.value = miembros.value.map(respuesta => respuesta.nickname); // Solo el nickname
+    console.log("Los datos son: ", miembros.value);
+    console.log("Número de miembros: " + miembros.value.length); // Muestra la longitud del array
+  })
+  .catch(error => console.error("Error al cargar los miembros: ", error));
+};
+
 const abrirDialogoEliminarMiembro = () => {
   dialog.value = true;
+  cargarMiembros(); // Cargar los miembros al abrir el diálogo
 };
+
 const cerrarDialogo = () => {
   dialog.value = false;
 };
 
-//  ->  Añadir backend para agregar el miembro
-const eliminarMiembro = () => {
-  console.log("Miembro eliminado.");
-  cerrarDialogo();
+const eliminarMiembro = async () => {
+  if (!miembroSeleccionado.value) {
+    console.warn("Selecciona un miembro para eliminar.");
+    return;
+  }
+  if (!props.grupoId || isNaN(props.grupoId)) {
+    console.error('No se ha proporcionado un ID de grupo válido');
+    return;
+  }
+
+  const miembroAEliminar = miembros.value.find(m => m.nickname === miembroSeleccionado.value);
+  
+  // Asegúrate de que estás obteniendo el ID correcto
+  console.log("ID del miembro a eliminar:", miembroAEliminar.idusuario);
+
+  try {
+    await axios.delete(`http://localhost:8000/api/grupos/${props.grupoId}/miembros/${miembroAEliminar.idusuario}`, config);
+    console.log("Miembro eliminado correctamente.");
+    
+    // Filtrar el miembro eliminado de la lista local para actualizar la vista
+    miembros.value = miembros.value.filter(m => m.idusuario !== miembroAEliminar.idusuario);
+    nuevo_miembros.value = nuevo_miembros.value.filter(m => m !== miembroSeleccionado.value); // Actualizar la lista del select
+    cerrarDialogo();
+  } catch (error) {
+    console.error("Error al eliminar el miembro: ", error.response.data);
+  }
 };
 
-//  ->  Exponer el método para que se pueda abrir desde fuera del componente.
 defineExpose({ abrirDialogoEliminarMiembro });
 </script>
-
-<style scoped></style>

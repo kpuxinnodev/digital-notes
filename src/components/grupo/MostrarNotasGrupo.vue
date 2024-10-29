@@ -32,20 +32,26 @@
               :key="nota.id"
               :class="getColorClass(nota.prioridad)"
             >
-              <v-icon :icon="getCategoriaIcono(nota.categoria)"></v-icon>
-              <v-card-text>{{ nota.descripcion }}</v-card-text>
+
+              <div class="avatar-container">
+              <img :src="nota.avatar" alt="Avatar" class="avatar" />
+              </div>
+              <div class="nota-contenido">
+                <v-card-text>{{ nota.descripcion }}</v-card-text>
+              </div>
+      
               <div class="botones d-flex flex-row align-end justify-end">
                 <v-btn
                   flat class="mb-2"
                   id="eliminar"
-                  v-if="mostrarBoton"
+                  v-if="mostrarBoton && nota.estado === 'Pendiente'"
                   icon="mdi-delete"
                   @click="abrirDialogoEliminarTareaGrupo(nota.id)"
                 ></v-btn>
                 <v-btn
                   flat class="mb-2 mr-2"
                   id="completar"
-                  v-if="mostrarBoton"
+                   v-if="mostrarBoton && nota.estado === 'Pendiente'"
                   icon="mdi-check-bold"
                   @click="abrirDialogoCompletarTareaGrupo(nota.id)"
                 ></v-btn>
@@ -264,10 +270,6 @@ const actualizarNotas = async () => {
   border-radius: 8px;
 }
 
-.nota-icono {
-  margin-right: 8px;
-}
-
 .botones {
   height: 100%;
   position: absolute;
@@ -300,5 +302,18 @@ const actualizarNotas = async () => {
 }
 .prioridad-Baja {
   border: 3px outset #00ff00;
+}
+
+
+.avatar-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px; /* Ajusta según sea necesario */
+}
+
+.avatar {
+  width: 40px; /* Tamaño del avatar */
+  height: 40px; /* Tamaño del avatar */
+  border-radius: 50%; /* Para que sea circular */
 }
 </style>

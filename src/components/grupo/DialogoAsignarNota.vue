@@ -18,14 +18,13 @@
             <!-- Seleccionar miembro -->
             <v-select
               v-if="datos && datos.length > 0"
-              :items="datos"
-              item-text="nickname"  
-              item-value="idusuario" 
+              :items="nuevos_datos"
               label="Asignacion"
               :rules="usuarioRules"
               v-model="notaGrupal.asignacion"
               required
-            ></v-select>
+            >
+            </v-select>
           </v-col>
           <v-col cols="6">
             <!-- Seleccionar prioridad -->
@@ -85,7 +84,7 @@ let miembros = ref([
 ]);
 
 const datos = ref([]);
-
+const nuevos_datos = ref([]);
 //  ->  Prioridades de las notas
 const prioridad = ["Alta", "Media", "Baja"];
 
@@ -132,13 +131,18 @@ const cargarMiembros = async () => {
   if (!props.grupoId || isNaN(props.grupoId)) {
     console.error('No se ha proporcionado un ID de grupo válido');
     return;
-  } try {
-    const response = await axios.get(`http://localhost:8000/api/grupos/${props.grupoId}/showmiembrosnotas`, config);
-    datos.value = response.data;
-    console.log("Miembros Cargados: ", datos.value);
-  } catch (error) {
-    console.error("Error al cargar los miembros: ", error);
-  }
+  }  
+  await axios.get(`http://localhost:8000/api/grupos/${props.grupoId}/showmiembrosnotas`, config)
+  .then(response => {
+    datos.value = response.data; // Acceder a 'response.data' que es donde están los datos reales
+    datos.value.forEach(respuesta => nuevos_datos.value.push(respuesta.nickname))
+    console.log("Los datos son: ", datos.value);
+    console.log("Número de miembros: " + datos.value.length); // Muestra la longitud del array
+  })
+  .catch(error => console.error("Error al cargar los miembros: ", error));
+
+    
+ 
 }
 
 const asignarNota = async () => {

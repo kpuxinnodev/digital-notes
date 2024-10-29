@@ -10,15 +10,16 @@
 
       <!-- Componente: DialogoCrearNota.vue (Botón: Asignar Nota) -->
       <DialogoAsignarNota ref="asignarNota" :grupoId="id" style="position: absolute" />
-      <!-- Componente: DialogoAbandonarGrupo.vue (Botón: Abandonar Grupo) -->
-      <DialogoAbandonarGrupo ref="abandonarGrupo" style="position: absolute" />
+       <!-- Componente: DialogoAbandonarGrupo.vue (Botón: Abandonar Grupo para miembros normales) -->
+       <DialogoAbandonarGrupo ref="abandonarGrupo" :grupoId="grupoId" />
+      <!-- Componente: DialogoAbandonarAdmin.vue (Botón: Abandonar Grupo para administradores) -->
+      <DialogoAbandonarAdmin ref="abandonarAdmin" :grupoId="grupoId" />
 
       <div class="notes-options">
         <!--Opciones de Notas-->
         <div class="botones">
           <!--Botones-->
           <v-btn
-            v-if="administrador"
             prepend-icon="mdi-plus"
             color="green"
             @click="abrirDialogoAsignarNota">
@@ -63,8 +64,11 @@ import { useRouter, useRoute } from "vue-router";
 import Navegacion from "@/components/Navegacion.vue";
 import DialogoAsignarNota from "@/components/grupo/DialogoAsignarNota.vue";
 import DialogoAbandonarGrupo from "@/components/grupo/DialogoAbandonarGrupo.vue";
+import DialogoAbandonarAdmin from "@/components/grupo/DialogoAbandonarAdmin.vue";
 import MostrarNotasGrupo from "@/components/grupo/MostrarNotasGrupo.vue";
 import { defineProps } from 'vue';
+import axios from "axios";
+
 
 const route = useRoute(); // Obtén la ruta actual
 const grupoId = ref(route.params.id)
@@ -79,6 +83,28 @@ const props = defineProps({
 const id = props.id; // Extraer el ID del grupo del prop
 
 const administrador =ref(true)
+
+const token = localStorage.getItem('auth-item');
+
+//  ->  Encabezado de la Autorización
+const config = {
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+};
+
+// Al montar el componente, verifica si el usuario es administrador del grupo
+onMounted(async () => {
+  try {
+    // Llama al backend para verificar si el usuario es el administrador del grupo
+    const response = await axios.get(`http://localhost:8000/api/grupos/${id}/verificaradmin`, config);
+    administrador.value = response.data.esAdmin; // Asigna true o false según la respuesta
+  } catch (error) {
+    console.error("Error al verificar si es administrador:", error);
+  }
+});
+
 
 //  ->  Rutas de Navegación
 const router = useRouter();
@@ -106,10 +132,13 @@ function verBotones() {
 }
 
 const abandonarGrupo = ref(null);
+const abandonarAdmin = ref(null);
 
 //  ->  Método para abrir el diálogo de Abandonar Grupo
 const abrirDialogoAbandonarGrupo = () => {
-  if (abandonarGrupo.value) {
+  if (administrador.value && abandonarAdmin.value) {
+    abandonarAdmin.value.abrirDialogoAsignarAdmin();
+  } else if (abandonarGrupo.value) {
     abandonarGrupo.value.abrirDialogoAbandonarGrupo();
   }
 };
