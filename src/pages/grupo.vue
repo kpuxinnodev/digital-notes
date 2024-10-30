@@ -20,6 +20,7 @@
         <div class="botones">
           <!--Botones-->
           <v-btn
+            v-if="administrador"
             prepend-icon="mdi-plus"
             color="green"
             @click="abrirDialogoAsignarNota">
@@ -50,7 +51,7 @@
       <div class="notasychat">
         <div class="notas">
           <!-- Componente: MostrarNotas.vue -->
-          <MostrarNotasGrupo :mostrarBoton="administrar" :grupoId="grupoId" />
+          <MostrarNotasGrupo :mostrarBoton="administrar" :grupoId="Number(id)" />
         </div>
         <div class="chat"></div>
       </div>
@@ -241,7 +242,7 @@ const abrirDialogoAbandonarGrupo = () => {
 
 .notasychat > .chat {
   width: 20%;
-  height: 90%;
+  height: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;

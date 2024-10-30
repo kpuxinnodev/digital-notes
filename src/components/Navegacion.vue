@@ -265,6 +265,7 @@ const responderInvitacion = async (id, estado, index) => {
     if (response.data.message) {
       // Marcar la notificación como leída o eliminarla
       eliminarNotificacion(index);
+      menuNotificaciones.value = false;
     }
   } catch (error) {
     console.error("Error al responder a la invitación:", error);

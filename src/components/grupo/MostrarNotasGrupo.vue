@@ -44,14 +44,14 @@
                 <v-btn
                   flat class="mb-2"
                   id="eliminar"
-                  v-if="mostrarBoton && nota.estado === 'Pendiente'"
+                  v-if="mostrarBoton && nota.editable && nota.estado === 'Pendiente'"
                   icon="mdi-delete"
                   @click="abrirDialogoEliminarTareaGrupo(nota.id)"
                 ></v-btn>
                 <v-btn
                   flat class="mb-2 mr-2"
                   id="completar"
-                   v-if="mostrarBoton && nota.estado === 'Pendiente'"
+                   v-if="mostrarBoton && nota.editable && nota.estado === 'Pendiente'"
                   icon="mdi-check-bold"
                   @click="abrirDialogoCompletarTareaGrupo(nota.id)"
                 ></v-btn>
@@ -93,11 +93,7 @@ const props = defineProps({
     default: true,
   },
   grupoId: {
-    type: Number,
-    required: true,
-  },
-  idusuario: {
-    type: Number,
+    type: [Number, String],
     required: true,
   },
 });
