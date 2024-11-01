@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-model="dialog" max-width="600">
-      <v-card>
+      <v-card class="colorfondo">
         <v-card-title class="text-h5">Asignar Miembro a Administrador</v-card-title>
         <v-card-text>
           <v-select
@@ -104,3 +104,9 @@
   
   defineExpose({ abrirDialogoAsignarAdmin });
   </script>
+
+  <style scoped>
+.colorfondo {
+  background-color: #263238;
+}
+</style>

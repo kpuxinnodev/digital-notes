@@ -1,13 +1,13 @@
 <template>
   <v-container class="container">
-    <v-card flat>
-      <v-card-title>Integrantes del equipo:</v-card-title>
+    <v-card flat class="windowcolor">
+      <v-card-title class="mb-6">Integrantes del equipo:</v-card-title>
       <v-card-text>
         <div class="grid-miembros">
           <!-- Container de los miembros -->
           <v-card
             flat
-            class="miembro"
+            class="miembro windowcolor"
             v-for="(miembro, index) in miembros"
             :key="index"
           >
@@ -162,7 +162,8 @@ const abrirDialogoEliminarMiembro = () => {
   margin: auto;
   height: 42vh;
   overflow-y: auto;
-  border: 1px solid white;
+  border: 2px solid white;
+  border-radius: 30px;
 }
 
 .miembro {
@@ -182,5 +183,9 @@ img {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+
+.windowcolor {
+  background-color: #3f7f9c;
 }
 </style>

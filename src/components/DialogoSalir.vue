@@ -1,11 +1,14 @@
 <template>
   <div class="text-center pa-4">
+
+    <!-- Diálogo -->
     <v-dialog v-model="dialog" width="auto">
       <v-card
         max-width="600"
         prepend-icon="mdi-power-standby"
         text="¿Estas seguro que deseas cerrar sesión?"
         title="CERRAR SESIÓN"
+        class="colorfondo"
       >
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -55,21 +58,11 @@ function salirAplicacion() {
 //  ->  Token
 const token = localStorage.getItem('auth-item');
 
-//  ->  Encabezado de la Autorización
-const config = {
-    headers: {
-        'Content-Type':'application/json',
-        'Authorization': `Bearer ${token}`
-    }
-};
-
 const removeToken = () => {
   localStorage.removeItem('auth.item');
 };
 
 //  ->  Logout
-
-
 const cerrarSesion = async () =>  {
   try {
     //  ->  Llamada a la API
@@ -105,5 +98,11 @@ defineExpose({ abrirDialogoSalirAplicacion });
 </script>
 
 <style scoped>
+.colorfondo {
+  background-color: #263238;
+}
 
+.color {
+  background-color: #2196f3;
+}
 </style>

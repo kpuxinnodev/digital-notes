@@ -1,14 +1,18 @@
 <template>
-  <Registroexitoso ref="exitoalregistrarse" />
-  <ErrorRegistro ref="erroralregistrarse" /> <!--implementacion del error al mostrar-->
-  <div class="formulario">
-    <!--Formulario-->
+  <!-- Componentes importados (exito y error) -->
+  <Registroexitoso ref="exitoalregistrarse" style="position: absolute;" />
+  <ErrorRegistro ref="erroralregistrarse" style="position: absolute;" />
 
+  <!--Formulario-->
+  <div class="formulario">
+    <!--Formulario: Título-->
     <h2>crear una cuenta</h2>
 
+    <!-- Formulario: Inputs -->
     <v-sheet class="mx-auto" width="340">
       <v-form fast-fail @submit.prevent="enviarFormulario" v-model="valid">
         
+        <!-- Input: Nombre -->
         <v-text-field
           v-model="perfilRegistro.name"
           :rules="nombreRules"
@@ -16,6 +20,7 @@
           required
         ></v-text-field>
 
+        <!-- Input: Usuario -->
         <v-text-field
           v-model="perfilRegistro.nickname"
           :rules="usuarioRules"
@@ -23,6 +28,7 @@
           required
         ></v-text-field>
 
+        <!-- Input: E-mail -->
         <v-text-field
           v-model="perfilRegistro.email"
           :rules="emailRules"
@@ -31,6 +37,7 @@
           required
         ></v-text-field>
 
+        <!-- Input: Contraseña -->
         <v-text-field
           v-model="perfilRegistro.password"
           :rules="passwordRules"
@@ -41,6 +48,7 @@
           required
         ></v-text-field>
 
+        <!-- Input: Confirmar Contraseña -->
         <v-text-field
           v-model="perfilRegistro.password_confirmation"
           :rules="confirmPasswordRules"
@@ -51,6 +59,7 @@
           required
         ></v-text-field>
 
+        <!-- Formulario: Botón de Enviar -->
         <v-btn
           class="mt-2"
           type="submit"
@@ -59,37 +68,42 @@
       </v-form>
     </v-sheet>
 
+    <!--Acceder-->
     <div class="acceder">
-      <!--Acceder-->
       <p>¿Ya tienes una cuenta?</p>
+      <!-- Link: Iniciar Sesión -->
       <a @click="acceder">Acceder</a>
     </div>
   </div>
 </template>
 
 <script setup>
+//  ->  Imports
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import Registroexitoso from "./Registroexitoso.vue";
 import ErrorRegistro from "../errores/ErrorRegistro.vue"; //Se importa el dialogo
 
+//  ->  Crear router
 const router = useRouter();
 
+//  ->  Valid por referencia (Formluario)
 const valid = ref(false);
 
+//  ->  Constantes de Mostrar Contraseña por referencia
 const showPassword = ref(false);
-
 const showPassword2 = ref(false);
 
+//  ->  Funciones para cambiar la visibilidad de la contraseña
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value
 }
-
 const togglePasswordVisibility2 = () => {
   showPassword2.value = !showPassword2.value
 }
 
+//  ->  Objeto en el cual se guardará la información introducida en los inputs para poseriormente enviarla
 const perfilRegistro = ref({
   name:"",
   nickname:"",
@@ -98,36 +112,32 @@ const perfilRegistro = ref({
   password_confirmation: "",
 });
 
-//  ->  Reglas
+//  ->  Reglas de los inputs
 const nombreRules = [
   (v) => !!v || "El nombre es requerido",
   (v) =>
     (v && v.length <= 30) || "El nombre debe tener máximo 30 caracteres",
 ];
-
 const usuarioRules = [
   (v) => !!v || "El usuario es requerido",
   (v) =>
     (v && v.length <= 20) || "El usuario debe tener máximo 20 caracteres",
 ];
-
 const emailRules = [
   (v) => !!v || "El email es requerido",
   (v) => /.+@.+\..+/.test(v) || "Debe ser un email válido",
 ];
-
 const passwordRules = [
   (v) => !!v || "La contraseña es requerida",
   (v) =>
     (v && v.length >= 8) || "La contraseña debe tener al menos 8 caracteres",
 ];
-
 const confirmPasswordRules = [
   (v) => !!v || "Debes confirmar tu contraseña",
   (v) => v === perfilRegistro.value.password || "Las contraseñas no coinciden",
 ];
 
-//  ->  Cambiar al formulario de login.
+//  ->  Cambiar al página de login
 const acceder = () => {
   router.push("/login");
 };
@@ -155,17 +165,16 @@ const enviarFormulario = async () => {
   }
 };
 
+//  ->  Componentes (éxito y error) por referencia: ocultos
 const exitoalregistrarse = ref(null);
-const erroralregistrarse = ref(null); //agregar esto porque validara lo de la funcion abrirMostrarError por los errores
+const erroralregistrarse = ref(null);
 
-//  Método para abrir el diálogo de Crear Nota usando la referencia
+//  ->  Funciones para mostrar los mensajes (éxito y error)
 const abrirMostrarRegistrado = () => {
   if (exitoalregistrarse.value) {
     exitoalregistrarse.value.abrirMostrarRegistrado();
   }
 };
-
-// La funcin del error
 const abrirMostrarError = () => {
   if (erroralregistrarse.value) {
     erroralregistrarse.value.abrirMostrarError();
@@ -182,7 +191,7 @@ const abrirMostrarError = () => {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  background-color: darkblue;
+  background-color: #3f7f9c;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -221,7 +230,7 @@ const abrirMostrarError = () => {
 }
 
 button {
-  background-color: rgb(0, 230, 0);
+  background-color: #66BB6A;
   border-radius: 10px;
   margin: auto;
   font-weight: bolder;
@@ -241,7 +250,7 @@ button {
   margin-bottom: 5%;
   display: flex;
   flex-direction: row;
-  background-color: darkblue;
+  background-color: #3f7f9c;
   justify-content: space-evenly;
   align-items: center;
 }
@@ -253,8 +262,8 @@ button {
 
 .acceder > a {
   font-size: 15px;
-  text-decoration: none;
-  color: rgb(0, 230, 0);
+  text-decoration: underline;
+  color: #66BB6A;
   font-weight: bolder;
 }
 

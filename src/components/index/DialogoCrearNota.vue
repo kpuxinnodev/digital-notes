@@ -1,10 +1,15 @@
 <template>
-  <ErrorCrearNota ref="erroralcrearnota" />
-  <CrearNotaexitosa ref="crearnotaexitosa" />
+  <!-- Componentes importados (crear nota: éxito y error) -->
+  <ErrorCrearNota ref="erroralcrearnota" style="position: absolute;" />
+  <CrearNotaexitosa ref="crearnotaexitosa" style="position: absolute;" />
+
+  <!-- Diálogo: Formulario -->
   <v-dialog v-model="dialog" max-width="600">
     <v-form fast-fail v-model="valid" @submit.prevent="guardarNota">
-      <v-card prepend-icon="mdi-creation" title="CREAR UNA NOTA">
+      <v-card prepend-icon="mdi-creation" title="CREAR UNA NOTA" class="colorfondo">
         <v-card-text>
+
+          <!-- Input: Contenido -->
           <v-textarea
             label="Contenido de la nota..."
             v-model="notaPersonal.descripcion"
@@ -16,7 +21,7 @@
           <!-- Sistema de cuadrículas -->
           <v-row>
             <v-col cols="6">
-              <!-- Seleccionar categoría -->
+              <!-- Input: Categoría -->
               <v-select
                 :items="categoria"
                 label="Categoría"
@@ -25,8 +30,9 @@
                 required
               ></v-select>
             </v-col>
+
             <v-col cols="6">
-              <!-- Seleccionar prioridad -->
+              <!-- Input: Prioridad -->
               <v-select
                 :items="prioridad"
                 label="Prioridad"
@@ -42,11 +48,17 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
+
           <!-- Botón de Cerrar diálogo -->
-          <v-btn text="Cancelar" variant="plain" @click="cerrarDialogo"></v-btn>
+          <v-btn
+            text="Cancelar"
+            variant="plain"
+            @click="cerrarDialogo"
+          ></v-btn>
+
           <!-- Botón de Guardar nota -->
           <v-btn
-            color="primary"
+            class="color"
             text="Crear"
             variant="flat"
             rounded="xl"
@@ -59,25 +71,26 @@
 </template>
 
 <script setup>
+//  ->  Imports
 import { ref, defineExpose } from "vue";
 import axios from "axios";
 import { io } from "socket.io-client";
 import ErrorCrearNota from "../errores/ErrorCrearNota.vue";
 import CrearNotaexitosa from "../exito/CrearNotaexitosa.vue";
 
-//  ->  'defineExpose' exporta funciones
-
+//  ->  Formulario por referencia
 const valid = ref(false);
 
 const emit = defineEmits(['notaCreada']);
 
+//  ->  Objeto donde se guarda la información de los imputs para luego enviarla
 const notaPersonal = ref({
   descripcion:"",
   categoria: "",
   prioridad: "",
 });
 
-//  ->  Categorías, ¿importar del backend?
+//  ->  Categorías a elegir
 const categoria = [
   "Trabajo",
   "Estudios",
@@ -91,10 +104,8 @@ const categoria = [
 //  ->  Prioridades de las tareas
 const prioridad = ["Alta", "Media", "Baja"];
 
-//  ->  'dialog' por referencia default = false
+//  ->  Funciones de crear y cerrar diálogo
 const dialog = ref(false);
-
-//  ->  Funciones para abrir y cerrar el dialogo
 const abrirDialogoCrearNota = () => {
   dialog.value = true;
 };
@@ -102,22 +113,20 @@ const cerrarDialogo = () => {
   dialog.value = false;
 };
 
-//  ->  Reglas
+//  ->  Reglas de los inputs
 const contenidoRules = [
   (v) => !!v || "El contenido es requerido",
   (v) =>
     (v && v.length <= 120) ||
     "El contenido debe contar con menos de 120 caracteres",
 ];
-
 const categoriaRules = [(v) => !!v || "La categoría es requerida"];
-
 const prioridadRules = [(v) => !!v || "La prioridad es requerida"];
 
-
+//  ->  Token a enviar
 const token = localStorage.getItem('auth-item');
 
-//  ->  Encabezado de la Autorización
+//  ->  Objeto config con headers
 const config = {
     headers: {
         'Content-Type':'application/json',
@@ -125,19 +134,20 @@ const config = {
     }
 };
 
-
-
+//  ->  Función para enviar el formulario
 const guardarNota = async () => {
   if (!valid.value) return; // Verifica si el formulario es válido
   
   try {
     // Esperar la respuesta de la API
-    const response = await axios.post('http://localhost:8000/api/notas', notaPersonal.value, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    });
+    const response = await axios.post('http://localhost:8000/api/notas', notaPersonal.value, config, 
+    /** {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+    } */
+    );
     
     console.log('Nota Guardada:', response.data);
     cerrarDialogo(); // Cerrar el diálogo después de guardar la nota
@@ -151,18 +161,19 @@ const guardarNota = async () => {
   }
 };
 
-const erroralcrearnota = ref(null);
+//  ->  Función de Mostrar Éxito
 const crearnotaexitosa = ref(null);
-
-const abrirMostrarError = () => {
-  if (erroralcrearnota.value) {
-    erroralcrearnota.value.abrirMostrarError();
-  };
-}
-
 const abrirMostrarExito = () => {
   if (crearnotaexitosa.value) {
     crearnotaexitosa.value.abrirMostrarExito();
+  };
+}
+
+//  ->  Función de Mostrar Error
+const erroralcrearnota = ref(null);
+const abrirMostrarError = () => {
+  if (erroralcrearnota.value) {
+    erroralcrearnota.value.abrirMostrarError();
   };
 }
 
@@ -170,3 +181,13 @@ const abrirMostrarExito = () => {
 //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
 defineExpose({ abrirDialogoCrearNota });
 </script>
+
+<style scoped>
+.colorfondo {
+  background-color: #263238;
+}
+
+.color {
+  background-color: #2196f3;
+}
+</style>

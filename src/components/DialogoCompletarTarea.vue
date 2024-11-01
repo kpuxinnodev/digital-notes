@@ -1,12 +1,16 @@
 <template>
+  <!-- Componente importado: completar tarea -->
   <CompletarTareaexito ref="completartarea" style="position: absolute; z-index: 1000; top: 40%;"/>
     <div class="text-center pa-4">
+
+      <!-- Diálogo -->
       <v-dialog v-model="dialog" width="auto">
         <v-card
           max-width="600"
           prepend-icon="mdi-check-decagram"
           text="¿Estas seguro que deseas completar la tarea?"
           title="COMPLETAR TAREA"
+          class="colorfondo"
         >
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -21,7 +25,7 @@
               text="Completar"
               variant="flat"
               @click="completarTarea"
-            >Completar Tarea</v-btn>
+            ></v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -56,14 +60,6 @@ const emit = defineEmits(['notaCompletada']);
   };
 
 const token = localStorage.getItem('auth-item');
-
-//  ->  Encabezado de la Autorización
-const config = {
-    headers: {
-        'Content-Type':'application/json',
-        'Authorization': `Bearer ${token}`
-    }
-};
 
   //  ->  Añadir backend para abandonar el grupo.
   const completarTarea = async () => {
@@ -103,13 +99,16 @@ const abrirMostrarExito = () => {
   }
 }
 
-
   //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
   defineExpose({ abrirDialogoCompletarTarea });
 
   </script>
   
   <style scoped>
+
+.colorfondo {
+  background-color: #263238;
+}
   
   </style>
   

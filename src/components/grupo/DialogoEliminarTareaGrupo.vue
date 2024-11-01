@@ -6,6 +6,7 @@
           prepend-icon="mdi-delete-empty"
           text="¿Estas seguro que deseas eliminar la tarea?"
           title="ELIMINAR TAREA"
+          class="colorfondo"
         >
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -95,4 +96,7 @@ const props = defineProps({
   </script>
   
   <style scoped>
+  .colorfondo {
+  background-color: #263238;
+}
   </style>

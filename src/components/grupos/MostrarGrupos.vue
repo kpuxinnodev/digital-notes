@@ -19,7 +19,7 @@
     :image="grupo.logo"
     max-width="400"
     height="120"
-    class="d-flex flex-column justify-center align-center"
+    class="d-flex flex-column justify-center align-center nota"
   >
       <div class="titulo-fondo">
         <span class="titulo-texto">{{ grupo.nombre }}</span>
@@ -110,14 +110,18 @@ const actualizarGrupos = async () => {
 .component {
   display: flex;
   flex-direction: column;
-  height: 90%;
-  width: 90%;
+  height: 100%;
+  width: 100%;
 }
 
 .barra-de-categorias {
   position: sticky;
+  display: flex;
+  background-color:#2196f3;
   top: 0;
   z-index: 1;
+  align-items: center;
+  justify-content: center;
 }
 
 .category-tabs {
@@ -128,6 +132,7 @@ const actualizarGrupos = async () => {
   flex: 1;
   overflow-y: auto;
   padding: 16px;
+  background-color: #3f7f9c;
 }
 
 .ventana {
@@ -137,7 +142,7 @@ const actualizarGrupos = async () => {
 .grid-notas {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 16px;
 }
 
 .nota {
@@ -145,6 +150,8 @@ const actualizarGrupos = async () => {
   align-items: center;
   padding: 16px;
   border-radius: 8px;
+  border: 2px solid white;
+  background-color: #6894ac;
 }
 
 .nota-icono {

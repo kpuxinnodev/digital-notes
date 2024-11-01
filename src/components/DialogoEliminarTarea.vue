@@ -1,19 +1,26 @@
 <template>
   <div class="text-center pa-4">
+    
+    <!-- Diálogo -->
     <v-dialog v-model="dialog" width="auto">
       <v-card
         max-width="600"
         prepend-icon="mdi-delete-empty"
         text="¿Estas seguro que deseas eliminar la tarea?"
         title="ELIMINAR TAREA"
+        class="colorfondo"
       >
         <v-card-actions>
           <v-spacer></v-spacer>
+
+          <!-- Botón de cerrar diálogo -->
           <v-btn
             text="Cancelar" 
             variant="plain" 
             @click="cerrarDialogo"
           ></v-btn>
+
+          <!-- Botón de eliminar tarea -->
           <v-btn
             color="#2196f3"
             rounded="xl"
@@ -30,7 +37,6 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
-import MostrarNotas from "./index/MostrarNotas.vue";
 
 
 const props = defineProps({
@@ -89,5 +95,9 @@ defineExpose({ abrirDialogoEliminarTarea });
 </script>
 
 <style scoped>
+
+.colorfondo {
+  background-color: #263238;
+}
 </style>
     

@@ -4,7 +4,7 @@
       <v-card
         prepend-icon="mdi-account-plus"
         title="AGREGAR MIEMBRO"
-        text="Agrega a un usuario para que forme parte de tu equipo."
+        class="windowcolor"
       >
         <v-card-text>
           <v-text-field label="Usuario"
@@ -96,4 +96,7 @@ const agregarMiembro = async () => {
 defineExpose({ abrirDialogoAgregarMiembro });
 </script>
 
-<style scoped></style>
+<style scoped>
+.windowcolor {
+  background-color: #263238;
+}</style>

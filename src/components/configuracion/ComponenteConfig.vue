@@ -5,11 +5,10 @@
       <v-card-title>CONFIGURACIÓN DE LA CUENTA</v-card-title>
     </v-toolbar>
 
-    <div class="d-flex flex-row">
+    <div class="d-flex flex-row windowcolor">
       <!-- Pestañas principales -->
       <v-tabs
         v-model="mainTab"
-        color="primary"
         class="mb-4 custom-tabs scrollable-window"
         direction="vertical"
       >
@@ -24,19 +23,19 @@
       </v-tabs>
 
       <!-- Ventana de pestañas principales -->
-      <v-tabs-window v-model="mainTab" class="custom-tabs-window w-100 mt-1">
+      <v-tabs-window v-model="mainTab" class="custom-tabs-window w-100">
         <!-- Ventana 1 (Perfil de Usuario) -->
-        <v-tabs-window-item value="main-1">
+        <v-tabs-window-item value="main-1" class="window">
           <PerfilDeUsuario />
         </v-tabs-window-item>
 
         <!-- Ventana 2 (Datos) -->
-        <v-tabs-window-item value="main-2" class="scrollable-window">
+        <v-tabs-window-item value="main-2" class="scrollable-window window">
           <FormularioDatos />
         </v-tabs-window-item>
 
         <!-- Ventana 3 (Seguridad) -->
-        <v-tabs-window-item value="main-3" class="scrollable-window">
+        <v-tabs-window-item value="main-3" class="scrollable-window window">
           <FormularioContrasena />
         </v-tabs-window-item>
 
@@ -67,8 +66,8 @@ const principales = ref([
 .component {
   display: flex;
   flex-direction: column;
-  height: 90%;
-  width: 90%;
+  height: 100%;
+  width: 100%;
 }
 
 #toolbar-icon {
@@ -77,7 +76,8 @@ const principales = ref([
 
 .custom-tabs {
   overflow: hidden !important;
-  border-right: 1px solid #2b2b2b;
+  border-right: 1px solid white;
+  border-top: 1px solid white;
 }
 
 .custom-tabs-window {
@@ -87,8 +87,17 @@ const principales = ref([
 
 .scrollable-window {
   max-height: calc(
-    90vh - 64px
+    100vh - 64px
   );
   overflow-y: auto;
+}
+
+.window {
+  border-top: 1px solid white;
+  background-color: #3f7f9c;
+}
+
+.windowcolor {
+  background-color: #3f7f9c;
 }
 </style>
