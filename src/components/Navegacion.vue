@@ -52,9 +52,7 @@
                 <v-card flat min-width="300" max-width="400" max-height="200" class="notificaciones-panel">
                   <v-list class="notificaciones-fondo">
                       <v-list-header class="notificaciones-titulo">Notificaciones</v-list-header>
-                    <v-list-item v-if="notificaciones.length === 0">
-                      <v-list-item-title class="text-center">No hay notificaciones nuevas</v-list-item-title>
-                    </v-list-item>
+                    
                     <div class="cuerponotificaciones">
                       <v-list-item
                       v-for="(notificacion, index) in notificacionesCargadas"
@@ -153,6 +151,7 @@ const props = defineProps({
     required: true,
   }
 });
+
 // Estado del menú de notificaciones
 const menuNotificaciones = ref(false);
 
@@ -160,6 +159,9 @@ const menuNotificaciones = ref(false);
 const notificacionesCount = computed(() => {
   return notificacionesCargadas.value.filter(n => !n.read).length
 });
+
+// Almacena las notas para mostrarse
+const notificaciones = ref([]);
 
 // Métodos para manejar notificaciones
 const eliminarNotificacion = (index) => {
@@ -184,9 +186,9 @@ const cargarNotificaciones = async () => {
   try {
     const response = await axios.get('http://localhost:8000/api/notificacion/ver', config);
     notificacionesCargadas.value = response.data;
-    console.log("Notas cargadas: ", notificacionesCargadas.value);
+    console.log("Notificaciones cargadas: ", notificacionesCargadas.value);
   } catch (error) {
-    console.error('Error al cargar las notas: ', error);
+    console.error('Error al cargar las notificaciones: ', error);
   }
 }
 
@@ -254,7 +256,7 @@ const eliminar_notificacion_icono = computed(()=>{
   else{
     return "flex"
   }*/
-  return notificacionesCount.value ===0 ? "none" : "flex"
+  return notificacionesCount.value === 0 ? "none" : "flex"
   
 })
 </script>

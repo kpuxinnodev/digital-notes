@@ -175,7 +175,7 @@ const abrirDialogoEliminarMiembro = () => {
 
 img {
   border-radius: 50%;
-  width: 70px; /* Tamaño del avatar */
+  width: 64px; /* Tamaño del avatar */
   height: 64px;
 }
 

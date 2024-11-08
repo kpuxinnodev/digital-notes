@@ -27,7 +27,6 @@
           <div class="avatar">
             <img 
             v-if="datos.avatar"
-            class="ml-4 mr-4"
             :src="datos.avatar"
             :alt="datos.nickname"
              />
@@ -208,7 +207,7 @@ onMounted( async() =>{
 
 img {
   border-radius: 50%;
-  width: 70px; /* Tamaño del avatar */
+  width: 64px; /* Tamaño del avatar */
   height: 64px;
   justify-self: center;
 }
@@ -225,5 +224,7 @@ img {
 
 .avatar {
   width: 10%;
+  margin-right: 24px;
+  margin-top: 6px;
 }
 </style>
