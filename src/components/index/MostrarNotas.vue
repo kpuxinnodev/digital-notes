@@ -205,9 +205,10 @@ const actualizarNotas = async () => {
 .component {
   display: flex;
   flex-direction: column;
+  position: absolute;
   height: 100%;
   width: 100%;
-  margin-left: -32px;
+  bottom: 0;
 }
 
 .barra-de-categorias {

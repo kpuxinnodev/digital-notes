@@ -30,7 +30,7 @@
       </v-card>
     </v-dialog>
   </div>
-  <ErrorSalir ref="errorSalir" style="position: absolute; z-index: 1000; top: 40%;" />
+ 
 </template>
 
 <script setup>

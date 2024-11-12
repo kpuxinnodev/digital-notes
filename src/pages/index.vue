@@ -100,7 +100,7 @@ function verBotones() {
   flex-direction: row;
   justify-content: space-evenly;
 
-  height: 18%;
+  height: 20%;
   width: 100%;
 }
 
@@ -150,9 +150,8 @@ function verBotones() {
 /**----div.notes-show----*/
 .content > .notes-show {
   height: 80%;
-  width: 98.3%;
-  position: absolute;
-  bottom: 0;
+  width: 100%;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
