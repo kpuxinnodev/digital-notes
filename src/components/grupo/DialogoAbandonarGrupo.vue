@@ -6,6 +6,7 @@
           prepend-icon="mdi-exit-run"
           text="¿Estas seguro que deseas abandonar el grupo?"
           title="ABANDONAR GRUPO"
+          class="colorfondo"
         >
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -77,6 +78,8 @@ const config = {
   </script>
   
   <style scoped>
-  
+  .colorfondo {
+  background-color: #263238;
+}
   </style>
   

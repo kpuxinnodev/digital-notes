@@ -1,33 +1,37 @@
 <template>
   <v-container class="container">
     <!-- Muestra los datos -->
-    <div class="d-flex flex-row" v-if="datos" :key="index">
+    <div class="cartas d-flex flex-row" v-if="datos" :key="index">
+      <p style="position: absolute; right: 10px; top: 10px;" >{{ datos.created_at }}</p>
+
       <v-card flat class="carta-1">
+        <v-card-title class="mb-8">Datos del equipo</v-card-title>
         <v-card-text class="d-flex flex-column justify-center align-center">
           <!-- Cargar avatar del Back-End -->
-          <img class="ml-4 mr-4"
+          <img class="ml-4 mr-4 logoequipo"
             :src="datos.logo"
-            :alt="datos.descripcion"
+            alt="ogo.png"
           />
-          <p class="mt-2 ml-4 mr-4">{{ datos.nombre }}</p>
+          <p class="mt-2">{{ datos.nombre }}</p>
         </v-card-text>
       </v-card>
-      <v-card flat class="d-flex align-center pl-8 pr-8">
+      
+      <v-card flat class="carta-2 d-flex align-center pl-8 pr-8">
         <v-card-text>
           <p>{{ datos.descripcion }}</p>
         </v-card-text>
-      </v-card class="align-end">
-      <p style="position: absolute; right: 2rem;" >{{ datos.created_at }}</p>
+      </v-card>
+      
     </div>
 
-    <v-divider class="divisor"></v-divider>
+    <v-divider class="divisor mt-8 mb-8"></v-divider>
 
     <!-- Formulario para editar datos -->
     <v-form ref="form" v-model="valid" class="mt-6">
       <v-row v-if="esAdmin">
         <!-- Campo de archivo para seleccionar la imagen -->
         <v-col cols="12">
-          <v-card flat>
+          <v-card flat class="carta-3">
             <v-file-input
               :rules="subirAvatar"
               label="Cambiar logo de equipo"
@@ -35,6 +39,7 @@
               variant="filled"
               v-model="imagen"
               accept="image/*"
+              class="imagen-input"
             ></v-file-input>
             <v-col class="d-flex justify-end">
               <v-btn
@@ -142,11 +147,69 @@ const obtenerDatos = async () => {
 
 .container {
   width: 80%;
+  height: auto;
+  background-color: #3f7f9c;
+}
+
+.windowcolor {
+  background-color: #3f7f9c;
 }
 
 img {
   border-radius: 50%;
   width: 70px; /* Tamaño del avatar */
   height: 64px;
+}
+
+.carta-1 {
+  width: 300px;
+  background-color: #3f7f9c;
+}
+
+.carta-2 {
+  width: 500px;
+  background-color: #3f7f9c;
+}
+
+.container {
+  width: 100%;
+}
+
+.cartas {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.carta-3 {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  width: 70%;
+  background-color: #3f7f9c;
+  align-self: center;
+  justify-self: space-between;
+
+}
+
+.imagen-input{
+  width: 50%;
+}
+
+.divisor {
+  color: white;
+  width: 80%;
+  margin: auto;
+}
+
+.scrollable-window {
+  max-height: calc(
+    100vh - 64px
+  );
+  overflow-y: auto;
+}  
+.logoequipo {
+  border-radius: 50%;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="600">
     <v-form fast-fail v-model="valid" @submit.prevent="asignarNota">
-      <v-card prepend-icon="mdi-creation" title="ASIGNAR UNA TAREA">
+      <v-card prepend-icon="mdi-creation" title="ASIGNAR UNA TAREA" class="colorfondo">
       <v-card-text>
         <!-- Textbox -->
         <v-textarea
@@ -173,3 +173,8 @@ onMounted( async() => {
 //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
 defineExpose({ abrirDialogoAsignarNota });
 </script>
+
+<style scoped>
+.colorfondo {
+  background-color: #263238;
+}</style>

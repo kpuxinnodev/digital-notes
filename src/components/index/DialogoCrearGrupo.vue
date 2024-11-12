@@ -2,7 +2,7 @@
   <ErrorCrearGrupo ref="erroralcreargrupo" />
   <v-dialog v-model="dialog" max-width="600">
     <v-form v-model="valid" @submit.prevent="crearGrupo">
-      <v-card prepend-icon="mdi-creation" title="CREAR GRUPO">
+      <v-card prepend-icon="mdi-creation" title="CREAR GRUPO" class="colorfondo">
         <v-card-text>
           <v-text-field 
           label="Nombre del equipo"
@@ -37,7 +37,7 @@
           <v-btn text="Cancelar" variant="plain" @click="cerrarDialogo"></v-btn>
           <!-- Botón de Crear Grupo -->
           <v-btn
-            color="primary"
+            class="color"
             text="Crear grupo"
             variant="flat"
             rounded="xl"
@@ -153,3 +153,13 @@ const abrirMostrarError = () => {
 //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
 defineExpose({ abrirDialogoCrearGrupo });
 </script>
+
+<style scoped>
+.colorfondo {
+  background-color: #263238;
+}
+
+.color {
+  background-color: #2196f3;
+}
+</style>

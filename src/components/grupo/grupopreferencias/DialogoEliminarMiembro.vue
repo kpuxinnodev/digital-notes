@@ -1,13 +1,15 @@
 <template>
   <v-dialog v-model="dialog" max-width="600">
-    <v-card>
-      <v-card-title class="text-h5">Eliminar Miembro</v-card-title>
+    <v-card 
+    class="windowcolor"
+    prepend-icon="mdi-account-minus"
+    title="ELIMINAR MIEMBRO">
       <v-card-text>
         <v-select
           v-if="miembros && miembros.length > 0"
           v-model="miembroSeleccionado"
           :items="nuevo_miembros"
-          label="Selecciona un miembro para eliminar"
+          label="Selecciona un miembro"
           required
         ></v-select>
       </v-card-text>
@@ -104,3 +106,9 @@ const eliminarMiembro = async () => {
 
 defineExpose({ abrirDialogoEliminarMiembro });
 </script>
+
+<style scoped>
+.windowcolor {
+  background-color: #263238;
+}
+</style>

@@ -6,6 +6,7 @@
           prepend-icon="mdi-check-decagram"
           text="¿Estas seguro que deseas completar la tarea?"
           title="COMPLETAR TAREA"
+          class="colorfondo"
         >
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -98,6 +99,8 @@ const config = {
   </script>
   
   <style scoped>
-  
+  .colorfondo {
+  background-color: #263238;
+}
   </style>
   

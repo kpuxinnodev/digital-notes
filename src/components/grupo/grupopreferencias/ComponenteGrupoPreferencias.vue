@@ -5,12 +5,11 @@
       <v-card-title>PREFERENCIAS DEL EQUIPO</v-card-title>
     </v-toolbar>
 
-    <div class="d-flex flex-row">
+    <div class="d-flex flex-row windowcolor">
       <!-- Pestañas principales -->
       <v-tabs
         v-model="mainTab"
-        color="primary"
-        class="mb-4 custom-tabs"
+        class="mb-4 custom-tabs scrollable-window"
         direction="vertical"
         @change="cambioenTab"
       >
@@ -25,15 +24,15 @@
       </v-tabs>
 
       <!-- Ventanas de pestañas principales -->
-      <v-tabs-window v-model="mainTab" class="custom-tabs-window w-100 mt-2">
+      <v-tabs-window v-model="mainTab" class="custom-tabs-window w-100">
         <!-- Ventana 1 (Preferencias del Equipo) -->
-        <v-tabs-window-item value="main-1">
+        <v-tabs-window-item value="main-1" class="window scrollable-window">
           <!-- ? Componente: FormularioPreferenciasEquipo.vue () -->
           <FormularioPreferenciasEquipo :grupoId="grupoId"/>
         </v-tabs-window-item>
 
         <!-- Ventana 2 (Administrar Miembros) -->
-        <v-tabs-window-item value="main-2" class="window">
+        <v-tabs-window-item value="main-2" class="scrollable-window window">
           <!-- ? Componente: ComponenteGrupoMiembros.vue () -->
           <ComponenteGrupoMiembros :grupoId="grupoId" />
         </v-tabs-window-item>
@@ -72,9 +71,8 @@ const principales = ref([
 .component {
   display: flex;
   flex-direction: column;
-  height: 90vh;
-  width: 90%;
-  overflow: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 #toolbar-icon {
@@ -88,27 +86,29 @@ const principales = ref([
 }
 
 .custom-tabs {
-  flex: 0 0 200px;
-  overflow: hidden;
-  border-right: 1px solid #2b2b2b;
+  overflow: hidden !important;
+  border-right: 1px solid white;
+  border-top: 1px solid white;
 }
 
 .custom-tabs-window {
-  flex: 1;
+  overflow: hidden !important;
+  height: 100vh;
+}
+
+.scrollable-window {
+  max-height: calc(
+    100vh - 64px
+  );
   overflow-y: auto;
 }
 
 .window {
-  max-height: calc(90vh - 64px);
+  border-top: 1px solid white;
+  background-color: #3f7f9c;
 }
 
-.faq-active .v-list-item-subtitle {
-  display: block;
-  color: white;
-  opacity: 100;
-}
-
-.faq-active .v-list-item-title {
-  color: #2196f3;
+.windowcolor {
+  background-color: #3f7f9c;
 }
 </style>

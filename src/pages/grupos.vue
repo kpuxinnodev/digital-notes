@@ -17,21 +17,27 @@
           <!--Botones-->
           <v-btn
             prepend-icon="mdi-plus-box"
-            color="amber"
+            color="yellow-darken-1"
+            text="Crear grupo"
             @click="abrirDialogoCrearGrupo"
           >
-            Crear grupo
           </v-btn>
         </div>
         <div class="datos" v-if="datos" :key="index">
-          <img 
+          <div class="avatar">
+            <img 
             v-if="datos.avatar"
-            class="ml-4 mr-4"
             :src="datos.avatar"
             :alt="datos.nickname"
              />
+          </div>
+          <div class="espacio d-flex flex-column">
+            <v-icon
+            icon="mdi-account"
+            ></v-icon>
+          </div>
           <div class="info">
-            <p>Name: {{ datos.name }}</p>
+            <p>{{ datos.name }}</p>
             <p>@{{ datos.nickname }}</p>
           </div>
         </div>
@@ -117,18 +123,7 @@ onMounted( async() =>{
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(
-    0deg,
-    #6d6d6d 25%,
-    transparent 26%,
-    transparent 49%,
-    #6d6d6d80 50%,
-    #6d6d6d80 75%,
-    transparent 76%
-  );
-  background-size: 2em 2em;
-  background-color: #4b4b4b;
-  opacity: 1;
+  background:#E1F5FE;
 }
 
 /**----div.content----*/
@@ -140,44 +135,45 @@ onMounted( async() =>{
 }
 
 /**----div.notes-options----*/
-.content > .notes-options {
+.main > .content > .notes-options {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
 
   height: 18%;
   width: 100%;
-
-  padding-left: 5%;
-  padding-right: 5%;
 }
 
 .botones {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  width: 50%;
   justify-content: space-evenly;
-  height: 100%;
-  width: 20%;
+  align-items: center;
 }
 
 .datos {
   display: flex;
   flex-direction: row;
   height: 80%;
-  width: 25%;
+  width: 30%;
   align-items: center;
   align-self: center;
   justify-content: space-evenly;
-  border: 1px solid white;
-
-  backdrop-filter: blur(5px);
+  border-radius: 20px;
+  background-color: #6894ac;
+  border: 2px solid white;
 }
 
 .info {
-    margin-left: 10px; /* Espaciado entre la imagen y la información */
+  width: 40%;
     display: flex;
+    justify-content: center;
     flex-direction: column; /* Coloca el nombre y el apodo en columnas */
+}
+
+.info > p {
+  text-align: justify;
 }
 
 ::v-deep .v-card-item__prepend {
@@ -211,7 +207,24 @@ onMounted( async() =>{
 
 img {
   border-radius: 50%;
-  width: 70px; /* Tamaño del avatar */
+  width: 64px; /* Tamaño del avatar */
   height: 64px;
+  justify-self: center;
+}
+
+.espacio {
+  height: 100%;
+  width: 30px;
+  background-color: #2196f3;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.avatar {
+  width: 10%;
+  margin-right: 24px;
+  margin-top: 6px;
 }
 </style>

@@ -22,19 +22,18 @@
           <v-btn
             v-if="administrador"
             prepend-icon="mdi-plus"
-            color="green"
+            color="green-darken-1"
             @click="abrirDialogoAsignarNota">
             Asignar tarea
           </v-btn>
           <v-btn
           prepend-icon="mdi-pencil"
-          color="blue"
+          color="blue-darken-1"
           @click="verBotones"
           rounded="xl">
             Administrar
           </v-btn>
         </div>
-        <div class="miembros"></div>
         <div class="opciones">
           <v-btn
           color="blue"
@@ -53,7 +52,6 @@
           <!-- Componente: MostrarNotas.vue -->
           <MostrarNotasGrupo :mostrarBoton="administrar" :grupoId="Number(id)" />
         </div>
-        <div class="chat"></div>
       </div>
     </div>
   </div>
@@ -160,11 +158,8 @@ const abrirDialogoAbandonarGrupo = () => {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  
-  background: linear-gradient(0deg,#6d6d6d 25%, transparent 26%, transparent 49%, #6d6d6d80 50%, #6d6d6d80 75%, transparent 76% );
-        background-size: 2em 2em;
-        background-color: #4B4B4b;
-        opacity: 1
+
+  background:#E1F5FE;
 }
 
 /**----div.content----*/
@@ -180,26 +175,17 @@ const abrirDialogoAbandonarGrupo = () => {
   flex-direction: row;
   justify-content: space-evenly;
 
-  height: 18%;
+  height: 10%;
   width: 100%;
 }
 
 .botones {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
   height: 100%;
-  width: 20%;
-}
-
-.miembros {
-  height: 90%;
-  width: 48%;
-  align-self: center;
-  backdrop-filter: blur(10px);
-  border: 1px solid white;
-  border-radius: 64px;
+  width: 50%;
 }
 
 .opciones {
@@ -223,7 +209,7 @@ const abrirDialogoAbandonarGrupo = () => {
 
 /**----div.notasychat----*/
 .content > .notasychat {
-  height: 82%;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -232,22 +218,11 @@ const abrirDialogoAbandonarGrupo = () => {
 }
 
 .notasychat > .notas {
-  width: 70%;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.notasychat > .chat {
-  width: 20%;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: gray;
-  border: 1px solid white;
 }
 </style>

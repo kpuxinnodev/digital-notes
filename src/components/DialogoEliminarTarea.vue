@@ -1,20 +1,27 @@
 <template>
   <ErrorEliminarTarea ref="errorEliminarTarea" style="position: absolute; z-index: 1000; top: 40%;" />
   <div class="text-center pa-4">
+    
+    <!-- Diálogo -->
     <v-dialog v-model="dialog" width="auto">
       <v-card
         max-width="600"
         prepend-icon="mdi-delete-empty"
         text="¿Estas seguro que deseas eliminar la tarea?"
         title="ELIMINAR TAREA"
+        class="colorfondo"
       >
         <v-card-actions>
           <v-spacer></v-spacer>
+
+          <!-- Botón de cerrar diálogo -->
           <v-btn
             text="Cancelar" 
             variant="plain" 
             @click="cerrarDialogo"
           ></v-btn>
+
+          <!-- Botón de eliminar tarea -->
           <v-btn
             color="#2196f3"
             rounded="xl"
@@ -33,6 +40,7 @@ import { ref } from "vue";
 import axios from "axios";
 import MostrarNotas from "./index/MostrarNotas.vue";
 import ErrorEliminarTarea from "./errores/ErrorEliminarTarea.vue";
+
 
 const props = defineProps({
   notaId: {
@@ -101,5 +109,9 @@ defineExpose({ abrirDialogoEliminarTarea });
 </script>
 
 <style scoped>
+
+.colorfondo {
+  background-color: #263238;
+}
 </style>
     

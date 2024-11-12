@@ -1,13 +1,18 @@
 <template>
+  <!-- Componentes importados (error) -->
   <LoginError ref="errorLogin" />
-  <div class="formulario">
-    <!--Formulario-->
 
+  <!-- Formulario -->
+  <div class="formulario">
+
+    <!-- Formulario: Título -->
     <h2>iniciar sesión</h2>
 
+    <!-- Formulario: Inputs -->
     <v-sheet class="mx-auto" width="340">
       <v-form fast-fail @submit.prevent="enviarFormulario" v-model="valid">
 
+        <!-- Input: E-mail -->
         <v-text-field
           v-model="perfilLogin.email"
           :rules="emailRules"
@@ -16,6 +21,7 @@
           required
         ></v-text-field>
 
+        <!-- Input: Contraseña -->
         <v-text-field
           v-model="perfilLogin.password"
           :rules="passwordRules"
@@ -26,6 +32,7 @@
           required
         ></v-text-field>
 
+        <!-- Formulario: Botón de Enviar -->
         <v-btn 
         class="mt-2"
         block
@@ -34,8 +41,9 @@
       </v-form>
     </v-sheet>
 
+    <!--Acceder-->
     <div class="acceder">
-      <!--Acceder-->
+      <!-- Redireccionamiento a la página de registro -->
       <p>¿No tienes una cuenta?</p>
       <a @click="registrarse">Registrarse</a>
     </div>
@@ -43,41 +51,55 @@
 </template>
 
 <script setup>
+//  ->  Imports
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import LoginError from "./LoginError.vue";
 
+//  ->  Crear router
 const router = useRouter();
 
+//  -> Formulario por referencia
 const valid = ref(false);
 
+//  ->  Objeto donde se guarda la información de los inputs para enviar.
 const perfilLogin = ref({
   email:"",
   password: "",
 });
 
+//  ->  Función para ocultar la contraseña
 const showPassword = ref(false);
-
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value
 }
 
+//  ->  Reglas de los inputs
 const emailRules = [
   (v) => !!v || "El email es requerido",
   (v) => /.+@.+\..+/.test(v) || "Debe ser un email válido",
 ];
-
 const passwordRules = [
   (v) => !!v || "La contraseña es requerida"
 ];
 
+//  ->  Redireccionamiento a menú de registro
 const registrarse = () => {
   router.push("/register");
 };
 
+//  ->  Redireccionamiento a menú principal de la aplicación
 const iniciarSesionUno = () => {
   router.push("/")
+};
+
+//  ->  Función para Mostrar Error de Login
+const errorLogin = ref(null);
+const abrirMostrarError = () => {
+  if (errorLogin.value) {
+    errorLogin.value.abrirMostrarError();
+  }
 };
 
 //  ->  Envio de los datos al Back-End
@@ -106,15 +128,6 @@ const enviarFormulario = async () => {
   }
 };
 
-//  ->  Dialogo de Crear Nota.
-const errorLogin = ref(null);
-
-//  Método para abrir el diálogo de Crear Nota usando la referencia
-const abrirMostrarError = () => {
-  if (errorLogin.value) {
-    errorLogin.value.abrirMostrarError();
-  }
-};
 </script>
 
 <style scoped>
@@ -125,7 +138,7 @@ const abrirMostrarError = () => {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  background-color: darkblue;
+  background-color: #3f7f9c;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -163,7 +176,7 @@ const abrirMostrarError = () => {
 }
 
 button {
-  background-color: rgb(0, 230, 0);
+  background-color: #66BB6A;
   border-radius: 10px;
   margin: auto;
   font-weight: bolder;
@@ -184,7 +197,7 @@ button {
   display: flex;
   flex-direction: row;
 
-  background-color: darkblue;
+  background-color: #3f7f9c;
   justify-content: space-evenly;
 }
 
@@ -194,8 +207,8 @@ button {
 
 .acceder > a {
   font-size: 15px;
-  text-decoration: none;
-  color: rgb(0, 230, 0);
+  text-decoration: underline;
+  color: #66BB6A;
   font-weight: bolder;
 }
 

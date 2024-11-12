@@ -5,11 +5,11 @@
       <v-card-title>PREGUNTAS FRECUENTES</v-card-title>
     </v-toolbar>
 
-    <div class="d-flex flex-row">
+    <div class="d-flex flex-row windowcolor">
       <!--  Pestañas principales -->
       <v-tabs
         v-model="mainTab"
-        color="primary"
+        
         class="mb-4 custom-tabs"
         direction="vertical"
         @change="cambioenTab"
@@ -25,12 +25,12 @@
       </v-tabs>
 
       <!-- Ventanas de pestañas principales -->
-      <v-tabs-window v-model="mainTab" class="custom-tabs-window w-100 mt-2">
+      <v-tabs-window v-model="mainTab" class="custom-tabs-window w-100">
 
         <!-- Ventana 1 (Bienvenido) -->
-        <v-tabs-window-item value="main-1">
+        <v-tabs-window-item value="main-1" class="window">
           <!-- Contenido de la ventana 1 -->
-          <v-card flat>
+          <v-card flat class="windowcolor">
             <v-card-title>Bienvenido al Sistema de FAQ</v-card-title>
             <v-card-text>
               <p class="mb-4 ">
@@ -58,7 +58,7 @@
         <!-- Ventana 2 (Cuenta) -->
         <v-tabs-window-item value="main-2" class="window">
           <!-- Contenido de la ventana 2 -->
-          <v-list>
+          <v-list class="windowcolor">
             <v-list-item>
               Estas son las dudas más frecuentes de la comunidad vinculadas con
               la <b>cuenta de usuario:</b>
@@ -86,7 +86,7 @@
         <!-- Ventana 3 (Seguridad) -->
         <v-tabs-window-item value="main-3" class="window">
           <!-- Contenido de la ventana 3 -->
-          <v-list>
+          <v-list class="windowcolor">
             <v-list-item>
               Aquí las preguntas más frecuentes de parte de la comunidad sobre
               la <b>seguridad:</b>
@@ -114,7 +114,7 @@
         <!-- Ventana 4 (Servicio Técnico) -->
         <v-tabs-window-item value="main-4" class="window">
           <!-- Contenido de la ventana 4 -->
-          <v-list>
+          <v-list class="windowcolor">
             <v-list-item>Si quieres comunicarte personalmente con nosotros, aquí están nuestros canales de contacto:</v-list-item>
             <v-list-item>
               <v-list-item>E-mail: digitalnotes@gmail.com</v-list-item>
@@ -139,7 +139,7 @@ const itemSelecto = ref(null);
 
 //  ->  Opciones para las pestañas principales
 const principales = ref([
-  { value: "main-1", text: "Bienvenido", icon: "mdi-creation" },
+  //{ value: "main-1", text: "Bienvenido", icon: "mdi-creation" },
   { value: "main-2", text: "Cuenta", icon: "mdi-account" },
   { value: "main-3", text: "Seguridad", icon: "mdi-security" },
   { value: "main-4", text: "Servicio Técnico", icon: "mdi-tools" },
@@ -203,8 +203,8 @@ function cambioenTab() {
 .component {
   display: flex;
   flex-direction: column;
-  height: 90vh;
-  width: 90%;
+  height: 100vh;
+  width: 100%;
 }
 
 #toolbar-icon {
@@ -220,17 +220,22 @@ function cambioenTab() {
 .custom-tabs {
   flex: 0 0 200px;
   overflow: hidden;
-  border-right: 1px solid #2b2b2b;
+  border-right: 1px solid white;
+  border-top: 1px solid white;
+  background-color: #3f7f9c;
 }
 
 .custom-tabs-window {
   flex: 1; 
   overflow-y: auto;
+  background-color: #3f7f9c;
 }
 
 .window {
-  max-height: calc(90vh - 64px); 
+  max-height: calc(100vh - 64px); 
   overflow-y: auto;
+  border-top: 1px solid white;
+  background-color: #3f7f9c;
 }
 
 .faq-active .v-list-item-subtitle {
@@ -241,5 +246,9 @@ function cambioenTab() {
 
 .faq-active .v-list-item-title {
   color: #2196f3;
+}
+
+.windowcolor {
+  background-color: #3f7f9c;
 }
 </style>
