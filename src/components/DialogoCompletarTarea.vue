@@ -1,4 +1,5 @@
 <template>
+<ErrorCompletarTarea ref="errorCompletarTarea" style="position: absolute; z-index: 1000; top: 40%;" />
   <CompletarTareaexito ref="completartarea" style="position: absolute; z-index: 1000; top: 40%;"/>
     <div class="text-center pa-4">
       <v-dialog v-model="dialog" width="auto">
@@ -33,7 +34,7 @@
   import { defineProps } from "vue";
   import axios from "axios";
   import CompletarTareaexito from "./exito/CompletarTareaexito.vue";
-
+  import ErrorCompletarTarea from "./errores/ErrorCompletarTarea.vue";
   
 const props = defineProps({
   notaId: {
@@ -91,6 +92,8 @@ const config = {
     cerrarDialogo();
   } catch (error) {
     console.error('Hubo un error, no se ha podido completar la nota:', error);
+    cerrarDialogo();
+    abrirMostrarError();
   }
 };
   
@@ -100,6 +103,14 @@ const config = {
 const abrirMostrarExito = () => {
   if (completartarea.value) {
     completartarea.value.abrirMostrarExito();
+  }
+}
+
+const errorCompletarTarea = ref(null);
+
+const abrirMostrarError = () => {
+  if (errorCompletarTarea.value) {
+    errorCompletarTarea.value.abrirMostrarError();
   }
 }
 

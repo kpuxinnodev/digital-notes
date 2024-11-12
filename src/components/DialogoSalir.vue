@@ -27,6 +27,7 @@
       </v-card>
     </v-dialog>
   </div>
+  <ErrorSalir ref="errorSalir" style="position: absolute; z-index: 1000; top: 40%;" />
 </template>
 
 <script setup>
@@ -34,6 +35,7 @@ import { ref, defineExpose } from "vue";
 import { useRouter } from 'vue-router';
 import axios from "axios";
 import { onMounted } from 'vue';
+import ErrorSalir from "./errores/ErrorSalir.vue";
 
 const router = useRouter();
 //  ->  'dialog' por referencia default = false
@@ -96,9 +98,18 @@ const cerrarSesion = async () =>  {
     salirAplicacion()
   } catch (error) {
     console.error('Error al cerrar sesión.', error)
+    cerrarDialogo();
+    abrirMostrarError();
   }
 }
 
+const errorSalir = ref(null);
+
+const abrirMostrarError = () => {
+  if (errorSalir.value) {
+    errorSalir.value.abrirMostrarError();
+  }
+}
 
 //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
 defineExpose({ abrirDialogoSalirAplicacion });

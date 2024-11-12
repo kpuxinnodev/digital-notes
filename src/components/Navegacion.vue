@@ -129,6 +129,7 @@
           </div>
         </v-navigation-drawer>
         <DialogoSalir ref="salirAplicacion" style="position: absolute" />
+        
         <v-main style="height: 100vh"></v-main>
       </v-layout>
     </v-card>

@@ -39,7 +39,7 @@
     </div>
 
     <!-- Componente: DialogoCrearNota.vue (Botón: Crear Nota) -->
-    <DialogoCrearNota ref="crearNota" />
+    <DialogoCrearNota ref="crearNota" style="position:absolute;" />
   </div>
 </template>
 
