@@ -1,4 +1,6 @@
 <template>
+  <ResponderNotificacionexitosa ref="responderInvitacionExitosa" style="position: absolute; z-index: 1000; top: 40%;" />
+  <ErrorAlResponderInvitacion ref="errorResponderNotificacion" style="position: absolute; z-index: 1000; top: 40%;" />
   <div class="principal">
     <v-card>
       <v-layout>
@@ -140,7 +142,8 @@ import { useRoute } from "vue-router";
 import DialogoSalir from "./DialogoSalir.vue";
 import axios from "axios";
 import { defineProps } from "vue";
-
+import ResponderNotificacionexitosa from "./exito/ResponderNotificacionexitosa.vue";
+import ErrorAlResponderInvitacion from "./errores/ErrorAlResponderInvitacion.vue";
 
 const props = defineProps({
   notificacionId: {
@@ -211,11 +214,31 @@ const responderInvitacion = async (id, estado, index) => {
       // Marcar la notificación como leída o eliminarla
       eliminarNotificacion(index);
       menuNotificaciones.value = false;
+      abrirMostrarExito();
     }
+    
   } catch (error) {
     console.error("Error al responder a la invitación:", error);
+    abrirMostrarError();
   }
 };
+
+const errorResponderNotificacion = ref(null);
+
+const abrirMostrarError = () => {
+  if (errorResponderNotificacion.value) {
+    errorResponderNotificacion.value.abrirMostrarError();
+  };
+}
+
+const responderInvitacionExitosa = ref(null);
+
+
+const abrirMostrarExito = () => {
+  if (responderInvitacionExitosa.value) {
+    responderInvitacionExitosa.value.abrirMostrarExito();
+  };
+}
 
 // Rutas de Navegación
 const route = useRoute();

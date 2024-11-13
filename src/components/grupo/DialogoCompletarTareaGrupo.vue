@@ -1,4 +1,6 @@
 <template>
+  <ErrorCompletarTareaGrupo ref="errorCompletarTarea" style="position: absolute; z-index: 1000; top: 40%;" />
+  <CompletarTareaGrupoexito ref="completarTareaExitosa" style="position: absolute; z-index: 1000; top: 40%;" />
     <div class="text-center pa-4">
       <v-dialog v-model="dialog" width="auto">
         <v-card
@@ -32,6 +34,8 @@
   import { ref, defineExpose } from "vue";
   import { defineProps } from "vue";
   import axios from "axios";
+  import ErrorCompletarTareaGrupo from "../errores/ErrorCompletarTareaGrupo.vue";
+  import CompletarTareaGrupoexito from "../exito/CompletarTareaGrupoexito.vue";
 
 const props = defineProps({
   notaId: {
@@ -88,10 +92,29 @@ const config = {
       emit('notaCompletada');
       console.log('Se ha completado correctamente la nota:', response.data);
       cerrarDialogo();
+      abrirMostrarExito();
     } catch (error) {
       console.error('Hubo un error, no se ha podido completar la nota:', error);
+      cerrarDialogo();
+      abrirMostrarError();
     }
   };
+
+  const errorCompletarTarea = ref(null);
+
+  const abrirMostrarError = () => {
+  if (errorCompletarTarea.value) {
+    errorCompletarTarea.value.abrirMostrarError();
+  };
+}
+
+  const completarTareaExitosa = ref(null);
+
+  const abrirMostrarExito = () => {
+  if (completarTareaExitosa.value) {
+    completarTareaExitosa.value.abrirMostrarExito();
+  };
+}
   
   //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
   defineExpose({ abrirDialogoCompletarTareaGrupo });

@@ -1,4 +1,5 @@
 <template>
+  <ErrorAbandonaradmin ref="errorAbandonarAdmin" style="position: absolute; z-index: 1000; top: 40%;" />
     <v-dialog v-model="dialog" max-width="600">
       <v-card class="colorfondo">
         <v-card-title class="text-h5">Asignar Miembro a Administrador</v-card-title>
@@ -26,7 +27,16 @@
   import { ref, defineExpose, onMounted } from "vue";
   import axios from "axios";
   import { defineProps } from "vue";
+  import { useRouter } from "vue-router";
+  import ErrorAbandonaradmin from "../errores/ErrorAbandonaradmin.vue";
   
+  
+const router = useRouter();
+
+function salirGrupo() {
+  router.push('/grupos')
+}
+
   const props = defineProps({
     grupoId: {
       type: Number,
@@ -97,11 +107,22 @@
       miembros.value = miembros.value.filter(m => m.idusuario !== miembroASerAdmin.idusuario);
       nuevo_miembros.value = nuevo_miembros.value.filter(m => m !== miembroSeleccionado.value); // Actualizar la lista del select
       cerrarDialogo();
+      salirGrupo();
     } catch (error) {
-      console.error("Error al asignar nuevo administrador: ", error.response.data);
+      console.error("Error al asignar nuevo administrador: ", error);
+      cerrarDialogo();
+      abrirMostrarError();
     }
   };
   
+  const errorAbandonarAdmin = ref(null);
+
+  const abrirMostrarError = () => {
+    if (errorAbandonarAdmin.value) {
+      errorAbandonarAdmin.value.abrirMostrarError();
+    };
+  }
+
   defineExpose({ abrirDialogoAsignarAdmin });
   </script>
 

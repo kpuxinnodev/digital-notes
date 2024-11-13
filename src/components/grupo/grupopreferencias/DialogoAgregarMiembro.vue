@@ -1,4 +1,6 @@
 <template>
+  <AgregarMiembroexitoso ref="miembroAgregadoExitosamente" style="position: absolute; z-index: 1000; top: 40%;" />
+  <ErrorAgregarMiembro ref="errorAgregarMiembro" style="position: absolute; z-index: 1000; top: 40%;" />
   <v-dialog v-model="dialog" max-width="600">
     <v-form v-model="valid" @submit.prevent="agregarMiembro">
       <v-card
@@ -37,7 +39,8 @@
 import { ref, defineExpose } from "vue";
 import axios from "axios";
 import { defineProps } from 'vue';
-
+import AgregarMiembroexitoso from "@/components/exito/AgregarMiembroexitoso.vue";
+import ErrorAgregarMiembro from "@/components/errores/ErrorAgregarMiembro.vue";
 const props = defineProps({
   grupoId: {
     type: Number,
@@ -87,10 +90,31 @@ const agregarMiembro = async () => {
 
     // Cerrar el diálogo al completar la operación
     cerrarDialogo();
+    abrirMostrarExito();
   } catch (error) {
     console.error("Error al agregar el miembro:", error);
+    cerrarDialogo();
+    abrirMostrarError();
   }
 };
+
+const errorAgregarMiembro = ref(null);
+
+
+const abrirMostrarError = () => {
+  if (errorAgregarMiembro.value) {
+    errorAgregarMiembro.value.abrirMostrarError();
+  };
+}
+
+const miembroAgregadoExitosamente = ref(null);
+
+
+const abrirMostrarExito = () => {
+  if (miembroAgregadoExitosamente.value) {
+    miembroAgregadoExitosamente.value.abrirMostrarExito();
+  };
+}
 
 //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
 defineExpose({ abrirDialogoAgregarMiembro });

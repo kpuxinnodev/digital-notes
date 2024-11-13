@@ -1,4 +1,5 @@
 <template>
+  <ErrorCambiarLogoGrupo ref="errorCambiarLogo" style="position: absolute; z-index: 1000; top: 40%;" />
   <v-container class="container">
     <!-- Muestra los datos -->
     <div class="cartas d-flex flex-row" v-if="datos" :key="index">
@@ -63,6 +64,7 @@
 import { ref, defineProps, onMounted } from "vue";
 import FormularioGrupoPreferencias2 from "./FormularioGrupoPreferencias2.vue";
 import axios from "axios";
+import ErrorCambiarLogoGrupo from "@/components/errores/ErrorCambiarLogoGrupo.vue";
 
 
 const imagen = ref(null);
@@ -117,6 +119,7 @@ const cambiarLogo = async () => {
     await obtenerDatos();
   } catch (error) {
     console.error('Error al cambiar logo del grupo:', error);
+    abrirMostrarError();
   }
 }
 
@@ -137,6 +140,13 @@ const obtenerDatos = async () => {
     await obtenerDatos();
   });
 
+  const errorCambiarLogo = ref(null);
+
+  const abrirMostrarError = () => {
+  if (errorCambiarLogo.value) {
+    errorCambiarLogo.value.abrirMostrarError();
+  };
+}
 
 </script>
 

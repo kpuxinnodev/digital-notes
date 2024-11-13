@@ -26,12 +26,16 @@
             >Guardar</v-btn>
           </v-col>
         </v-form>
+        <ErrorCambiarDatoGrupo ref="errorCambiarDato" style="position: absolute; z-index: 1000; top: 40%;" />
+        <CambiarDatosGrupoExitoso ref="datosCambiadosExitosamente" style="position: absolute; z-index: 1000; top: 40%;" />
     </v-container>
   </template>
   
   <script setup>
   import { ref, defineProps, onMounted } from "vue";
   import axios from "axios";
+  import ErrorCambiarDatoGrupo from "@/components/errores/ErrorCambiarDatoGrupo.vue";
+  import CambiarDatosGrupoExitoso from "@/components/exito/CambiarDatosGrupoExitoso.vue";
 
   const props = defineProps({
   grupoId: {
@@ -107,15 +111,30 @@ onMounted(() => {
     if (response && response.data) {
       console.log("Perfil actualizado:", response.data);
     }
+    abrirMostrarExito();
   } catch (error) {
-    // Asegúrate de que error.response esté presente antes de acceder a él
-    if (error.response) {
-      console.error('Error en la respuesta:', error.response.data);
-    } else {
-      console.error('Error desconocido:', error);
-    }
+    console.error('Error al cambiar datos: ', error);
+    abrirMostrarError();
   }
 }
+
+const errorCambiarDato = ref(null);
+
+const abrirMostrarError = () => {
+  if (errorCambiarDato.value) {
+    errorCambiarDato.value.abrirMostrarError();
+  };
+}
+
+const datosCambiadosExitosamente = ref(null);
+
+
+const abrirMostrarExito = () => {
+  if (datosCambiadosExitosamente.value) {
+    datosCambiadosExitosamente.value.abrirMostrarExito();
+  };
+}
+
   </script>
   
   <style scoped>
