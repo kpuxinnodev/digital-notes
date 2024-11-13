@@ -1,13 +1,15 @@
 <template>
+  <!-- Componentes importados: Cambiar Contraseña (éxito y error) -->
   <CambiarContraseñaexitoso ref="cambiarcontrasena" style="position: absolute; z-index: 1000; top: 40%;" />
   <ErrorCambiarContrasena ref ="erroralcambiarcontrasena" style="position: absolute; z-index: 1000; top: 40%;" />
+  
   <v-container class="container">
-    <v-card flat>
-      <v-card-title class="mb-4"></v-card-title>
+    <v-card flat class="windowcolor">
+      <v-card-title class="mb-4">Cambiar contraseña de la cuenta</v-card-title>
 
-      <v-form ref="form" v-model="valid" @submit.prevent="enviarFormulario">
+      <v-form ref="form" v-model="valid" @submit.prevent="enviarFormulario" class="d-flex flex-column align-center justify-center formulario">
         <!-- Fila para Contraseña y Confirmar Contraseña -->
-        <v-row>
+        <v-row class="inputs">
           <v-col cols="12" sm="6">
             <!-- campo: contraseña actual-->
             <v-text-field
@@ -18,20 +20,21 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6">
-            <!-- campo: contraseña nueva -->
-            <v-text-field
-              v-model="cambioPassword.newpassword"
-              :rules="newpasswordRules"
-              label="Contraseña Nueva"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6">
             <!-- campo: confirmar contraseña -->
             <v-text-field
               v-model="cambioPassword.newpassword_confirmation"
               :rules="confirmPasswordRules"
               label="Confirmar Contraseña"
+              required
+              class="inputs-1"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <!-- campo: contraseña nueva -->
+            <v-text-field
+              v-model="cambioPassword.newpassword"
+              :rules="newpasswordRules"
+              label="Contraseña Nueva"
               required
             ></v-text-field>
           </v-col>
@@ -51,6 +54,7 @@
             color="primary"
             type="submit"
             class="mt-4"
+            flat
           >Guardar Cambios</v-btn>
         </v-col>
       </v-form>
@@ -97,28 +101,11 @@ const confirmationRules = [
   (v) => v || "Debes confirmar que estás seguro de los cambios",
 ];
 
-//  ->  Función para enviar el formulario
-const submitForm = () => {
-  if (valid.value) {
-    //  ->  Solicitudes a la API
-    console.log("Contraseña actualizada:", cambioPassword.value);
-  } else {
-    console.log("Formulario inválido");
-  }
-};
-
 const cerrarDialogo = () => {
   dialog.value = false;
 };
-const token = localStorage.getItem('auth-item');
 
-//  ->  Encabezado de la Autorización
-const config = {
-    headers: {
-        'Content-Type':'application/json',
-        'Authorization': `Bearer ${token}`
-    }
-};
+const token = localStorage.getItem('auth-item');
 
 //  ->  Envio de los datos al Back-End
 const enviarFormulario = async () => {
@@ -170,5 +157,19 @@ const abrirMostrarExito = () => {
 
 .container {
   width: 80%;
+  height: auto;
+  background-color: #3f7f9c;
+}
+
+.windowcolor {
+  background-color: #3f7f9c;
+}
+
+.inputs {
+  width: 80%;
+}
+
+.inputs-1 {
+  width: 100%;
 }
 </style>

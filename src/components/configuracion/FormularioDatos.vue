@@ -2,11 +2,11 @@
   <ErrorActualizarPerfil ref="erroractualizarperfil" style="position: absolute; z-index: 1000; top: 40%;" />
   <ActualizarPerfilexitoso ref="actualizaciónperfiexitoso" style="position: absolute; z-index: 1000; top: 40%;" />
   <v-container class="container">
-    <v-card flat>
-      <v-card-title class="mb-4"></v-card-title>
-      <v-form fast-fail @submit.prevent="enviarFormulario" v-model="valid">
+    <v-card flat class="windowcolor">
+      <v-card-title class="mb-4">Cambiar datos de la cuenta</v-card-title>
+      <v-form fast-fail @submit.prevent="enviarFormulario" v-model="valid" class="d-flex flex-column align-center justify-center formulario">
         <!-- Fila para Nombre y Usuario -->
-        <v-row>
+        <v-row class="inputs">
           <v-col cols="12" sm="6">
             <v-text-field
               v-model="profile.name"
@@ -31,6 +31,7 @@
           :rules="biografiaRules"
           label="Biografía"
           rows="4"
+          class="inputs"
         ></v-textarea>
 
         <v-col class="d-flex justify-end">
@@ -38,6 +39,7 @@
             :disabled="!valid"
             color="primary"
             type="submit"
+            flat
             class="mt-4"
             >Guardar Cambios</v-btn>
         </v-col>
@@ -148,5 +150,14 @@ const actualizaciónperfiexitoso = ref(null);
 .container {
   width: 80%;
   height: auto;
+  background-color: #3f7f9c;
+}
+
+.windowcolor {
+  background-color: #3f7f9c;
+}
+
+.inputs {
+  width: 80%;
 }
 </style>

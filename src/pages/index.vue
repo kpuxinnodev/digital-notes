@@ -11,9 +11,8 @@
         <div class="botones">
           <!--Botones-->
           <div class="botones-g1">
-            <v-btn
+            <v-btn id="btncrear"
               prepend-icon="mdi-plus"
-              color="green"
               @click="abrirDialogoCrearNota"
             >
               Crear nota
@@ -34,7 +33,7 @@
 
       <div class="notes-show">
         <!-- Componente: MostrarNotas.vue -->
-        <MostrarNotas :mostrarBoton="administrar" />
+        <MostrarNotas :mostrarBoton="administrar" style="position: absolute" />
       </div>
     </div>
 
@@ -49,7 +48,6 @@ import Navegacion from "@/components/Navegacion.vue";
 import TareasCompletadas from "@/components/index/TareasCompletadas.vue";
 import MostrarNotas from "@/components/index/MostrarNotas.vue";
 import DialogoCrearNota from "@/components/index/DialogoCrearNota.vue";
-import DialogoCrearGrupo from "@/components/index/DialogoCrearGrupo.vue";
 
 //  ->  Dialogo de Crear Nota.
 const crearNota = ref(null);
@@ -84,11 +82,12 @@ function verBotones() {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background:#3B3B3b;
+
+  background:#E1F5FE;
 }
 
 /**----div.content----*/
-.content {
+.main > .content {
   height: 100%;
   width: 100%;  
   max-height: 100vh;
@@ -96,19 +95,19 @@ function verBotones() {
 }
 
 /**----div.notes-options----*/
-.content > .notes-options {
+.main > .content > .notes-options {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 
-  height: 18%;
+  height: 20%;
   width: 100%;
 }
 
 .botones {
   display: flex;
   flex-direction: row;
-  width: 45%;
+  width: 50%;
   justify-content: space-evenly;
   align-items: center;
 }
@@ -131,7 +130,7 @@ function verBotones() {
 }
 
 .completadas {
-  width: 55%;
+  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -150,10 +149,16 @@ function verBotones() {
 
 /**----div.notes-show----*/
 .content > .notes-show {
-  height: 82%;
+  height: 80%;
   width: 100%;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#btncrear {
+  background-color: #66BB6A;
+  color: white;
 }
 </style>

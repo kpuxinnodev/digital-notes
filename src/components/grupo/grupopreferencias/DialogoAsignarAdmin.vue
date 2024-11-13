@@ -1,13 +1,15 @@
 <template>
     <v-dialog v-model="dialog" max-width="600">
-      <v-card>
-        <v-card-title class="text-h5">Asignar Miembro a Administrador</v-card-title>
+      <v-card 
+      class="windowcolor"
+      prepend-icon="mdi-account-tie"
+      title="ASIGNAR ADMINISTRADOR">
         <v-card-text>
           <v-select
             v-if="miembros && miembros.length > 0"
             v-model="miembroSeleccionado"
             :items="nuevo_miembros"
-            label="Selecciona un miembro para ser el Administrador"
+            label="Selecciona un miembro"
             required
           ></v-select>
         </v-card-text>
@@ -16,7 +18,7 @@
   
         <v-card-actions>
           <v-btn text="Cancelar" @click="cerrarDialogo">Cancelar</v-btn>
-          <v-btn color="red" @click="asignarAdmin">Asignar</v-btn>
+          <v-btn color="primary" flat @click="asignarAdmin">Asignar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -104,3 +106,9 @@
   
   defineExpose({ abrirDialogoAsignarAdmin });
   </script>
+
+  <style scoped>
+  .windowcolor {
+  background-color: #263238;
+}
+</style>

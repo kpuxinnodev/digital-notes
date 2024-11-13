@@ -1,17 +1,16 @@
 <template>
-    <v-container class="container">
-        <v-form ref="form" v-model="valid" v-if="esAdmin" class="mt-6">
+    <v-container class="container cartas">
+        <v-form ref="form" v-model="valid" v-if="esAdmin" class="mt-6 carta-1">
+
+          <v-card-title class="mb-6">Modificar datos del equipo</v-card-title>
           <!-- Fila para Nombre y Usuario -->
-          <v-row>
-            <v-col cols="12" sm="12">
               <v-text-field
                 v-model="grupoProfile.nombre"
                 :rules="nombreRules"
                 label="Nombre"
                 required
+                class="inputs"
               ></v-text-field>
-            </v-col>
-          </v-row>
   
           <!-- Biografía -->
             <v-textarea
@@ -19,6 +18,7 @@
             :rules="descripcionRules"
             label="Descripción"
             rows="4"
+            class="inputs"
           ></v-textarea>
 
           <v-col class="d-flex justify-center">
@@ -123,5 +123,20 @@ onMounted(() => {
     width: 100%;
   }
 
+  .inputs{
+    width: 100%;
+  }
+
+  .cartas {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .carta-1 {
+  width: 70%;
+  background-color: #3f7f9c;
+}
   </style>
   
