@@ -26,6 +26,9 @@
   import { ref, defineExpose, onMounted } from "vue";
   import axios from "axios";
   import { defineProps } from "vue";
+  import { useRouter } from "vue-router";
+
+  const router = useRouter();
   
   const props = defineProps({
     grupoId: {
@@ -73,6 +76,10 @@
   const cerrarDialogo = () => {
     dialog.value = false;
   };
+
+  function salirGrupo() {
+  router.push('/grupos')
+}
   
   const asignarAdmin = async () => {
     if (!miembroSeleccionado.value) {
@@ -96,7 +103,7 @@
       // Filtrar el miembro eliminado de la lista local para actualizar la vista
       miembros.value = miembros.value.filter(m => m.idusuario !== miembroASerAdmin.idusuario);
       nuevo_miembros.value = nuevo_miembros.value.filter(m => m !== miembroSeleccionado.value); // Actualizar la lista del select
-      cerrarDialogo();
+      salirGrupo();
     } catch (error) {
       console.error("Error al asignar nuevo administrador: ", error.response.data);
     }

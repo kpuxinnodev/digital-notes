@@ -56,12 +56,18 @@
 
     <!-- ? Componente: FormularioGrupoPreferencias2.vue -->
     <FormularioGrupoPreferencias2 :grupoId="grupoId" />
+
+    <v-divider class="divisor"></v-divider>
+
+    <EliminarGrupo />
+
   </v-container>
 </template>
 
 <script setup>
 import { ref, defineProps, onMounted } from "vue";
 import FormularioGrupoPreferencias2 from "./FormularioGrupoPreferencias2.vue";
+import EliminarGrupo from "./EliminarGrupo.vue";
 import axios from "axios";
 
 

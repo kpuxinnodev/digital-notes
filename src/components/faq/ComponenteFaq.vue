@@ -157,11 +157,6 @@ const faqsCuenta = ref([
     respuesta:
       "De momento no puedes cambiar tu dirección de correo vinculada a tu cuenta.",
   },
-  {
-    pregunta: "¿Se puede hablar con un usuario por mensaje privado?",
-    respuesta:
-      "El chat es únicamente privado para el grupo del cual eres parte, y solamente puedes comunicarte con los miembros que lo confirman.",
-  },
 ]);
 
 //  ->  Preguntas y respuestas de la seccion Seguridad
@@ -170,13 +165,13 @@ const faqsSeguridad = ref([
     pregunta:
       "¿Cómo protegen la información con la cuál se trabaja en los grupos?",
     respuesta:
-      "La información de los grupos es almacenada en una base de datos la cual cuenta con sistemas de encriptación de datos, por ende, si alguien se apropiase ilegamente de ella aún así no podría acceder a esos datos.",
+      "La información de los grupos cuenta con sistemas de encriptación de datos, por ende, si alguien se apropiase ilegamente de ella aún así no podría acceder a esos datos.",
   },
   {
     pregunta:
       "¿Que garantías me brindan con respecto a la información de mi cuenta?",
     respuesta:
-      "La información de tu cuenta se hashea y se almacena en la base de datos de la aplicación, esta unicamente e muestra a tí y solo se utiliza para comunicarte información relevante acerca de la aplicación.",
+      "La información de tu cuenta se encuentra encriptada, esta unicamente se muestra a tí y solo se utiliza para comunicarte información relevante acerca de la aplicación.",
   },
 ]);
 

@@ -110,6 +110,7 @@ const actualizarGrupos = async () => {
 .component {
   display: flex;
   flex-direction: column;
+  position: relative;
   height: 100%;
   width: 100%;
 }

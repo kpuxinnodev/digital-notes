@@ -32,6 +32,9 @@
   import { ref, defineExpose } from "vue";
   import axios from "axios";
   import { defineProps } from "vue";
+  import { useRouter } from "vue-router";
+
+  const router = useRouter()
   
   const props = defineProps({
   grupoId: {
@@ -51,6 +54,10 @@
     dialog.value = false;
   };
 
+  function salirGrupo() {
+  router.push('/grupos')
+}
+
   const token = localStorage.getItem('auth-item');
 
 //  ->  Encabezado de la Autorización
@@ -67,7 +74,7 @@ const config = {
     // Envía la solicitud DELETE al backend para abandonar el grupo
     const response = await axios.delete(`http://localhost:8000/api/grupos/${props.grupoId}/abandonar`, config);
     console.log("Has abandonado el grupo:", response.data);
-    cerrarDialogo();
+    salirGrupo();
   } catch (error) {
     console.error("Error al intentar abandonar el grupo:", error);
   }
