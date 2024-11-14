@@ -83,6 +83,10 @@ function salirGrupo() {
   const cerrarDialogo = () => {
     dialog.value = false;
   };
+
+  function salirGrupo() {
+  router.push('/grupos')
+}
   
   const asignarAdmin = async () => {
     if (!miembroSeleccionado.value) {

@@ -1,19 +1,20 @@
 <template>
   <div class="main">
     <!--Main-->
+    <!-- Componente: DialogoCrearNota.vue (Botón: Asignar Nota) -->
+  <DialogoAsignarNota ref="asignarNota" :grupoId="id" style="position: absolute; z-index: 100;" />
+       <!-- Componente: DialogoAbandonarGrupo.vue (Botón: Abandonar Grupo para miembros normales) -->
+       <DialogoAbandonarGrupo ref="abandonarGrupo" :grupoId="grupoId" style="position: absolute; z-index: 100;" />
+      <!-- Componente: DialogoAbandonarAdmin.vue (Botón: Abandonar Grupo para administradores) -->
+      <DialogoAbandonarAdmin ref="abandonarAdmin" :grupoId="grupoId" style="position: absolute; z-index: 100;" />
 
     <!-- Componente: Navegacion.vue (Barra de Navegación) -->
-    <Navegacion />
+    <Navegacion style="position: relative; left: 0;"/>
 
     <div class="content">
       <!--Contenido de la página-->
 
-      <!-- Componente: DialogoCrearNota.vue (Botón: Asignar Nota) -->
-      <DialogoAsignarNota ref="asignarNota" :grupoId="id" style="position: absolute" />
-       <!-- Componente: DialogoAbandonarGrupo.vue (Botón: Abandonar Grupo para miembros normales) -->
-       <DialogoAbandonarGrupo ref="abandonarGrupo" :grupoId="grupoId" />
-      <!-- Componente: DialogoAbandonarAdmin.vue (Botón: Abandonar Grupo para administradores) -->
-      <DialogoAbandonarAdmin ref="abandonarAdmin" :grupoId="grupoId" />
+      
 
       <div class="notes-options">
         <!--Opciones de Notas-->
@@ -47,11 +48,9 @@
         </div>
       </div>
 
-      <div class="notasychat">
-        <div class="notas">
-          <!-- Componente: MostrarNotas.vue -->
-          <MostrarNotasGrupo :mostrarBoton="administrar" :grupoId="Number(id)" />
-        </div>
+      <div class="notas">
+        <!-- Componente: MostrarNotas.vue -->
+        <MostrarNotasGrupo :mostrarBoton="administrar" :grupoId="Number(id)" />
       </div>
     </div>
   </div>
@@ -174,12 +173,14 @@ const abrirDialogoAbandonarGrupo = () => {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: center;
 
-  height: 10%;
+  height: 20%;
   width: 100%;
 }
 
 .botones {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -208,20 +209,12 @@ const abrirDialogoAbandonarGrupo = () => {
 }
 
 /**----div.notasychat----*/
-.content > .notasychat {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
 
-.notasychat > .notas {
+.content > .notas {
+  height: 80%;
   width: 100%;
-  height: 100%;
+  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }

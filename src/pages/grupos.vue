@@ -140,7 +140,7 @@ onMounted( async() =>{
   flex-direction: row;
   justify-content: space-evenly;
 
-  height: 18%;
+  height: 20%;
   width: 100%;
 }
 
@@ -188,7 +188,7 @@ onMounted( async() =>{
 
 /**----div.grupos----*/
 .content > .grupos {
-  height: 82%;
+  height: 90%;
   width: 100%;
   display: flex;
   flex-direction: row;

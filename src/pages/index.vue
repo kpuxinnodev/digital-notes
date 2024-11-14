@@ -87,18 +87,18 @@ function verBotones() {
 }
 
 /**----div.content----*/
-.main > .content {
+.content {
   height: 100%;
-  width: 100%;  
+  width: 100%;
   max-height: 100vh;
-
 }
 
 /**----div.notes-options----*/
-.main > .content > .notes-options {
+.content > .notes-options {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: center;
 
   height: 20%;
   width: 100%;

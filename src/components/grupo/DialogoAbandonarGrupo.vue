@@ -57,6 +57,10 @@
     dialog.value = false;
   };
 
+  function salirGrupo() {
+  router.push('/grupos')
+}
+
   const token = localStorage.getItem('auth-item');
 
 //  ->  Encabezado de la Autorización
