@@ -33,10 +33,6 @@
   
 const router = useRouter();
 
-function salirGrupo() {
-  router.push('/grupos')
-}
-
   const props = defineProps({
     grupoId: {
       type: Number,

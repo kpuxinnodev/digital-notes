@@ -60,7 +60,7 @@
 
     <v-divider class="divisor"></v-divider>
 
-    <EliminarGrupo />
+    <EliminarGrupo :grupoId="grupoId" />
 
   </v-container>
 </template>
