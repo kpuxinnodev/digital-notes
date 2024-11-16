@@ -1,4 +1,5 @@
 <template>
+    <DialogoEliminarGrupo ref="eliminarGrupo" />
     <v-container class="container">
         
         <v-card flat class="carta">
@@ -13,6 +14,16 @@
 </template>
 
 <script setup>
+import DialogoEliminarGrupo from './DialogoEliminarGrupo.vue';
+
+const eliminarGrupo = ref(null);
+
+//  Método para abrir el diálogo de Crear Nota usando la referencia
+const aceptarEliminar = () => {
+  if (eliminarGrupo.value) {
+    eliminarGrupo.value.aceptarEliminar();
+  }
+};
 </script>
 
 <style scoped>
