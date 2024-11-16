@@ -1,4 +1,5 @@
 <template>
+  <ErrorAbandonarGrupo ref="errorAbandonarGrupo" style="position: absolute; z-index: 1000; top: 40%;" />
     <div class="text-center pa-4">
       <v-dialog v-model="dialog" width="auto">
         <v-card
@@ -33,9 +34,11 @@
   import axios from "axios";
   import { defineProps } from "vue";
   import { useRouter } from "vue-router";
-
-  const router = useRouter()
+  import ErrorAbandonarGrupo from "../errores/ErrorAbandonarGrupo.vue";
   
+  
+  const router = useRouter();
+
   const props = defineProps({
   grupoId: {
     type: Number,
@@ -54,10 +57,6 @@
     dialog.value = false;
   };
 
-  function salirGrupo() {
-  router.push('/grupos')
-}
-
   const token = localStorage.getItem('auth-item');
 
 //  ->  Encabezado de la Autorización
@@ -67,6 +66,10 @@ const config = {
         'Authorization': `Bearer ${token}`
     }
 };
+
+function salirGrupo() {
+  router.push('/grupos')
+}
   
   //  ->  Añadir backend para abandonar el grupo.
   const abandonarGrupo = async () => {
@@ -74,12 +77,22 @@ const config = {
     // Envía la solicitud DELETE al backend para abandonar el grupo
     const response = await axios.delete(`http://localhost:8000/api/grupos/${props.grupoId}/abandonar`, config);
     console.log("Has abandonado el grupo:", response.data);
+    cerrarDialogo();
     salirGrupo();
   } catch (error) {
     console.error("Error al intentar abandonar el grupo:", error);
+    cerrarDialogo();
+    abrirMostrarError();
   }
 };
   
+  const errorAbandonarGrupo = ref(null);
+
+  const abrirMostrarError = () => {
+    if (errorAbandonarGrupo.value) {
+      errorAbandonarGrupo.value.abrirMostrarError();
+    };
+  }
   //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
   defineExpose({ abrirDialogoAbandonarGrupo });
   </script>

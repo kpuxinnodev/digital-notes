@@ -1,4 +1,6 @@
 <template>
+  <ErrorAsignarAdmin ref="errorAsignarAdmin" style="position: absolute; z-index: 1000; top: 40%;" />
+  <AsignarAdminexitosamente ref="adminAsignadoExitosamente" style="position: absolute; z-index: 1000; top: 40%;" />
     <v-dialog v-model="dialog" max-width="600">
       <v-card 
       class="windowcolor"
@@ -28,6 +30,8 @@
   import { ref, defineExpose, onMounted } from "vue";
   import axios from "axios";
   import { defineProps } from "vue";
+  import ErrorAsignarAdmin from "@/components/errores/ErrorAsignarAdmin.vue";
+  import AsignarAdminexitosamente from "@/components/exito/AsignarAdminexitosamente.vue";
   
   const props = defineProps({
     grupoId: {
@@ -99,10 +103,31 @@
       miembros.value = miembros.value.filter(m => m.idusuario !== miembroASerAdmin.idusuario);
       nuevo_miembros.value = nuevo_miembros.value.filter(m => m !== miembroSeleccionado.value); // Actualizar la lista del select
       cerrarDialogo();
+      abrirMostrarExito();
     } catch (error) {
-      console.error("Error al asignar nuevo administrador: ", error.response.data);
+      console.error("Error al asignar nuevo administrador: ", error);
+      cerrarDialogo();
+      abrirMostrarError();
     }
   };
+
+  const errorAsignarAdmin = ref(null);
+
+  
+const abrirMostrarError = () => {
+  if (errorAsignarAdmin.value) {
+    errorAsignarAdmin.value.abrirMostrarError();
+  };
+}
+
+const adminAsignadoExitosamente = ref(null);
+
+
+const abrirMostrarExito = () => {
+  if (adminAsignadoExitosamente.value) {
+    adminAsignadoExitosamente.value.abrirMostrarExito();
+  };
+}
   
   defineExpose({ abrirDialogoAsignarAdmin });
   </script>

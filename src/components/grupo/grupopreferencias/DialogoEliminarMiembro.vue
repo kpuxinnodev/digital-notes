@@ -1,4 +1,6 @@
 <template>
+  <ErrorEliminarMiembro ref="errorEliminarMiembro" style="position: absolute; z-index: 1000; top: 40%;" />
+  <EliminarMiembroexitoso ref="miembroEliminadoExitosamente" style="position: absolute; z-index: 1000; top: 40%;" />
   <v-dialog v-model="dialog" max-width="600">
     <v-card 
     class="windowcolor"
@@ -28,6 +30,8 @@
 import { ref, defineExpose, onMounted } from "vue";
 import axios from "axios";
 import { defineProps } from "vue";
+import ErrorEliminarMiembro from "@/components/errores/ErrorEliminarMiembro.vue";
+import EliminarMiembroexitoso from "@/components/exito/EliminarMiembroexitoso.vue";
 
 const props = defineProps({
   grupoId: {
@@ -99,10 +103,31 @@ const eliminarMiembro = async () => {
     miembros.value = miembros.value.filter(m => m.idusuario !== miembroAEliminar.idusuario);
     nuevo_miembros.value = nuevo_miembros.value.filter(m => m !== miembroSeleccionado.value); // Actualizar la lista del select
     cerrarDialogo();
+    abrirMostrarExito();
   } catch (error) {
-    console.error("Error al eliminar el miembro: ", error.response.data);
+    console.error("Error al eliminar el miembro: ", error);
+    cerrarDialogo();
+    abrirMostrarError();
   }
 };
+
+const errorEliminarMiembro = ref(null);
+
+
+const abrirMostrarError = () => {
+  if (errorEliminarMiembro.value) {
+    errorEliminarMiembro.value.abrirMostrarError();
+  };
+}
+
+const miembroEliminadoExitosamente = ref(null);
+
+
+const abrirMostrarExito = () => {
+  if (miembroEliminadoExitosamente.value) {
+    miembroEliminadoExitosamente.value.abrirMostrarExito();
+  };
+}
 
 defineExpose({ abrirDialogoEliminarMiembro });
 </script>

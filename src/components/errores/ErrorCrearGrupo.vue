@@ -1,19 +1,23 @@
 <template>
-    <div class="componente">
-        <v-sheet
-    class="pa-4 text-center mx-auto"
-    elevation="12"
-    max-width="600"
-    rounded="lg"
-    width="100%"
-    v-if="dialogo"
-  >
-    <v-icon
-      class="mb-5"
-      color="red"
-      icon="mdi-close-circle"
-      size="112"
-    ></v-icon>
+   <div class="componente">
+
+<!-- Diálogo -->
+<v-sheet
+  class="pa-4 text-center mx-auto colorfondo"
+  elevation="12"
+  max-width="600"
+  rounded="lg"
+  width="100%"
+  v-if="dialogo"
+>
+  <!-- Ícono -->
+  <v-icon
+    class="mt-12 mb-12"
+    color="red-darken-1"
+    icon="mdi-close-circle"
+    size="90"
+  ></v-icon>
+
 
     <h2 class="text-h5 mb-6">¡Error al crear el grupo!</h2>
 
@@ -26,7 +30,7 @@
     <div class="text-end">
       <v-btn
         class="text-none"
-        color="success"
+        color="red-darken-1"
         variant="flat"
         width="90"
         rounded
@@ -61,5 +65,15 @@ const abrirMostrarError = () => {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 600px;
+}
+
+.colorfondo {
+  background-color: #263238;
+}
+
+.resaltar {
+  font-weight: bolder;
+  color: #E53925;
 }
 </style>

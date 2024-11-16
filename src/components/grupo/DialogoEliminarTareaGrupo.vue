@@ -1,4 +1,5 @@
 <template>
+  <ErrorEliminarTarea ref="errorEliminarTarea" />
     <div class="text-center pa-4">
       <v-dialog v-model="dialog" width="auto">
         <v-card
@@ -31,6 +32,7 @@
   <script setup>
   import { ref } from "vue";
   import axios from "axios";
+  import ErrorEliminarTarea from "../errores/ErrorEliminarTarea.vue";
   
 const props = defineProps({
   notaId: {
@@ -88,8 +90,18 @@ const props = defineProps({
       emit('notaEliminada');
     } catch (error) {
       console.error('Hubo un error, no se ha podido eliminar la nota:', error);
+      cerrarDialogo();
+      abrirMostrarError();
     }
   };
+
+  const errorEliminarTarea = ref(null);
+
+  const abrirMostrarError = () => {
+  if (errorEliminarTarea.value) {
+    errorEliminarTarea.value.abrirMostrarError();
+  };
+}
   
   defineExpose({ abrirDialogoEliminarTareaGrupo });
   

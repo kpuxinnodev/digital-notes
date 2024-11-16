@@ -19,14 +19,13 @@
   ></v-icon>
 
 
-    <h2 class="text-h5 mb-6">¡Error al asignar una nota!</h2>
+    <h2 class="text-h5 mb-6">¡Error al eliminar el Grupo!</h2>
 
     <p class="mb-4 text-medium-emphasis text-body-2">
-      Por favor verifica los datos de la nota y que cumpla los requisitos, e intenta asiganarla nuevamente.
+      No se pudo eliminar el Grupo.
     </p>
 
     <v-divider class="mb-4"></v-divider>
-
     <div class="text-end">
         <v-btn
           class="text-none"
@@ -78,3 +77,4 @@ const abrirMostrarError = () => {
   color: #E53925;
 }
 </style>
+

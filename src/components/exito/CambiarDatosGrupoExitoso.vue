@@ -15,10 +15,10 @@
       size="90"
     ></v-icon>
 
-    <h2 class="text-h5 mb-6">Grupo creado</h2>
+    <h2 class="text-h5 mb-6">¡Datos cambiados!</h2>
 
     <p class="mb-4 text-medium-emphasis text-body-2">
-      El grupo ha sido creado correctamente.
+      Se han cambiado los datos del grupo <span class="exito">exitosamente</span>.
     </p>
 
     <v-divider class="mb-4"></v-divider>
@@ -61,20 +61,20 @@ const cerrar = () => {
 
 <style scoped>
 .componente {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-  display: flex;
+    display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 
-  width: 500px;
+    width: 500px;
 }
 
-.raya {
+.exito {
   font-weight: bolder;
   color: #43A047;
 }
@@ -82,4 +82,6 @@ const cerrar = () => {
 .colorfondo {
   background-color: #263238;
 }
+
+
 </style>

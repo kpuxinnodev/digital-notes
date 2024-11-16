@@ -15,10 +15,10 @@
       size="90"
     ></v-icon>
 
-    <h2 class="text-h5 mb-6">Grupo creado</h2>
+    <h2 class="text-h5 mb-6">Grupo Eliminado</h2>
 
     <p class="mb-4 text-medium-emphasis text-body-2">
-      El grupo ha sido creado correctamente.
+      El grupo ha sido eliminado correctamente.
     </p>
 
     <v-divider class="mb-4"></v-divider>
@@ -53,7 +53,7 @@ const abrirMostrarExito = () => {
 
 
 const cerrar = () => {
-  dialogo.value = false;
+  router.push("/grupos");
 };
 
   defineExpose({ abrirMostrarExito });

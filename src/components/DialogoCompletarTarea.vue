@@ -1,6 +1,7 @@
 <template>
   <!-- Componente importado: completar tarea -->
   <CompletarTareaexito ref="completartarea" style="position: absolute; z-index: 1000; top: 40%;"/>
+  <ErrorCompletarTarea ref="errorCompletarTarea" style="position: absolute; z-index: 1000; top: 40%;"/>
     <div class="text-center pa-4">
 
       <!-- Diálogo -->
@@ -98,6 +99,14 @@ const token = localStorage.getItem('auth-item');
 const abrirMostrarExito = () => {
   if (completartarea.value) {
     completartarea.value.abrirMostrarExito();
+  }
+}
+
+const errorCompletarTarea = ref(null);
+
+const abrirMostrarError = () => {
+  if (errorCompletarTarea) {
+    errorCompletarTarea.value.abrirMostrarError();
   }
 }
 

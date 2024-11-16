@@ -1,5 +1,6 @@
 <template>
-  <ErrorCrearGrupo ref="erroralcreargrupo" />
+  <CrearGrupoexitoso ref="grupoCreadoExitosamente" style="position: absolute; z-index: 1000; top: 40%;" />
+  <ErrorCrearGrupo ref="erroralcreargrupo" style="position: absolute; z-index: 1000; top: 40%;" />
   <v-dialog v-model="dialog" max-width="600">
     <v-form v-model="valid" @submit.prevent="crearGrupo">
       <v-card prepend-icon="mdi-creation" title="CREAR GRUPO" class="colorfondo">
@@ -53,6 +54,7 @@
 import { ref, defineExpose, defineProps } from "vue";
 import axios from "axios";
 import ErrorCrearGrupo from "../errores/ErrorCrearGrupo.vue";
+import CrearGrupoexitoso from "../exito/CrearGrupoexitoso.vue";
 
 const imagen = ref(null);
 
@@ -134,11 +136,11 @@ const crearGrupo = async () => {
     console.log('Grupo Creado:', response.data);
     // Redirigir o mostrar mensaje de éxito
     cerrarDialogo();
+    abrirMostrarExito();
   }catch (error) {
     console.error('Error al crear el grupo:', error);
-    abrirMostrarError();
     cerrarDialogo();
-    
+    abrirMostrarError();
   }
 };
 
@@ -148,6 +150,14 @@ const abrirMostrarError = () => {
   if (erroralcreargrupo.value) {
     erroralcreargrupo.value.abrirMostrarError();
   };
+}
+
+const grupoCreadoExitosamente = ref(null);
+
+const abrirMostrarExito = () => {
+  if (grupoCreadoExitosamente.value) {
+    grupoCreadoExitosamente.value.abrirMostrarExito();
+  }
 }
 
 //  ->  Exponer el método para que se pueda abrir desde fuera del componente.

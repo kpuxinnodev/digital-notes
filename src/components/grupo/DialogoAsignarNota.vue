@@ -1,4 +1,6 @@
 <template>
+  <ErrorAsignarNota ref="errorAsignarNota" style="position: absolute; z-index: 1000; top: 40%;" />
+  <AsignarNotaexitosa ref="asignarNotaExitosa" style="position: absolute; z-index: 1000; top: 40%;" />
   <v-dialog v-model="dialog" max-width="600">
     <v-form fast-fail v-model="valid" @submit.prevent="asignarNota">
       <v-card prepend-icon="mdi-creation" title="ASIGNAR UNA TAREA" class="colorfondo">
@@ -63,7 +65,8 @@
 import { ref, defineExpose, onMounted } from "vue";
 import axios from "axios";
 import { defineProps } from "vue";
-//  ->  'defineExpose' exporta funciones para ejecturalas desde otros componentes.
+import ErrorAsignarNota from "../errores/ErrorAsignarNota.vue";
+import AsignarNotaexitosa from "../exito/AsignarNotaexitosa.vue";
 
 const props = defineProps({
   grupoId: {
@@ -157,18 +160,37 @@ const asignarNota = async () => {
     const response = await axios.post(`http://localhost:8000/api/notas/${props.grupoId}/grupo`, notaGrupal.value, config);
     console.log('Nota asignada:', response.data);
     cerrarDialogo(); // Cerrar el diálogo después de guardar la nota
-
+    abrirMostrarExito();
 
   } catch (error) {
     console.error('Error al guardar nota:', error);
+    cerrarDialogo();
+    abrirMostrarError();
     // Manejar el error y mostrar un mensaje al usuario
   }
 };
+
 
 onMounted( async() => {
   await cargarMiembros();
   await asignarNota();
 })
+
+const errorAsignarNota = ref(null);
+
+const abrirMostrarError = () => {
+  if (errorAsignarNota.value) {
+    errorAsignarNota.value.abrirMostrarError();
+  };
+}
+
+const asignarNotaExitosa = ref(null);
+
+const abrirMostrarExito = () => {
+  if (asignarNotaExitosa.value) {
+    asignarNotaExitosa.value.abrirMostrarExito();
+  };
+}
 
 //  ->  Exponer el método para que se pueda abrir desde fuera del componente.
 defineExpose({ abrirDialogoAsignarNota });

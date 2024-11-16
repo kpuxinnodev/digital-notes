@@ -1,7 +1,7 @@
 <template>
     <div class="componente">
         <v-sheet
-    class="pa-4 text-center mx-auto"
+    class="pa-4 text-center mx-auto colorfondo"
     elevation="12"
     max-width="600"
     rounded="lg"
@@ -9,10 +9,10 @@
     v-if="dialogo"
   >
     <v-icon
-      class="mb-5"
-      color="success"
+      class="mt-12 mb-12"
+      color="green-darken-1"
       icon="mdi-check-circle"
-      size="112"
+      size="90"
     ></v-icon>
 
     <h2 class="text-h5 mb-6">Miembro eliminado</h2>
@@ -22,11 +22,10 @@
     </p>
 
     <v-divider class="mb-4"></v-divider>
-
     <div class="text-end">
       <v-btn
         class="text-none"
-        color="success"
+        color="green-darken-1"
         variant="flat"
         width="90"
         rounded
@@ -61,9 +60,25 @@ const cerrar = () => {
 
 <style scoped>
 .componente {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  width: 500px;
+}
+
+.raya {
+  font-weight: bolder;
+  color: #43A047;
+}
+
+.colorfondo {
+  background-color: #263238;
 }
 </style>
