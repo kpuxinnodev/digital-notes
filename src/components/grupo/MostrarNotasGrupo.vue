@@ -244,7 +244,7 @@ const actualizarNotas = async () => {
 }
 
 .contenido {
-  flex: 1;
+  flex: auto;
   overflow-y: auto;
   padding: 16px;
   background-color: #3f7f9c;

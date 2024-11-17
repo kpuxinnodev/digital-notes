@@ -1,20 +1,20 @@
 <template>
   <div class="main">
     <!--Main-->
-    <!-- Componente: DialogoCrearNota.vue (Botón: Asignar Nota) -->
-  <DialogoAsignarNota ref="asignarNota" :grupoId="id" style="position: absolute; z-index: 100;" />
-       <!-- Componente: DialogoAbandonarGrupo.vue (Botón: Abandonar Grupo para miembros normales) -->
-       <DialogoAbandonarGrupo ref="abandonarGrupo" :grupoId="grupoId" style="position: absolute; z-index: 100;" />
-      <!-- Componente: DialogoAbandonarAdmin.vue (Botón: Abandonar Grupo para administradores) -->
-      <DialogoAbandonarAdmin ref="abandonarAdmin" :grupoId="grupoId" style="position: absolute; z-index: 100;" />
-
-    <!-- Componente: Navegacion.vue (Barra de Navegación) -->
-    <Navegacion style="position: relative; left: 0;"/>
+      <!-- Componente: Navegacion.vue (Barra de Navegación) -->
+      <Navegacion style="position: relative; left: 0;"/>
+    
 
     <div class="content">
       <!--Contenido de la página-->
 
-      
+      <!-- Componente: DialogoCrearNota.vue (Botón: Asignar Nota) -->
+  <DialogoAsignarNota ref="asignarNota" :grupoId="id" style="position: absolute; z-index: 100;" />
+       <!-- Componente: DialogoAbandonarGrupo.vue (Botón: Abandonar Grupo para miembros normales) -->
+       <DialogoAbandonarGrupo ref="abandonarGrupo" :grupoId="grupoId" style="position: absolute; z-index: 110;" />
+      <!-- Componente: DialogoAbandonarAdmin.vue (Botón: Abandonar Grupo para administradores) -->
+      <DialogoAbandonarAdmin ref="abandonarAdmin" :grupoId="grupoId" style="position: absolute; z-index: 120;" />
+
 
       <div class="notes-options">
         <!--Opciones de Notas-->
@@ -211,7 +211,7 @@ const abrirDialogoAbandonarGrupo = () => {
 /**----div.notasychat----*/
 
 .content > .notas {
-  height: 80%;
+  height: 75%;
   width: 100%;
   position: relative;
   display: flex;

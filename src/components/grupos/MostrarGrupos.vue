@@ -40,6 +40,7 @@
   <DialogoCrearGrupo 
   ref="crearGrupo" 
   @grupo-creado="actualizarGrupos" 
+  style="position: absolute;"
   />
 </template>
 

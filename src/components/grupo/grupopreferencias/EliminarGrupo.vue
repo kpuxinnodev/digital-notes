@@ -7,7 +7,6 @@
         <v-card flat class="carta">
         <v-card-title>Eliminar equipo</v-card-title>
         <v-card-text>¿Quieres eliminar el equipo?</v-card-text>
-        <v-btn text="Cancelar" @click="cerrarDialogo">Cancelar</v-btn>
         <v-btn color="red-darken-1" class="boton" @click="eliminarGrupo">ELIMINAR GRUPO</v-btn>
     </v-card>
   </v-form>
@@ -121,9 +120,10 @@ onMounted(() => {
     justify-self: center;
     align-self: center;
     background-color: #3f7f9c;
+    text-align: center;
+    left: 10%;
   }
 
-  .boton{
-    margin-left: 40%;
-  }
+  
+  
 </style>

@@ -188,7 +188,7 @@ onMounted( async() =>{
 
 /**----div.grupos----*/
 .content > .grupos {
-  height: 90%;
+  height: 80%;
   width: 100%;
   display: flex;
   flex-direction: row;
